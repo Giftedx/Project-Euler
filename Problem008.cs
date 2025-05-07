@@ -1,5 +1,5 @@
 namespace Project_Euler;
-public class Problem08 : Problem {
+public class Problem008 : Problem {
     public override void Solve() {
         Print(LargestProductString(13, BigString));
     }

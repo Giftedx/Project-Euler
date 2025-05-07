@@ -1,6 +1,6 @@
 namespace Project_Euler;
 
-public class Problem26 : Problem{
+public class Problem026 : Problem{
     public override void Solve() {
         Print(LongestCycleIndex(1000));
     }

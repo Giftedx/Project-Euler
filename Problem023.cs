@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 
 namespace Project_Euler;
-public class Problem23 : Problem{
+public class Problem023 : Problem{
     public override void Solve() {
         Print(SumOfNonAbundantBelow(28123));
     }

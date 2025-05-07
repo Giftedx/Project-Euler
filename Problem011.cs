@@ -1,5 +1,5 @@
 namespace Project_Euler;
-public class Problem11 : Problem{
+public class Problem011 : Problem{
     public override void Solve() {
         Print(MaximumGridProduct());
     }

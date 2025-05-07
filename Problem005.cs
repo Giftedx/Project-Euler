@@ -1,6 +1,6 @@
 namespace Project_Euler;
 
-public class Problem05 : Problem{
+public class Problem005 : Problem{
     public override void Solve() {
         Print(MinimumEvenlyDivisibleByRange(1, 20));
     }

@@ -2,7 +2,7 @@ using System.Numerics;
 using static System.Numerics.BigInteger;
 
 namespace Project_Euler;
-public class Problem13 : Problem {
+public class Problem013 : Problem {
     public override void Solve() {
         Print(FirstTenDigits(BigSum().ToString()));
     }

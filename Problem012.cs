@@ -1,6 +1,6 @@
 using System.Collections;
 namespace Project_Euler;
-public class Problem12 : Problem{
+public class Problem012 : Problem{
     public override void Solve() {
         Print(HighlyDivisibleTriangle(500));
     }

@@ -1,5 +1,5 @@
 namespace Project_Euler;
-public class Problem18 : Problem{
+public class Problem018 : Problem{
     public override void Solve() {
         Console.WriteLine(MaxPathSum());
     }

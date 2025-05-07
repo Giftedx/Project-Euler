@@ -1,5 +1,5 @@
 namespace Project_Euler;
-public class Problem06 : Problem{
+public class Problem006 : Problem{
     public override void Solve() {
         Print(SumSquareDifference(1, 100));
     }

@@ -1,5 +1,5 @@
 namespace Project_Euler;
-public class Problem04 : Problem{
+public class Problem004 : Problem{
     public override void Solve() {
         Print(LargestPalindromeProduct(100, 1000));
     }

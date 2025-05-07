@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Text;
 namespace Project_Euler;
-public class Problem24 : Problem{
+public class Problem024 : Problem{
     public override void Solve() {
         Print(NthLexicalPermutation(1000000));
     }

@@ -1,5 +1,5 @@
 namespace Project_Euler;
-public class Problem14:Problem {
+public class Problem014:Problem {
     public override void Solve() {
         Print(LongestChain(1000000));
     }

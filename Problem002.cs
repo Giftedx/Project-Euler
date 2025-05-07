@@ -1,5 +1,5 @@
 namespace Project_Euler;
-public class Problem02 : Problem{
+public class Problem002 : Problem{
     public override void Solve() {
         Print(EvenFibSum());
     }

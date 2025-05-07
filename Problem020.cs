@@ -1,6 +1,6 @@
 using System.Numerics;
 namespace Project_Euler;
-public class Problem20 : Problem{
+public class Problem020 : Problem{
     public override void Solve() {
         Print(ExponentSum());
     }

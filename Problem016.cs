@@ -1,6 +1,6 @@
 using System.Numerics;
 namespace Project_Euler;
-public class Problem16 : Problem {
+public class Problem016 : Problem {
     public override void Solve() {
         Print(text: PowerDigitSum(2, 1000));
     }

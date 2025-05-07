@@ -1,5 +1,5 @@
 namespace Project_Euler;
-public class Problem03 :  Problem {
+public class Problem003 :  Problem {
     public override void Solve() {
         Print(LargestPrimeFactor(600851475143));
     }

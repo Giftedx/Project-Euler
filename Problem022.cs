@@ -1,6 +1,6 @@
 using System.Diagnostics;
 namespace Project_Euler;
-public class Problem22 :  Problem {
+public class Problem022 :  Problem {
     private List<string> _names = null!;
     public override void Solve() {
         Stopwatch fileReadTimer =  Stopwatch.StartNew();

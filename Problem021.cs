@@ -1,5 +1,5 @@
 namespace Project_Euler;
-public class Problem21 : Problem{
+public class Problem021 : Problem{
     public override void Solve() {
         Print(AmicableSumBelow(10000));
     }

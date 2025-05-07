@@ -1,5 +1,5 @@
 namespace Project_Euler;
-public class Problem19 : Problem {
+public class Problem019 : Problem {
     public override void Solve() {
         Print(NumberOfSundays());
     }
