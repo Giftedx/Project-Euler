@@ -1,5 +1,3 @@
-using System;
-
 namespace Project_Euler {
     public abstract class Problem {
         public abstract void Solve();

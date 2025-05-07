@@ -1,6 +1,4 @@
-using System;
 using System.Numerics;
-
 namespace Project_Euler;
 public class Problem25 : Problem{
     public override void Solve() {
@@ -24,7 +22,6 @@ public class Problem25 : Problem{
 
     private int GetDigitCount(BigInteger number) {
         double factor = Math.Log(2) / Math.Log(10);
-        //int digitCount = (int) (factor * number. + 1);
         int digitCount = (int)Math.Floor(BigInteger.Log10(number) + 1);
         if (BigInteger.Pow(10, digitCount - 1) == number) {
             return digitCount - 1;

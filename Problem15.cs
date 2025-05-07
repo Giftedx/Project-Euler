@@ -1,14 +1,11 @@
-using System;
 using System.Numerics;
+namespace Project_Euler;
+public class Problem15 : Problem {
+    public override void Solve() {
+        Print(LatticePaths(20, 20));
+    }
 
-namespace Project_Euler {
-    public class Problem15 : Problem {
-        public override void Solve() {
-            Print(LatticePaths(20, 20));
-        }
-
-        private BigInteger LatticePaths(int i, int j) {
-            return Library.Factorial(i + j) / (Library.Factorial(i) * Library.Factorial(j));
-        }
+    private BigInteger LatticePaths(int i, int j) {
+        return Library.Factorial(i + j) / (Library.Factorial(i) * Library.Factorial(j));
     }
 }

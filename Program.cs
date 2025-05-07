@@ -15,7 +15,7 @@ internal class Program {
     }
     
     private int GetInput() {
-        _solvedProblems ??= GetSolvedProblems();
+        _solvedProblems = GetSolvedProblems();
         Console.WriteLine("Enter 'a' to solve all problems.");
         Console.Write("Enter Problem to solve (1 - {0}): ", _solvedProblems.Count);
         string? input = Console.ReadLine();
