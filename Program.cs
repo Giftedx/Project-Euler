@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Diagnostics;
 using System.Reflection;
-
 namespace Project_Euler;
 
 internal class Program {
     private ArrayList _solvedProblems = null!;
-    public static void Main(string[] args) {
+    public static void Main() {
         Program prog = new Program();
         Console.WriteLine("Project Euler Solver");
         int chosenProblem = prog.GetInput();
@@ -35,6 +34,7 @@ internal class Program {
     private void Solve(int n) {
         Problem problem = (Problem)_solvedProblems[n-1]!;
         Stopwatch watch = Stopwatch.StartNew();
+        Console.Write("{0}: ", problem.GetType().Name);
         problem.Solve();
         watch.Stop();
         Console.WriteLine("Solved in {0} ms", watch.ElapsedMilliseconds);

@@ -1,3 +1,5 @@
+using System.Collections.Concurrent;
+
 namespace Project_Euler;
 public class Problem23 : Problem{
     public override void Solve() {
@@ -8,17 +10,29 @@ public class Problem23 : Problem{
 
     private int SumOfNonAbundantBelow(int n) {
         FillAbundantArray(n);
+        //FillAbundantArrayParallel(n);
         int sum = 0;
         for (int i = 0; i <= n; i++) {
-            if (!IsSumOfAbundants(i)) sum += i;
+            if (!IsSumOfAbundant(i)) sum += i;
         }
         return sum;
     }
 
-    private bool IsSumOfAbundants(int n){
+    private bool IsSumOfAbundant(int n){
         for(int i = 0; i <= n; i++)
             if (_isAbundant[i] && _isAbundant[n - i]) return true;
         return false;
+    }
+    
+    private void FillAbundantArrayParallel(int n){
+        var numbers = Enumerable.Range(1, n+1).ToList();
+        ConcurrentBag<int> isAbundant = [];
+        Parallel.ForEach(numbers, number => {
+            if(IsAbundant(number))isAbundant.Add(number);
+        });
+        _isAbundant = new bool[n + 1];
+        Array.Fill(_isAbundant, false);
+        foreach(int i in isAbundant)_isAbundant[i] = true;
     }
 
     private void FillAbundantArray(int n){
