@@ -7,9 +7,10 @@ public class Problem022 :  Problem {
         Library.ReadFile("names.txt", out _names);
         fileReadTimer.Stop();
         Print(SumNameScores());
-        Console.WriteLine("File read in {0} ms", fileReadTimer.ElapsedMilliseconds);
+        Console.WriteLine("File read in {0} ms", 
+            fileReadTimer.ElapsedMilliseconds);
     }
-        
+    
     private long SumNameScores(){
         _names = _names.OrderBy(line => line).ToList();
         long sum = 0;

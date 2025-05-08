@@ -5,6 +5,7 @@ namespace Project_Euler;
 
 internal class Program {
     private ArrayList _solvedProblems = null!;
+
     public static void Main() {
         Program prog = new Program();
         do {
@@ -51,9 +52,17 @@ internal class Program {
     }
 
     private void SolveAll() {
+        const string file = "log.txt";
+        FileStream fs = new FileStream(file, FileMode.Create);
+        TextWriter temp = Console.Out;
+        StreamWriter sw = new StreamWriter(fs);
+        Console.SetOut(sw);
         Stopwatch watch = Stopwatch.StartNew();
         for(int i = 1; i <= _solvedProblems.Count; i++) Solve(i);
         watch.Stop();
         Console.WriteLine("Solved all problems in {0} ms", watch.ElapsedMilliseconds);
+        Console.SetOut(temp);
+        Console.WriteLine("Results output to {0}", file);
+        sw.Close();
     }
 }
