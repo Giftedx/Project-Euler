@@ -9,20 +9,10 @@ public class Problem004 : Problem{
         for (int i = min; i < max; i++) {
             for (int j = min; j < max; j++) {
                 int result = i * j;
-                if(result > lpp && IsPalindrome(result))
+                if(result > lpp && Library.IsPalindrome(result))
                     lpp = result;
             }
         }
         return lpp;
-    }
-
-    private bool IsPalindrome(int n) {
-        int reverse = 0;
-        int temp = Math.Abs(n);
-        while (temp != 0) {
-            reverse = (reverse * 10) + (temp % 10);
-            temp /= 10;
-        }
-        return reverse == Math.Abs(n);
     }
 }

@@ -9,7 +9,7 @@ public class Problem035 : Problem {
 
     private int CircularPrimeCount(int n){
         IList<int> numbers = Enumerable.Range(0, n).ToList();
-        _isPrime = new HashSet<int>(Library.GetPrimeList(numbers));
+        Library.GetPrimeList(numbers, out _isPrime);
         return _isPrime.Count(IsCircularPrime);
     }
 

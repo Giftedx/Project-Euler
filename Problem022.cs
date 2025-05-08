@@ -4,7 +4,7 @@ public class Problem022 :  Problem {
     private List<string> _names = null!;
     public override void Solve() {
         Stopwatch fileReadTimer =  Stopwatch.StartNew();
-        _names = Library.ReadFile("names.txt");
+        Library.ReadFile("names.txt", out _names);
         fileReadTimer.Stop();
         Print(SumNameScores());
         Console.WriteLine("File read in {0} ms", fileReadTimer.ElapsedMilliseconds);

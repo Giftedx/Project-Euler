@@ -25,7 +25,7 @@ public class Problem003 :  Problem {
 
             while (n % (i + 2) == 0) {
                 largestPrimeFactor = i + 2;
-                n = n/(i + 2);
+                n /= i + 2;
             }
         }
         if(n > 4)largestPrimeFactor = n;
