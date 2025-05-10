@@ -26,7 +26,7 @@ Problem 9: 31875000
 Solved in 1 ms 
 
 Problem 10: 142913828922
-Solved in 35 ms 
+Solved in 34 ms 
 
 Problem 11: 70600674
 Solved in 1 ms 
@@ -38,13 +38,13 @@ Problem 13: 5537376230
 Solved in 1 ms 
 
 Problem 14: 837799
-Solved in 94 ms 
+Solved in 96 ms 
 
 Problem 15: 137846528820
 Solved in 0 ms 
 
 Problem 16: 1366
-Solved in 2 ms 
+Solved in 3 ms 
 
 Problem 17: 21124
 Solved in 0 ms 
@@ -62,47 +62,47 @@ Problem 21: 31626
 Solved in 7 ms 
 
 Problem 22: 871198282
-File read in 8 ms
-Solved in 19 ms 
+File read in 3 ms
+Solved in 17 ms 
 
 Problem 23: 4179871
-Solved in 133 ms 
+Solved in 96 ms 
 
 Problem 24: 2783714330
-Solved in 0 ms 
+Solved in 1 ms 
 
 Problem 25: 4782
-Solved in 45 ms 
+Solved in 23 ms 
 
 Problem 26: 983
-Solved in 8 ms 
+Solved in 7 ms 
 
 Problem 27: -59231
-Solved in 62 ms 
+Solved in 60 ms 
 
 Problem 28: 669171001
 Solved in 0 ms 
 
 Problem 29: 9183
-Solved in 16 ms 
+Solved in 17 ms 
 
 Problem 30: 443839
-Solved in 49 ms 
+Solved in 48 ms 
 
 Problem 31: 73682
 Solved in 0 ms 
 
 Problem 32: 45228
-Solved in 123 ms 
+Solved in 100 ms 
 
 Problem 33: 100
 Solved in 0 ms 
 
 Problem 34: 40730
-Solved in 186 ms 
+Solved in 168 ms 
 
 Problem 35: 55
-Solved in 74 ms 
+Solved in 69 ms 
 
 Problem 36: 872187
 Solved in 35 ms 
@@ -114,23 +114,23 @@ Problem 38: 932718654
 Solved in 3 ms 
 
 Problem 39: 840
-Solved in 11 ms 
+Solved in 5 ms 
 
 Problem 40: 210
-Solved in 43 ms 
+Solved in 35 ms 
 
 Problem 41: 7652413
 Solved in 29 ms 
 
 Problem 42: 162
-File read in 1 ms
-Solved in 3 ms 
+File read in 0 ms
+Solved in 2 ms 
 
 Problem 43: 16695334890
-Solved in 184 ms 
+Solved in 9 ms 
 
 Problem 44: 5482660
-Solved in 71 ms 
+Solved in 63 ms 
 
 Problem 45: 1533776805
 Solved in 2 ms 
@@ -139,17 +139,17 @@ Problem 46: 5777
 Solved in 0 ms 
 
 Problem 47: 134043
-Solved in 19 ms 
+Solved in 16 ms 
 
 Problem 48: 9110846700
-Solved in 13 ms 
+Solved in 9 ms 
 
 Problem 49: 296962999629
-Solved in 38 ms 
+Solved in 37 ms 
 
 Problem 50: 997651
-Solved in 23 ms 
+Solved in 21 ms 
 
-Solved all problems in 1395 ms
-Average solution time: 27 ms
-Slowest solution was 34, taking 186 ms
+Solved all problems in 1080 ms
+Average solution time: 21 ms
+Slowest solution was 34, taking 168 ms

@@ -2,37 +2,34 @@ namespace Project_Euler;
 
 public class Problem043 : Problem{
     public override void Solve() {
-        Print(SubStringDivisiblePandigitalSum());
+        Console.WriteLine(SubStringDivisiblePandigitalSum());
     }
 
     private readonly int[] _tests = [2, 3, 5, 7, 11, 13, 17];
-
+    private readonly bool[] _used = new bool[10];
+    
     private long SubStringDivisiblePandigitalSum() {
-        int[] arr = Enumerable.Range(0, 10).ToArray();
-        long sum = 0;
-        do{
-            if(TestPerm(arr))sum += ArrayToLong(arr);
-        }while(Library.Permute(arr));
-        return sum;
+        long total = 0;
+        BuildAndTest("", ref total);
+        return total;
     }
 
-    private bool TestPerm(int[] arr){
-        if(arr[0] == 0)return false;
-        for(int i = 0; i < _tests.Length; i++){
-            if(i > 6 && arr[5] != 5)return false;
-            int d = AbcToInt(arr[i+1], arr[i+2], arr[i+3]);
-            if(d % _tests[i] != 0) return false;
+    private void BuildAndTest(string s, ref long total) {
+        switch (s.Length) {
+            case > 3 when int.Parse(s.Substring(s.Length - 3, 3))
+                % _tests[s.Length - 4] != 0:
+                return;
+            case 10:
+                total += long.Parse(s);
+                break;
         }
-        return true;
-    }
 
-    private long ArrayToLong(int[] array){
-        long result = 0;
-        foreach(int i in array)result = result * 10 + i;
-        return result;
-    }
-
-    private int AbcToInt(int a, int b, int c){
-        return a*100 + b*10 + c;
+        for (char i = s.Length == 0 ? '1' : '0'; i <= '9'; i++) {
+            int index = i & 15;
+            if (_used[index]) continue;
+            _used[index] = true;
+            BuildAndTest(s + i, ref total);
+            _used[index] = false;
+        }
     }
 }

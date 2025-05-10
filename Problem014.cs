@@ -3,7 +3,7 @@ public class Problem014:Problem {
     public override void Solve() {
         Print(LongestChain());
     }
-    private int[] _collatzChainLength = null!;
+    private int[] _collatzChainLength = [];
 
     private int LongestChain() {
         const int limit = 1000000;
