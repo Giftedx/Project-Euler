@@ -7,13 +7,13 @@ public class Problem036 : Problem{
 
     private long DoubleBasePalindromeSum(int n) {
         long sum = 0;
-        for(int i = 1; i < n; i++)
-            if (IsDoublePalindrome(i, 10, 2)) sum += i;
+        for(int i = 1; i < n; i+=2)
+            if (IsDoublePalindrome(i)) sum += i;
         return sum;
     }
 
-    private bool IsDoublePalindrome(int n, int i, int j){
-        return Library.IsPalindrome(Convert.ToString(n, i)) && 
-               Library.IsPalindrome(Convert.ToString(n, j));
+    private bool IsDoublePalindrome(int n){
+        return Library.IsPalindrome(n) && 
+               Library.IsPalindrome(Convert.ToString(n, 2));
     }
 }

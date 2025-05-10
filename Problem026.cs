@@ -9,10 +9,9 @@ public class Problem026 : Problem{
         int longestCycleIndex = 0, longestCycle = 0;
         for(int i = 2; i < n; i++){
             int cycle = CycleLength(i);
-            if(cycle > longestCycle){
-                longestCycleIndex = i;
-                longestCycle = cycle;
-            }
+            if (cycle <= longestCycle) continue;
+            longestCycleIndex = i;
+            longestCycle = cycle;
         }
         return longestCycleIndex;
     }

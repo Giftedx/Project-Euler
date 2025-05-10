@@ -1,37 +1,35 @@
 namespace Project_Euler;
 public class Problem014:Problem {
     public override void Solve() {
-        Print(LongestChain(1000000));
+        Print(LongestChain());
     }
+    private int[] _collatzChainLength = null!;
 
-    private int[] _cache = null!;
-    private int LongestChain(int n) {
-        int longestChain = 0;
-        int longestChainSeed = 0;
-        _cache = new int[n];
-        for (int i = 0; i < n; i++) {
-            int collatzLength = CollatzLength(i);
-            if (collatzLength > longestChain) {
-                longestChain = collatzLength;
-                longestChainSeed = i;
-            }
+    private int LongestChain() {
+        const int limit = 1000000;
+        _collatzChainLength = new int[limit];
+        int maxArg = -1;
+        int maxChain = 0;
+        for (int i = 1; i < limit; i++) {
+            int chainLen = CollatzChainLength(i);
+            if (chainLen <= maxChain) continue;
+            maxArg = i;
+            maxChain = chainLen;
         }
-        return longestChainSeed;
+        return maxArg;
     }
-
-    private int CollatzLength(long n) {
-        int length = 1;
-        int start = (int)n;
-        while (n > 1) {
-            if (n < start) {
-                length += _cache[(int)n];
-                break;
-            }
-            if (n % 2 == 0) n /= 2;
-            else n = 3 * n + 1;
-            length++;
-        }
-        _cache[start] = length;
-        return length;
+    
+    private int CollatzChainLength(long n) {
+        if (n >= _collatzChainLength.Length)
+            return CollatzChainLengthDirect(n);
+        if (_collatzChainLength[n] == 0)
+            _collatzChainLength[n] = CollatzChainLengthDirect(n);
+        return _collatzChainLength[n];
+    }
+    
+    private int CollatzChainLengthDirect(long n) {
+        if (n == 1) return 1;
+        if (n % 2 == 0) return CollatzChainLength(n/2) + 1;
+        return CollatzChainLength(3 * n + 1) + 1;
     }
 }

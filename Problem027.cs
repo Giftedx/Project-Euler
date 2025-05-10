@@ -12,7 +12,7 @@ public class Problem027 : Problem{
         for(int a = -n; a <= n; a++){
             for(int b = -n; b <= n; b++){
                 int length = 0;
-                while(Library.IsPrime(length * length + (a * length) + b)){
+                while(Library.IsPrime(length * length + a * length + b)){
                     length++;
                 }
                 if (numPrimes >= length) continue;

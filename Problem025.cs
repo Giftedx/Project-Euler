@@ -21,7 +21,6 @@ public class Problem025 : Problem{
     }
 
     private int GetDigitCount(BigInteger number) {
-        double factor = Math.Log(2) / Math.Log(10);
         int digitCount = (int)Math.Floor(BigInteger.Log10(number) + 1);
         if (BigInteger.Pow(10, digitCount - 1) == number) {
             return digitCount - 1;

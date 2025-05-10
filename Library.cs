@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Numerics;
 
 namespace Project_Euler;
@@ -35,13 +36,12 @@ public static class Library {
     }
 
     public static bool IsPalindrome(string s) {
-        string reversed = string.Create(s.Length, s,
-            (chars, state) => {
-                int pos = 0;
-                for (int i = state.Length - 1; i >= 0; i--)
-                    chars[pos++] = state[i];
-            });
-        return s.Equals(reversed);
+        for(int i = 0; i < s.Length / 2; i++) {
+            if(s[i] != s[s.Length - 1 - i]) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static BigInteger Factorial(int n) {
@@ -58,8 +58,7 @@ public static class Library {
 
     public static bool IsPentagon(long pn) {
         double n = 1.0/6.0 * (Math.Sqrt(24 * pn + 1) + 1);
-        int temp = (int)n;
-        return n -  temp == 0;
+        return n - (int)n == 0;
     }
 
     public static bool IsPandigital(string s) {
@@ -74,15 +73,11 @@ public static class Library {
         int i = arr.Length - 1;
         while (i > 0 && arr[i - 1] >= arr[i]) i--;
         if (i <= 0) return false;
-
         int j = arr.Length - 1;
         while (arr[j] <= arr[i - 1]) j--;
         (arr[i - 1], arr[j]) = (arr[j], arr[i - 1]);
-
-        for (int k = arr.Length - 1; i < k; i++, k--) {
+        for (int k = arr.Length - 1; i < k; i++, k--)
             (arr[i], arr[k]) = (arr[k], arr[i]);
-        }
-
         return true;
     }
 

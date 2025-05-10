@@ -5,7 +5,7 @@ public class Problem041 : Problem{
         Print(FindLargestPandigitalPrime());
     }
 
-    private object FindLargestPandigitalPrime() {
+    private int FindLargestPandigitalPrime() {
         for (int n = 9; n >= 1; n--) {
             int[] digits = new int[n];
             for (int i = 1; i <= digits.Length; i++)digits[i-1] = i;

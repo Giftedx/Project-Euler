@@ -5,7 +5,8 @@ public class Problem002 : Problem{
     }
 
     private int EvenFibSum() {
-        int sum = 0, limit = 4000000;
+        int sum = 0;
+        const int limit = 4000000;
         int result = 0, fib1 = 0, fib2 = 1;
         while (result < limit) {
             result =  fib1 + fib2;

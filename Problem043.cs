@@ -1,5 +1,3 @@
-using System.Text;
-
 namespace Project_Euler;
 
 public class Problem043 : Problem{

@@ -18,7 +18,11 @@ public class Problem005 : Problem{
     }
 
     private ulong GreatestCommonDivisor(ulong a, ulong b) {
-        if(a == 0)return b;
-        return GreatestCommonDivisor(b % a, a);
+        while (true) {
+            if (a == 0) return b;
+            ulong a1 = a;
+            a = b % a;
+            b = a1;
+        }
     }
 }

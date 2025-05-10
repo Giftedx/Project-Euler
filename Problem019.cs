@@ -11,10 +11,9 @@ public class Problem019 : Problem {
             for (int month = 1; month <= 12; month++) {
                 for (int day = 1; day <= GetNumberOfDays(month, year); day++) {
                     dayOfTheWeek++;
-                    if (dayOfTheWeek == 7) {
-                        if (day == 1) numberOfSundays++;
-                        dayOfTheWeek = 0;
-                    }
+                    if (dayOfTheWeek != 7) continue;
+                    if (day == 1) numberOfSundays++;
+                    dayOfTheWeek = 0;
                 }
             }
         }

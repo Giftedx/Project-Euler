@@ -22,10 +22,11 @@ public class Problem050 : Problem{
                     break;
                 }
 
-                if(j-i > maxRun && sum > maxSum && isPrime[sum]){
-                    maxSum = sum;
-                    maxRun = j-i;
-                }
+                if (j - i <= maxRun || 
+                    sum <= maxSum || 
+                    !isPrime[sum]) continue;
+                maxSum = sum;
+                maxRun = j-i;
             }
         }
         return maxSum;

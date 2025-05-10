@@ -4,7 +4,7 @@ public class Problem021 : Problem{
         Print(AmicableSumBelow(10000));
     }
 
-    private object AmicableSumBelow(int n) {
+    private int AmicableSumBelow(int n) {
         int amicableSum = 0;
         for(int i = 0; i < n; i++)if(IsAmicable(i)) amicableSum += i;
         return amicableSum;

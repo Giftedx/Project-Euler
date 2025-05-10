@@ -11,11 +11,11 @@ public class Problem008 : Problem {
             numbers[i] = digitString.Substring(i, len);
         }
 
-        return numbers.Select(number => StringProduct(number)).Prepend(0).Max();
+        return numbers.Select(StringProduct).Prepend(0).Max();
     }
 
     private long StringProduct(string number) {
-        if(number.Contains("0")) return 0;
+        if(number.Contains('0')) return 0;
         char[] digits = number.ToCharArray();
         long product = digits.Aggregate<char, long>
             (1, (current, digit) => current * (digit - '0'));
