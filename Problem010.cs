@@ -5,9 +5,10 @@ public class Problem010 : Problem{
     }
 
     private long SumPrimesBelow(int n) {
-        long sum = 0;
+        long sum = 2;
         Library.SieveOfEratosthenes(n, out bool[] isPrime);
-        for(int i = 2; i < isPrime.Length; i++)if(isPrime[i])sum += i;
+        for(int i = 3; i < isPrime.Length; i+=2)
+            if(isPrime[i])sum += i;
         return sum;
     }
 }

@@ -10,7 +10,9 @@ public class Problem032 : Problem{
         for (int a = 1; a <= 99; ++a) {
             for (int b = 100; b <= 9999; ++b) {
                 int c = a * b;
-                if (Library.IsPandigital(""+a+b+c)) products.Add(c);
+                if(c > 9999)continue;
+                if (Library.IsPandigital($"{a}{b}{c}")) 
+                    products.Add(c);
             }
         }
         return products.Sum();

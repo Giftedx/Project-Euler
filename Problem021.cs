@@ -1,25 +1,27 @@
 namespace Project_Euler;
-public class Problem021 : Problem{
+
+public class Problem021 : Problem {
     public override void Solve() {
         Print(AmicableSumBelow(10000));
     }
 
     private int AmicableSumBelow(int n) {
-        int amicableSum = 0;
-        for(int i = 0; i < n; i++)if(IsAmicable(i)) amicableSum += i;
-        return amicableSum;
-    }
-
-    private bool IsAmicable(int n) {
-        int m = DivisorSum(n);
-        return m != n && DivisorSum(m) == n;
-    }
-
-    private int DivisorSum(int n) {
-        int sum = 1;
-        for (int i = 2; i < Math.Sqrt(n); i++) {
-            if (n % i == 0) sum += i + n / i;
+        FillDivisors(n+1, out int[] divisors);
+        int sum = 0;
+        for (int i = 1; i < n + 1; ++i) {
+            int j = divisors[i];
+            if (j > i && j <= n && divisors[j] == i) 
+                sum += i + j;
         }
         return sum;
+    }
+
+    private void FillDivisors(int n, out int[] divisors) {
+        divisors = new int[n];
+        for (int i = 1; i < n; ++i) {
+            for (int j = 2 * i; j <= n-1; j += i) {
+                divisors[j] += i;
+            }
+        }
     }
 }

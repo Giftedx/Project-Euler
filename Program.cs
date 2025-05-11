@@ -7,8 +7,9 @@ internal class Program {
         Program prog = new Program();
         ProblemSolver solver = new ProblemSolver();
         int problemCount = solver.GetProblemCount();
+        Console.WriteLine("Project Euler Solver");
         do {
-            Console.WriteLine("Project Euler Solver");
+            Console.WriteLine(" ");
             string input = prog.GetInput(problemCount);
             switch (input) {
                 case "a":
@@ -45,9 +46,9 @@ internal class Program {
     }
 
     private bool RunAgain() {
-        Console.WriteLine("Type 'yes' to run program again.");
-        string? input = Console.ReadLine();
-        return input == "yes";
+        Console.WriteLine("Press any to run program again, Space to exit.");
+        ConsoleKeyInfo input = Console.ReadKey();
+        return input.Key != ConsoleKey.Spacebar;
     }
 
     private void Test() {

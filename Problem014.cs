@@ -8,15 +8,15 @@ public class Problem014:Problem {
     private int LongestChain() {
         const int limit = 1000000;
         _collatzChainLength = new int[limit];
-        int maxArg = -1;
+        int maxSeed = -1;
         int maxChain = 0;
-        for (int i = 1; i < limit; i++) {
+        for (int i = 1; i < limit; i+=2) {
             int chainLen = CollatzChainLength(i);
             if (chainLen <= maxChain) continue;
-            maxArg = i;
+            maxSeed = i;
             maxChain = chainLen;
         }
-        return maxArg;
+        return maxSeed;
     }
     
     private int CollatzChainLength(long n) {
@@ -29,7 +29,7 @@ public class Problem014:Problem {
     
     private int CollatzChainLengthDirect(long n) {
         if (n == 1) return 1;
-        if (n % 2 == 0) return CollatzChainLength(n/2) + 1;
+        if (n % 2 == 0) return CollatzChainLength(n>>1) + 1;
         return CollatzChainLength(3 * n + 1) + 1;
     }
 }

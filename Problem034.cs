@@ -10,7 +10,7 @@ public class Problem034 : Problem {
     private int SumCurious() {
         FillFactorials();
         int sum = 0;
-        for (int i = 3; i < 7 * _factorials[9]; i++)
+        for (int i = 3; i < 7 * _factorials[9]; i+=2)
             if (i == FactorialDigitsSum(i))
                 sum += i;
         return sum;

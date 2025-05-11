@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Diagnostics;
-using System.Reflection;
+using static System.Reflection.Assembly;
 
 namespace Project_Euler;
 
@@ -15,10 +15,10 @@ public class ProblemSolver {
     
     private void GetSolvedProblems(out ArrayList solvedProblems) {
         solvedProblems = new ArrayList();
-        Type[]? allTypes = Assembly.GetAssembly(typeof(Problem))?.GetTypes();
-        foreach (Type type in allTypes!) 
+        Type[] allTypes = GetAssembly(typeof(Problem))?.GetTypes() ?? Type.EmptyTypes;
+        foreach (Type type in allTypes)
             if (type.IsSubclassOf(typeof(Problem)))
-                solvedProblems.Add((Problem)Activator.CreateInstance(type)!);
+                solvedProblems.Add(Activator.CreateInstance(type) as Problem);
     }
 
     public void SolveIndividual(string problem) {
@@ -45,20 +45,19 @@ public class ProblemSolver {
             slowestTime = time;
             slowest = i;
         }
+        long averageTime = timeSum / _solvedProblems.Count;
         Console.WriteLine("Solved all problems in {0} ms", timeSum);
-        Console.WriteLine("Average solution time: {0} ms", 
-            timeSum / _solvedProblems.Count);
-        Console.WriteLine("Slowest solution was {0}, taking {1} ms", 
-            slowest, slowestTime);
+        Console.WriteLine("Average solution time: {0} ms", averageTime);
+        Console.WriteLine("Slowest solution was {0}, {1} ms", slowest, slowestTime);
         Console.SetOut(temp);
         Console.WriteLine("Results output to {0}", file);
         sw.Close();
     }
 
     private long Solve(int n) {
-        Problem problem = (Problem)_solvedProblems[n - 1]!;
+        Problem? problem = _solvedProblems[n - 1] as Problem;
         Stopwatch watch = Stopwatch.StartNew();
-        problem.Solve();
+        problem?.Solve();
         watch.Stop();
         return watch.ElapsedMilliseconds;
     }

@@ -6,10 +6,10 @@ public class Problem004 : Problem{
 
     private int LargestPalindromeProduct(int min, int max) {
         int lpp = 0;
-        for (int i = min; i < max; i++) {
+        for (int i = 11; i < max; i+=11) {
             for (int j = min; j < max; j++) {
                 int result = i * j;
-                if(result > lpp && Library.IsPalindrome(result))
+                if(result > lpp && Library.IsPalindrome(result.ToString()))
                     lpp = result;
             }
         }
