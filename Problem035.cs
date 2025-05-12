@@ -2,23 +2,39 @@ namespace Project_Euler;
 
 public class Problem035 : Problem {
     public override void Solve() {
-        Print(CircularPrimeCount(1000000));
+        Print(CircularPrimeCount());
     }
     
-    private HashSet<int> _isPrime = null!;
+    private readonly bool[] _isPrime;
+    public Problem035() {
+        Library.SieveOfEratosthenes(1000000, out _isPrime);
+    }
 
-    private int CircularPrimeCount(int n){
-        IList<int> numbers = Enumerable.Range(0, n).ToList();
-        Library.GetPrimeList(numbers, out _isPrime);
-        return _isPrime.Count(IsCircularPrime);
+    private int CircularPrimeCount(){
+        int count = 0;
+        for (int i = 2; i < _isPrime.Length; i++) {
+            if (_isPrime[i] && IsCircularPrime(i)) count++;
+        }
+
+        return count;
     }
 
     private bool IsCircularPrime(int n){
-        string s = n.ToString();
-        for(int i = 0; i < s.Length; i++) {
-            int index = int.Parse(s[i..] + s[..i]);
-            if (!_isPrime.Contains(index)) return false;
+        int count = 0, temp = n;
+        while (temp > 0) {
+            count++;
+            temp /= 10;
         }
-        return true;
+ 
+        int num = n;
+        while (_isPrime[num]) {
+            int rem = num % 10;
+            int div = num / 10;
+            int tenthPower = (int)Math.Pow(10, count - 1);
+            num = tenthPower * rem + div;
+
+            if (num == n) return true;
+        }
+        return false;
     }
 }

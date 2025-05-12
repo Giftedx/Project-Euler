@@ -50,7 +50,7 @@ public class ProblemSolver {
         Console.WriteLine("Average solution time: {0} ms", averageTime);
         Console.WriteLine("Slowest solution was {0}, {1} ms", slowest, slowestTime);
         Console.SetOut(temp);
-        Console.WriteLine("Results output to {0}", file);
+        Console.WriteLine("Results output to {0}, {1} ms total", file, timeSum);
         sw.Close();
     }
 

@@ -18,6 +18,6 @@ public class Problem044 :  Problem{
     }
 
     private static int Pentagon(int n) {
-        return n * (3 * n - 1) / 2;
+        return n * (3 * n - 1) >> 1;
     }
 }

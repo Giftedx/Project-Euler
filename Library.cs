@@ -67,6 +67,18 @@ public static class Library {
         bool result = new string(chars).Equals("123456789");
         return result;
     }
+    
+    public static bool IsPanDigital(int n) { //test this out
+        int result = 0;
+        while ( n > 0 ) {
+            int digit = n % 10;
+            if ( digit == 0 ) return false;
+            result |= 1 << (digit - 1);
+            n /= 10;
+        }
+		
+        return result == 0x1ff;
+    }
 
     public static bool Permute(int[] arr) {
         int i = arr.Length - 1;

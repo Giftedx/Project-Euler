@@ -13,7 +13,15 @@ public class Problem036 : Problem{
     }
 
     private bool IsDoublePalindrome(int n){
-        return Library.IsPalindrome(n) && 
-               Library.IsPalindrome(Convert.ToString(n, 2));
+        return Library.IsPalindrome(n) && IsBinaryPalindrome(n);
+    }
+    
+    private bool IsBinaryPalindrome(int n) {
+        int reversed = 0, temp = n;
+        while (temp > 0) {
+            reversed = (reversed << 1) | (temp & 1);
+            temp >>= 1;
+        }
+        return n == reversed;
     }
 }
