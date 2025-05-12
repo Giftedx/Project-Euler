@@ -1,6 +1,6 @@
 namespace Project_Euler;
 
-public class Problem028 : Problem{
+public class Problem028 : Problem {
     public override void Solve() {
         Print(SpiralSum(1001));
     }
@@ -10,7 +10,7 @@ public class Problem028 : Problem{
         int step = 2;
         int total = 0;
         int ringStep = 0;
-        while(n <= size*size){
+        while (n <= size * size) {
             total += n;
             n += step;
             ringStep++;
@@ -18,6 +18,7 @@ public class Problem028 : Problem{
             step += 2;
             ringStep = 0;
         }
+
         return total;
     }
 }

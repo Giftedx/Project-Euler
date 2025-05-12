@@ -32,7 +32,7 @@ Problem 11: 70600674
 Solved in 1 ms 
 
 Problem 12: 2653056
-Solved in 21 ms 
+Solved in 20 ms 
 
 Problem 13: 5537376230
 Solved in 1 ms 
@@ -62,23 +62,23 @@ Problem 21: 31626
 Solved in 0 ms 
 
 Problem 22: 618821067
-File read in 3 ms
-Solved in 30 ms 
+File read in 1 ms
+Solved in 12 ms 
 
 Problem 23: 4179871
-Solved in 113 ms 
+Solved in 94 ms 
 
 Problem 24: 2783714330
 Solved in 0 ms 
 
 Problem 25: 4782
-Solved in 21 ms 
+Solved in 22 ms 
 
 Problem 26: 983
-Solved in 7 ms 
+Solved in 8 ms 
 
 Problem 27: -59231
-Solved in 32 ms 
+Solved in 42 ms 
 
 Problem 28: 669171001
 Solved in 0 ms 
@@ -99,13 +99,13 @@ Problem 33: 100
 Solved in 0 ms 
 
 Problem 34: 40730
-Solved in 84 ms 
+Solved in 85 ms 
 
 Problem 35: 55
-Solved in 19 ms 
+Solved in 22 ms 
 
 Problem 36: 872187
-Solved in 34 ms 
+Solved in 44 ms 
 
 Problem 37: 748317
 Solved in 13 ms 
@@ -117,14 +117,14 @@ Problem 39: 840
 Solved in 5 ms 
 
 Problem 40: 210
-Solved in 36 ms 
+Solved in 64 ms 
 
 Problem 41: 7652413
-Solved in 30 ms 
+Solved in 35 ms 
 
 Problem 42: 162
-File read in 0 ms
-Solved in 3 ms 
+File read in 1 ms
+Solved in 4 ms 
 
 Problem 43: 16695334890
 Solved in 8 ms 
@@ -139,17 +139,17 @@ Problem 46: 5777
 Solved in 0 ms 
 
 Problem 47: 134043
-Solved in 23 ms 
+Solved in 17 ms 
 
 Problem 48: 9110846700
 Solved in 2 ms 
 
 Problem 49: 296962999629
-Solved in 43 ms 
+Solved in 0 ms 
 
 Problem 50: 997651
-Solved in 23 ms 
+Solved in 3 ms 
 
-Solved all problems in 745 ms
-Average solution time: 14 ms
-Slowest solution was 23, 113 ms
+Solved all problems in 698 ms
+Average solution time: 13 ms
+Slowest solution was 23, 94 ms

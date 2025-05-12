@@ -4,10 +4,10 @@ namespace Project_Euler;
 
 internal class Program {
     public static void Main() {
-        Program prog = new Program();
-        ProblemSolver solver = new ProblemSolver();
+        var prog = new Program();
+        var solver = new ProblemSolver();
         int problemCount = solver.GetProblemCount();
-        Console.WriteLine("Project Euler Solver");
+        Library.FunPrint("Project Euler Solver");
         do {
             Console.WriteLine(" ");
             string input = prog.GetInput(problemCount);
@@ -24,36 +24,37 @@ internal class Program {
             }
         } while (prog.RunAgain());
     }
-    
+
     private string GetInput(int count) {
         bool valid;
         string input;
         do {
-            Console.WriteLine("Enter 'a' to solve all problems.");
-            Console.Write("Enter Problem to solve (1 - {0}): ", count);
+            Library.FunPrint("Enter 'a' to solve all problems.");
+            Library.FunPrint("Enter Problem to solve (1 - " + count + "): ");
             input = Console.ReadLine() ?? string.Empty;
             Console.WriteLine(" ");
             valid = ValidInput(input, count);
-            if(!valid) Console.WriteLine("Invalid input");
+            if (!valid) Library.FunPrint("Invalid input");
         } while (!valid);
+
         return input;
     }
 
     private bool ValidInput(string input, int count) {
         bool numeric = int.TryParse(input, out int num);
-        if(numeric)return num > 0 && num <= count;
+        if (numeric) return num > 0 && num <= count;
         return input is "a" or "t";
     }
 
     private bool RunAgain() {
-        Console.WriteLine("Press any to run program again, Space to exit.");
-        ConsoleKeyInfo input = Console.ReadKey();
+        Library.FunPrint("Press any to run program again, Space to exit.");
+        var input = Console.ReadKey();
         return input.Key != ConsoleKey.Spacebar;
     }
 
     private void Test() {
-        Test test = new Test();
-        Stopwatch watch = Stopwatch.StartNew();
+        var test = new Test();
+        var watch = Stopwatch.StartNew();
         test.Solve();
         watch.Stop();
         Console.WriteLine("{0} ms", watch.ElapsedMilliseconds);

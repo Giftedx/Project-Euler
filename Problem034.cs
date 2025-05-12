@@ -1,16 +1,16 @@
 namespace Project_Euler;
 
 public class Problem034 : Problem {
+    private readonly int[] _factorials = new int[10];
+
     public override void Solve() {
         Print(SumCurious());
     }
 
-    private readonly int[] _factorials = new int[10];
-
     private int SumCurious() {
         FillFactorials();
         int sum = 0;
-        for (int i = 3; i < 7 * _factorials[9]; i+=2)
+        for (int i = 3; i < 7 * _factorials[9]; i += 2)
             if (i == FactorialDigitsSum(i))
                 sum += i;
         return sum;
@@ -22,6 +22,7 @@ public class Problem034 : Problem {
             sum += _factorials[n % 10];
             n /= 10;
         }
+
         return sum;
     }
 

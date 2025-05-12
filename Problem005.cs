@@ -1,15 +1,13 @@
 namespace Project_Euler;
 
-public class Problem005 : Problem{
+public class Problem005 : Problem {
     public override void Solve() {
         Print(MinimumEvenlyDivisibleByRange(1, 20));
     }
 
     private string MinimumEvenlyDivisibleByRange(int min, int max) {
         ulong result = 1;
-        for (int i = min; i <= max; i++) {
-            result = LeastCommonMultiple((ulong)i, result);
-        }
+        for (int i = min; i <= max; i++) result = LeastCommonMultiple((ulong)i, result);
         return result.ToString();
     }
 

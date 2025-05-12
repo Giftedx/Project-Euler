@@ -2,24 +2,8 @@ using System.Numerics;
 using static System.Numerics.BigInteger;
 
 namespace Project_Euler;
+
 public class Problem013 : Problem {
-    public override void Solve() {
-        Print(FirstTenDigits(BigSum().ToString()));
-    }
-
-    private string FirstTenDigits(string s) {
-        return s[..10];
-    }
-
-    private BigInteger BigSum() {
-        BigInteger result = Zero;
-        foreach (BigInteger sumNum in _sumNums) {
-            result += sumNum;
-        }
-
-        return result;
-    }
-
     private readonly BigInteger[] _sumNums = [
         Parse("37107287533902102798797998220837590246510135740250"),
         Parse("46376937677490009712648124896970078050417018260538"),
@@ -120,5 +104,21 @@ public class Problem013 : Problem {
         Parse("77158542502016545090413245809786882778948721859617"),
         Parse("72107838435069186155435662884062257473692284509516"),
         Parse("20849603980134001723930671666823555245252804609722"),
-        Parse("53503534226472524250874054075591789781264330331690")];
+        Parse("53503534226472524250874054075591789781264330331690")
+    ];
+
+    public override void Solve() {
+        Print(FirstTenDigits(BigSum().ToString()));
+    }
+
+    private string FirstTenDigits(string s) {
+        return s[..10];
+    }
+
+    private BigInteger BigSum() {
+        var result = Zero;
+        foreach (var sumNum in _sumNums) result += sumNum;
+
+        return result;
+    }
 }

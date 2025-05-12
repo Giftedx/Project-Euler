@@ -1,6 +1,8 @@
 using System.Numerics;
+
 namespace Project_Euler;
-public class Problem025 : Problem{
+
+public class Problem025 : Problem {
     public override void Solve() {
         Print(FibonacciNDigits(1000));
     }
@@ -10,21 +12,20 @@ public class Problem025 : Problem{
         BigInteger fib1 = 0;
         BigInteger fib2 = 1;
 
-        while(length < n){
-            BigInteger sum = fib1 + fib2;
+        while (length < n) {
+            var sum = fib1 + fib2;
             fib1 = fib2;
             fib2 = sum;
             length = GetDigitCount(sum);
             index++;
         }
+
         return index;
     }
 
     private int GetDigitCount(BigInteger number) {
         int digitCount = (int)Math.Floor(BigInteger.Log10(number) + 1);
-        if (BigInteger.Pow(10, digitCount - 1) == number) {
-            return digitCount - 1;
-        }
+        if (BigInteger.Pow(10, digitCount - 1) == number) return digitCount - 1;
         return digitCount;
     }
 }

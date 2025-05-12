@@ -1,9 +1,19 @@
 using System.Collections.Concurrent;
 using System.Numerics;
+// ReSharper disable UnusedMember.Global
 
 namespace Project_Euler;
 
 public static class Library {
+    public static void FunPrint(string s) {
+        foreach (char c in s) {
+            Console.Write(c);
+            Thread.Sleep(50);
+        }
+
+        Console.WriteLine("");
+    }
+
     public static void ReadFile(string fileName, out List<string> data) {
         string basePath = AppDomain.CurrentDomain.BaseDirectory;
         string filePath = basePath + fileName;
@@ -15,7 +25,7 @@ public static class Library {
     public static int SumDigits(BigInteger digits) {
         BigInteger sum = 0;
         while (digits != 0) {
-            BigInteger last = digits % 10;
+            var last = digits % 10;
             sum += last;
             digits /= 10;
         }
@@ -35,11 +45,10 @@ public static class Library {
     }
 
     public static bool IsPalindrome(string s) {
-        for(int i = 0; i < s.Length / 2; i++) {
-            if(s[i] != s[s.Length - 1 - i]) {
+        for (int i = 0; i < s.Length / 2; i++)
+            if (s[i] != s[s.Length - 1 - i])
                 return false;
-            }
-        }
+
         return true;
     }
 
@@ -56,7 +65,7 @@ public static class Library {
     }
 
     public static bool IsPentagon(long pn) {
-        double n = 1.0/6.0 * (Math.Sqrt(24 * pn + 1) + 1);
+        double n = 1.0 / 6.0 * (Math.Sqrt(24 * pn + 1) + 1);
         return n - (int)n == 0;
     }
 
@@ -67,16 +76,17 @@ public static class Library {
         bool result = new string(chars).Equals("123456789");
         return result;
     }
-    
-    public static bool IsPanDigital(int n) { //test this out
+
+    public static bool IsPanDigital(int n) {
+        //test this out
         int result = 0;
-        while ( n > 0 ) {
+        while (n > 0) {
             int digit = n % 10;
-            if ( digit == 0 ) return false;
+            if (digit == 0) return false;
             result |= 1 << (digit - 1);
             n /= 10;
         }
-		
+
         return result == 0x1ff;
     }
 
@@ -101,11 +111,11 @@ public static class Library {
         }
 
         if (n % 2 == 0) return false;
-        if(n % 3 == 0) return false;
-        
-        for (int i = 5; i * i <= n; i += 6) {
-            if (n % i == 0 || n % (i + 2) == 0) return false;
-        }
+        if (n % 3 == 0) return false;
+
+        for (int i = 5; i * i <= n; i += 6)
+            if (n % i == 0 || n % (i + 2) == 0)
+                return false;
 
         return true;
     }
@@ -117,9 +127,7 @@ public static class Library {
         isPrime[1] = false;
         for (int i = 2; i < Math.Sqrt(n); i++) {
             if (!isPrime[i]) continue;
-            for (int j = i * i; j < n; j += i) {
-                isPrime[j] = false;
-            }
+            for (int j = i * i; j < n; j += i) isPrime[j] = false;
         }
     }
 

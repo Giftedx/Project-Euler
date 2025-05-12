@@ -1,4 +1,5 @@
 namespace Project_Euler;
+
 public class Problem019 : Problem {
     public override void Solve() {
         Print(NumberOfSundays());
@@ -7,16 +8,15 @@ public class Problem019 : Problem {
     private int NumberOfSundays() {
         int numberOfSundays = 0;
         int dayOfTheWeek = 2;
-        for (int year = 1901; year <= 2000; year++) {
-            for (int month = 1; month <= 12; month++) {
-                for (int day = 1; day <= GetNumberOfDays(month, year); day++) {
-                    dayOfTheWeek++;
-                    if (dayOfTheWeek != 7) continue;
-                    if (day == 1) numberOfSundays++;
-                    dayOfTheWeek = 0;
-                }
-            }
+        for (int year = 1901; year <= 2000; year++)
+        for (int month = 1; month <= 12; month++)
+        for (int day = 1; day <= GetNumberOfDays(month, year); day++) {
+            dayOfTheWeek++;
+            if (dayOfTheWeek != 7) continue;
+            if (day == 1) numberOfSundays++;
+            dayOfTheWeek = 0;
         }
+
         return numberOfSundays;
     }
 

@@ -1,5 +1,7 @@
 using System.Numerics;
+
 namespace Project_Euler;
+
 public class Problem015 : Problem {
     public override void Solve() {
         Print(LatticePaths(20, 20));

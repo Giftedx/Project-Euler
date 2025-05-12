@@ -1,6 +1,6 @@
 namespace Project_Euler;
 
-public class Problem030 : Problem{
+public class Problem030 : Problem {
     public override void Solve() {
         Print(SumAllFifthPowers());
     }
@@ -37,7 +37,8 @@ public class Problem030 : Problem{
 
             int check;
             for (check = 1; check < 10; check++)
-                if (counts[check] != 0) break;
+                if (counts[check] != 0)
+                    break;
 
             if (check == 10 && pos > 0) sum += sumPow;
 
@@ -46,18 +47,21 @@ public class Problem030 : Problem{
                 digits[pos] = i;
                 number = number * 10 + i;
                 sumPow += powers[i];
-            }else {
+            }
+            else {
                 while (pos > 0 && digits[pos] == 9) {
                     pos--;
                     number /= 10;
                     sumPow -= powers[9];
                 }
+
                 if (digits[pos] == 9) break;
                 number++;
                 sumPow += diffs[digits[pos]];
                 digits[pos]++;
             }
         }
+
         return sum;
     }
 }

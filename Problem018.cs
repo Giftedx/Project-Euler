@@ -1,18 +1,6 @@
 namespace Project_Euler;
-public class Problem018 : Problem{
-    public override void Solve() {
-        Console.WriteLine(MaxPathSum());
-    }
 
-    private int MaxPathSum() {
-        for (int i = _triangle.Count - 2; i >= 0; i--) {
-            for(int j = 0; j < _triangle[i].Length; j++) {
-                _triangle[i][j] += Math.Max(_triangle[i + 1][j], _triangle[i + 1][j + 1]);
-            }
-        }
-        return _triangle[0][0];
-    }
-
+public class Problem018 : Problem {
     private readonly List<int[]> _triangle = [
         new[] { 75 },
         new[] { 95, 64 },
@@ -30,4 +18,16 @@ public class Problem018 : Problem{
         new[] { 63, 66, 04, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31 },
         new[] { 04, 62, 98, 27, 23, 09, 70, 98, 73, 93, 38, 53, 60, 04, 23 }
     ];
+
+    public override void Solve() {
+        Console.WriteLine(MaxPathSum());
+    }
+
+    private int MaxPathSum() {
+        for (int i = _triangle.Count - 2; i >= 0; i--)
+        for (int j = 0; j < _triangle[i].Length; j++)
+            _triangle[i][j] += Math.Max(_triangle[i + 1][j], _triangle[i + 1][j + 1]);
+
+        return _triangle[0][0];
+    }
 }

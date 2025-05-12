@@ -1,13 +1,13 @@
 namespace Project_Euler;
 
-public class Problem043 : Problem{
+public class Problem043 : Problem {
+    private readonly int[] _tests = [2, 3, 5, 7, 11, 13, 17];
+    private readonly bool[] _used = new bool[10];
+
     public override void Solve() {
         Console.WriteLine(SubStringDivisiblePandigitalSum());
     }
 
-    private readonly int[] _tests = [2, 3, 5, 7, 11, 13, 17];
-    private readonly bool[] _used = new bool[10];
-    
     private long SubStringDivisiblePandigitalSum() {
         long total = 0;
         BuildAndTest("", ref total);

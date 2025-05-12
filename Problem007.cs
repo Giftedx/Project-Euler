@@ -1,5 +1,6 @@
 namespace Project_Euler;
-public class Problem007 : Problem{
+
+public class Problem007 : Problem {
     public override void Solve() {
         Print(NthPrime(10001));
     }
@@ -10,6 +11,7 @@ public class Problem007 : Problem{
             if (Library.IsPrime(i)) n--;
             i++;
         }
+
         return i - 1;
     }
 }
