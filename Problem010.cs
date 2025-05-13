@@ -1,16 +1,21 @@
 namespace Project_Euler;
 
 public class Problem010 : Problem {
+    private const int Limit = 2000000;
+    private readonly bool[] _isPrime;
+
+    public Problem010() {
+        Library.SieveOfEratosthenes(Limit, out _isPrime);
+    }
+    
     public override void Solve() {
-        Print(SumPrimesBelow(2000000));
+        Print(SumPrimesBelow());
     }
 
-    private long SumPrimesBelow(int n) {
+    private long SumPrimesBelow() {
         long sum = 2;
-        Library.SieveOfEratosthenes(n, out bool[] isPrime);
-        for (int i = 3; i < isPrime.Length; i += 2)
-            if (isPrime[i])
-                sum += i;
+        for (int i = 3; i < _isPrime.Length; i += 2)
+            if (_isPrime[i]) sum += i;
         return sum;
     }
 }

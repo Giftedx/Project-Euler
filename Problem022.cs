@@ -1,16 +1,13 @@
-using System.Diagnostics;
 // ReSharper disable ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
 namespace Project_Euler;
 public class Problem022 : Problem {
-    private List<string> _names = [];
+    private List<string> _names;
+    public Problem022() {
+        Library.ReadFile("names.txt", out _names);
+    }
 
     public override void Solve() {
-        var fileReadTimer = Stopwatch.StartNew();
-        Library.ReadFile("names.txt", out _names);
-        fileReadTimer.Stop();
         Print(SumNameScores());
-        Console.WriteLine("File read in {0} ms",
-            fileReadTimer.ElapsedMilliseconds);
     }
 
     private long SumNameScores() {

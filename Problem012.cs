@@ -1,5 +1,3 @@
-using System.Collections;
-
 namespace Project_Euler;
 
 public class Problem012 : Problem {
@@ -7,27 +5,26 @@ public class Problem012 : Problem {
         Print(HighlyDivisibleTriangle(500));
     }
 
-    private long HighlyDivisibleTriangle(int n) {
-        var smallest = new ArrayList { 0 };
-        int index = 0;
-        long triangle = 0;
-        while (smallest.Count < n) {
-            index++;
-            triangle += index;
-            if (smallest.Count > 300 && triangle % 10 != 0)
-                smallest.Add(triangle);
-            int divisors = DivisorCount(triangle);
-            while (smallest.Count <= divisors) smallest.Add(triangle);
-        }
+    private long HighlyDivisibleTriangle(int minDivisors) {
+        int n = 1;
+        while (true) {
+            int divisorsCount;
+            if (n % 2 == 0) divisorsCount = Tau(n >> 1) * Tau(n + 1);
+            else divisorsCount = Tau(n) * Tau((n + 1) >> 1);
 
-        return (long)(smallest[^1] ?? 0);
+            if (divisorsCount > minDivisors)
+                return (long)n * (n + 1) >> 1;
+
+            n++;
+        }
     }
 
-    private int DivisorCount(long n) {
-        int total = 0, end = (int)Math.Sqrt(n);
-        for (int i = 1; i <= end; i++)
-            if (n % i == 0)
-                total += 2;
-        return total;
+    private int Tau(int num) {
+        int count = 0;
+        int root = (int)Math.Sqrt(num);
+        for (int i = 1; i <= root; i++) 
+            if (num % i == 0) count += 2;
+        if (root * root == num) count--;
+        return count;
     }
 }

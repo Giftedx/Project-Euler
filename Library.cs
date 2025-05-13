@@ -6,9 +6,10 @@ namespace Project_Euler;
 
 public static class Library {
     public static void FunPrint(string s) {
+        const int wait = 10;
         foreach (char c in s) {
             Console.Write(c);
-            Thread.Sleep(50);
+            Thread.Sleep(wait);
         }
 
         Console.WriteLine("");
