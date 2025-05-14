@@ -1,3 +1,5 @@
+// ReSharper disable CompareOfFloatsByEqualityOperator
+// ReSharper disable ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
 namespace Project_Euler;
 
 public class Problem042 : Problem {
@@ -15,14 +17,14 @@ public class Problem042 : Problem {
     }
 
     private int WordValue(string s) {
-        return s.Sum(c => c - 'A' + 1);
+        int sum = 0;
+        foreach (char c in s)
+            sum += c - 'A' + 1;
+        return sum;
     }
 
     private bool IsTriangle(int x) {
-        for (int i = 1;; i++) {
-            int t = i * (i + 1) / 2;
-            if (t == x) return true;
-            if (t > x) return false;
-        }
+        double n = (-1 + Math.Sqrt(1 + 8 * x)) / 2;
+        return n == (int)n;
     }
 }

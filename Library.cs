@@ -1,12 +1,15 @@
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Numerics;
+
 // ReSharper disable UnusedMember.Global
 
 namespace Project_Euler;
 
 public static class Library {
+    //Program-wide tasks.
     public static void FunPrint(string s) {
-        const int wait = 10;
+        const int wait = 5;
         foreach (char c in s) {
             Console.Write(c);
             Thread.Sleep(wait);
@@ -23,6 +26,8 @@ public static class Library {
         data = fileContent.Split(',').ToList();
     }
 
+    //Maths tasks.
+
     public static int SumDigits(BigInteger digits) {
         BigInteger sum = 0;
         while (digits != 0) {
@@ -33,6 +38,45 @@ public static class Library {
 
         return (int)sum;
     }
+
+    public static int Gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+
+        return a;
+    }
+
+    public static BigInteger Factorial(int n) {
+        BigInteger factorial = 1;
+        for (int i = 2; i <= n; i++) factorial *= i;
+        return factorial;
+    }
+
+    public static int IntFactorial(int n) {
+        int factorial = 1;
+        for (int i = 2; i <= n; i++) factorial *= i;
+        return factorial;
+    }
+    
+    public static int Pow10(int exp) {
+        int res = 1;
+        while (exp-- > 0) res *= 10;
+        return res;
+    }
+    
+    public static int DigitCount(int n) {
+        int count = 0;
+        while (n > 0) {
+            count++;
+            n /= 10;
+        }
+        return count;
+    }
+    
+    //Boolean Checks
 
     public static bool IsPalindrome(int n) {
         int reverse = 0;
@@ -53,16 +97,22 @@ public static class Library {
         return true;
     }
 
-    public static BigInteger Factorial(int n) {
-        BigInteger factorial = 1;
-        for (int i = 2; i <= n; i++) factorial *= i;
-        return factorial;
-    }
+    public static bool IsPrime(int n) {
+        switch (n) {
+            case <= 1:
+                return false;
+            case 2 or 3:
+                return true;
+        }
 
-    public static int IntFactorial(int n) {
-        int factorial = 1;
-        for (int i = 2; i <= n; i++) factorial *= i;
-        return factorial;
+        if (n % 2 == 0) return false;
+        if (n % 3 == 0) return false;
+
+        for (int i = 5; i * i <= n; i += 6)
+            if (n % i == 0 || n % (i + 2) == 0)
+                return false;
+
+        return true;
     }
 
     public static bool IsPentagon(long pn) {
@@ -91,6 +141,8 @@ public static class Library {
         return result == 0x1ff;
     }
 
+    //Array Operations
+
     public static bool Permute(int[] arr) {
         int i = arr.Length - 1;
         while (i > 0 && arr[i - 1] >= arr[i]) i--;
@@ -103,23 +155,6 @@ public static class Library {
         return true;
     }
 
-    public static bool IsPrime(int n) {
-        switch (n) {
-            case <= 1:
-                return false;
-            case 2 or 3:
-                return true;
-        }
-
-        if (n % 2 == 0) return false;
-        if (n % 3 == 0) return false;
-
-        for (int i = 5; i * i <= n; i += 6)
-            if (n % i == 0 || n % (i + 2) == 0)
-                return false;
-
-        return true;
-    }
 
     public static void SieveOfEratosthenes(int n, out bool[] isPrime) {
         isPrime = new bool[n];
@@ -129,6 +164,18 @@ public static class Library {
         for (int i = 2; i < Math.Sqrt(n); i++) {
             if (!isPrime[i]) continue;
             for (int j = i * i; j < n; j += i) isPrime[j] = false;
+        }
+    }
+    
+    public static void SieveOfEratosthenes(int n, out BitArray isPrime) {
+        isPrime = new BitArray(n, false);
+        if (n < 2) return;
+        isPrime[2] = true;
+        for (int i = 3; i < n; i += 2) isPrime[i] = true;
+        int limit = (int)Math.Sqrt(n);
+        for (int i = 3; i <= limit; i += 2) {
+            if (!isPrime[i]) continue;
+            for (int j = i * i; j < n; j += 2 * i) isPrime[j] = false;
         }
     }
 

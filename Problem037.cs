@@ -12,36 +12,40 @@ public class Problem037 : Problem {
     }
 
     private long SumTruncatablePrimes() {
-        long sum = 0;
-        for (int count = 0, n = 10; count < 11; n++) {
-            if (!IsTruncPrime(n)) continue;
-            sum += n;
-            count++;
-        }
+        var results = new List<int>();
+        var queue = new Queue<int>([2, 3, 5, 7]);
 
-        return sum;
+        while (results.Count < 11) {
+            int n = queue.Dequeue();
+            if (n > 10 && IsTruncatable(n))
+                results.Add(n);
+
+            foreach (int d in new[] { 1, 3, 7, 9 }) {
+                int next = n * 10 + d;
+                if (IsPrime(next)) queue.Enqueue(next);
+            }
+        }
+        return results.Sum();
     }
 
-    private bool IsTruncPrime(int n) {
-        for (long i = 10; i <= n; i *= 10)
-            if (n < _isPrime.Length) {
-                if (!_isPrime[n % (int)i]) return false;
-            }
-            else {
-                if (!Library.IsPrime(n % (int)i)) return false;
-            }
-
-        while (n != 0) {
-            if (n < _isPrime.Length) {
-                if (!_isPrime[n]) return false;
-            }
-            else {
-                if (!Library.IsPrime(n)) return false;
-            }
-
-            n /= 10;
+    private bool IsTruncatable(int n) {
+        int x = n;
+        while (x > 0) {
+            if (!IsPrime(x)) return false;
+            x /= 10;
         }
 
+        int div = Library.Pow10(Library.DigitCount(n) - 1);
+        x = n;
+        while (div > 0) {
+            if (!IsPrime(x)) return false;
+            x %= div;
+            div /= 10;
+        }
         return true;
+    }
+
+    private bool IsPrime(int n) {
+        return n < _isPrime.Length ? _isPrime[n] : Library.IsPrime(n);
     }
 }

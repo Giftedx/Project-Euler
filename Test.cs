@@ -1,57 +1,66 @@
+using System.Collections;
+using System.Numerics;
+// ReSharper disable CompareOfFloatsByEqualityOperator
+
 namespace Project_Euler;
 
 public class Test {
-    //private int[] _collatzChainLength;
-    private const int Limit = 1000000;
+    //private bool[] _isPrime;
+    /*public Test() {
+        Library.SieveOfEratosthenes(1000000, out _isPrime);
+    }*/
     
-    public Test() {}
-
-
     public void Solve() {
         Console.WriteLine(FindMinimumD());
     }
 
-    
     private long FindMinimumD() {
-        // Precompute pentagonal numbers and store them in a list
-        List<long> pentagonNumbers = new List<long>();
-    
-        // Start the pentagonal number generation
-        int n = 1;
-        while (true) {
-            long pn = Pentagon(n);
-            pentagonNumbers.Add(pn);
+        long smallestDiff = long.MaxValue;  // Use long.MaxValue as LONG_MAX equivalent
+        long j = 0, k = 1;
+        long Pj = 0, Pk = 1;
+        int isNot;
 
-            // For each pentagonal number, we check differences and sums with all earlier pentagonal numbers
-            for (int i = 0; i < pentagonNumbers.Count - 1; i++) {
-                long pnm = pentagonNumbers[i];
-                long diff = pn - pnm;
-                long sum = pn + pnm;
+        // Outer loop to find the smallest difference
+        do
+        {
+            j = 0;
+            Pj = 0;
+            isNot = 1;
 
-                // Check if both the difference and sum are pentagonal numbers
-                if (IsPentagonal(diff) && IsPentagonal(sum)) {
-                    return diff;  // Return the smallest difference found
-                }
+            // Calculate the next pentagonal number Pk
+            Pk += k + k + k + 1;
+            k++;
+
+            // Inner loop to check pairs of pentagonal numbers
+            do
+            {
+                // Update Pj to the next pentagonal number
+                Pj += j + j + j + 1;
+                j++;
+
+                // Check if both Pj + Pk and Pk - Pj are pentagonal numbers
+                isNot = (IsPentagonal(Pj + Pk) == false || IsPentagonal(Pk - Pj) == false) ? 1 : 0;
+
+            } while (j < k && isNot == 1);
+
+            // If both numbers are pentagonal, check the difference
+            if (isNot == 0 && Pk - Pj < smallestDiff)
+            {
+                smallestDiff = Pk - Pj;
             }
 
-            // Terminate early if the current pentagonal number is sufficiently large (optimization)
-            if (pn > 10_000_000) {
-                break;
-            }
+        } while (isNot == 1 && Pk - Pj < smallestDiff);
 
-            n++;
-        }
-
-        return -1;  // If no such difference is found, which should not happen according to the problem statement
+        // Print the smallest difference
+        return smallestDiff;
     }
 
-    private static long Pentagon(int n) {
-        return (long)n * (3L * n - 1) / 2;
-    }
-
-    private static bool IsPentagonal(long x) {
-        // Using the inverse formula for pentagonal numbers: n = (1 + sqrt(1 + 24*x)) / 6
-        double n = (1 + Math.Sqrt(1 + 24 * x)) / 6;
-        return n == (long)n;  // Check if n is an integer
+    // Function to check if a number is pentagonal
+    static bool IsPentagonal(long num)
+    {
+        // Solving P = n(3n - 1) / 2 for n, we get:
+        // n = (1 + sqrt(1 + 24P)) / 6
+        double sqrdiscr = Math.Sqrt(1 + 24 * num);
+        return sqrdiscr == (long)sqrdiscr && (long)sqrdiscr % 6 == 5;
     }
 }

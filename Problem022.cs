@@ -1,7 +1,12 @@
 // ReSharper disable ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
+
+using System.Runtime.CompilerServices;
+
 namespace Project_Euler;
+
 public class Problem022 : Problem {
     private List<string> _names;
+
     public Problem022() {
         Library.ReadFile("names.txt", out _names);
     }
@@ -11,16 +16,18 @@ public class Problem022 : Problem {
     }
 
     private long SumNameScores() {
-        _names = _names.OrderBy(line => line).ToList();
+        _names.Sort();
         long sum = 0;
-        for (int i = 0; i < _names.Count; i++)
-            sum += NameScore(_names[i], i);
+        for (int i = 0; i < _names.Count; i++) 
+            sum += (long)(i + 1) * GetNameScore(_names[i]);
         return sum;
     }
 
-    private int NameScore(string s, int pos) {
-        int sum = 0;
-        foreach (char c in s) sum += (c & 15) + 1;
-        return (pos + 1) * sum;
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    private static int GetNameScore(string name) {
+        int score = 0;
+        foreach (char t in name) 
+            score += t - 'A' & 15;
+        return score;
     }
 }

@@ -57,6 +57,8 @@ internal class Program {
         var watch = Stopwatch.StartNew();
         test.Solve();
         watch.Stop();
+        test = null;
+        //GC.Collect(2, GCCollectionMode.Forced);
         Console.WriteLine("{0} ms", watch.ElapsedMilliseconds);
     }
 }

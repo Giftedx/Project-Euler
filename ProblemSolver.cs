@@ -64,7 +64,7 @@ public class ProblemSolver {
         watch.Stop();
         // ReSharper disable once RedundantAssignment
         problem = null;
-        GC.Collect(2, GCCollectionMode.Optimized);
+        //GC.Collect(2, GCCollectionMode.Forced);
         return watch.ElapsedMilliseconds;
     }
 }

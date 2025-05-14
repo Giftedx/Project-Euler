@@ -7,14 +7,33 @@ public class Problem036 : Problem {
 
     private long DoubleBasePalindromeSum(int n) {
         long sum = 0;
-        for (int i = 1; i < n; i += 2)
-            if (IsDoublePalindrome(i))
-                sum += i;
+        
+        for (int len = 1; len <= 6; len++) {
+            bool oddLength = (len % 2 == 1);
+            int halfLen = (len + 1) >> 1;
+            int start = Library.Pow10(halfLen - 1);//(int)Math.Pow(10, halfLen - 1);
+            int end = Library.Pow10(halfLen);//(int)Math.Pow(10, halfLen);
+
+            for (int i = start; i < end; i++) {
+                int p = MakePalindrome(i, oddLength);
+                if (p < n && IsBinaryPalindrome(p)) sum += p;
+            }
+        }
         return sum;
     }
 
-    private bool IsDoublePalindrome(int n) {
-        return Library.IsPalindrome(n) && IsBinaryPalindrome(n);
+    private int MakePalindrome(int half, bool oddLength)
+    {
+        int result = half;
+        if (oddLength) half /= 10;
+
+        while (half > 0)
+        {
+            result = result * 10 + (half % 10);
+            half /= 10;
+        }
+
+        return result;
     }
 
     private bool IsBinaryPalindrome(int n) {

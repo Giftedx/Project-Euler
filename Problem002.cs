@@ -6,16 +6,16 @@ public class Problem002 : Problem {
     }
 
     private int EvenFibSum() {
-        int sum = 0;
         const int limit = 4000000;
-        int result = 0, fib1 = 0, fib2 = 1;
-        while (result < limit) {
-            result = fib1 + fib2;
-            fib1 = fib2;
-            fib2 = result;
-            if (result % 2 == 0) sum += result;
+        int even1 = 2;
+        int even2 = 8;
+        int sum = even1 + even2;
+        while (true) {
+            int nextEven = 4 * even2 + even1;
+            if (nextEven >= limit) break;
+            sum += nextEven;
+            (even1 , even2) = (even2 , nextEven);
         }
-
         return sum;
     }
 }

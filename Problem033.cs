@@ -1,5 +1,3 @@
-using System.Numerics;
-
 namespace Project_Euler;
 
 public class Problem033 : Problem {
@@ -19,10 +17,6 @@ public class Problem033 : Problem {
             den *= d;
         }
 
-        return den / GCD(num, den);
-    }
-
-    private int GCD(int a, int b) {
-        return (int)BigInteger.GreatestCommonDivisor(a, b);
+        return den / Library.Gcd(num, den);
     }
 }

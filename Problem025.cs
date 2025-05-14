@@ -8,24 +8,18 @@ public class Problem025 : Problem {
     }
 
     private int FibonacciNDigits(int n) {
-        int index = 1, length = 0;
-        BigInteger fib1 = 0;
-        BigInteger fib2 = 1;
+        double phi = (1 + Math.Sqrt(5)) / 2;
+        double log10Phi = Math.Log10(phi);  // log10(φ)
+        double log10Sqrt5 = Math.Log10(Math.Sqrt(5)); // log10(√5)
 
-        while (length < n) {
-            var sum = fib1 + fib2;
-            fib1 = fib2;
-            fib2 = sum;
-            length = GetDigitCount(sum);
+        int index = 1;
+        while (true) {
+            double logFib = index * log10Phi - log10Sqrt5;
+            int digitCount = (int)Math.Floor(logFib) + 1;
+            if (digitCount >= n) break;
             index++;
         }
 
         return index;
-    }
-
-    private int GetDigitCount(BigInteger number) {
-        int digitCount = (int)Math.Floor(BigInteger.Log10(number) + 1);
-        if (BigInteger.Pow(10, digitCount - 1) == number) return digitCount - 1;
-        return digitCount;
     }
 }

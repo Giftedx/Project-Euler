@@ -2,29 +2,32 @@ namespace Project_Euler;
 
 public class Problem026 : Problem {
     public override void Solve() {
-        Print(LongestCycleIndex(1000));
+        Print(GetLongestCycleDenominator(1000));
     }
 
-    private int LongestCycleIndex(int n) {
-        int longestCycleIndex = 0, longestCycle = 0;
-        for (int i = 2; i < n; i++) {
-            int cycle = CycleLength(i);
-            if (cycle <= longestCycle) continue;
-            longestCycleIndex = i;
-            longestCycle = cycle;
+    private int GetLongestCycleDenominator(int limit) {
+        int maxLength = 0;
+        int result = 0;
+
+        for (int d = 2; d < limit; d++) {
+            if (maxLength >= d) continue;
+
+            int[] seen = new int[d];
+            int value = 1;
+            int position = 0;
+
+            while (seen[value] == 0 && value != 0) {
+                seen[value] = position++;
+                value = (value * 10) % d;
+            }
+
+            int length = position - seen[value];
+
+            if (length <= maxLength) continue;
+            maxLength = length;
+            result = d;
         }
 
-        return longestCycleIndex;
-    }
-
-    private int CycleLength(int denominator) {
-        var map = new Dictionary<int, int>();
-        int mod = 1, i = 1;
-        while (true) {
-            if (map.TryGetValue(mod, out int value)) return i - value;
-            map.Add(mod, i);
-            mod = mod * 10 % denominator;
-            i++;
-        }
+        return result;
     }
 }

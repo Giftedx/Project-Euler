@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace Project_Euler;
 
 public class Problem035 : Problem {
@@ -21,22 +23,28 @@ public class Problem035 : Problem {
     }
 
     private bool IsCircularPrime(int n) {
-        int count = 0, temp = n;
-        while (temp > 0) {
-            count++;
-            temp /= 10;
+        if (n > 10 && IsEvenOr5(n))
+            return false;
+
+        int digits = (int)Math.Log10(n) + 1;
+        int powTen = Library.Pow10(digits - 1);
+        int rotated = n;
+
+        for (int i = 0; i < digits; i++) {
+            if (!_isPrime[rotated]) return false;
+            
+            int lastDigit = rotated % 10;
+            rotated = rotated / 10 + lastDigit * powTen;
         }
-
-        int num = n;
-        while (_isPrime[num]) {
-            int rem = num % 10;
-            int div = num / 10;
-            int tenthPower = (int)Math.Pow(10, count - 1);
-            num = tenthPower * rem + div;
-
-            if (num == n) return true;
+        return true;
+    }
+    
+    private bool IsEvenOr5(int n) {
+        while (n > 0) {
+            int d = n % 10;
+            if (d % 2 == 0 || d == 5) return true;
+            n /= 10;
         }
-
         return false;
     }
 }

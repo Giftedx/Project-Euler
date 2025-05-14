@@ -2,25 +2,35 @@ namespace Project_Euler;
 
 public class Problem039 : Problem {
     public override void Solve() {
-        Print(MaxTrianglePerimeters());
+        Print(MaxTrianglePerimeter());
     }
 
-    private int MaxTrianglePerimeters() {
-        var countSortedPs = new List<int>(new int[1001]);
-        for (int a = 2; a < 500; a++)
-        for (int b = 2; b < 500; b++) {
-            double p = Math.Sqrt(b * b + a * a) + a + b;
-            if (p % 1 == 0 && p <= 1000) countSortedPs[(int)p]++;
+    private int MaxTrianglePerimeter() {
+        const int limit = 1000;
+        int[] perimeters = new int[limit + 1];
+        int limitSqrt = (int)Math.Sqrt(limit);
+        
+        for (int m = 2; m < limitSqrt; m++) {
+            for (int n = 1; n < m; n++) {
+                if ((m - n) % 2 == 0) continue;
+                if (Library.Gcd(m, n) != 1) continue;
+
+                int a = m * m - n * n;
+                int b = 2 * m * n;
+                int c = m * m + n * n;
+                int p = a + b + c;
+
+                for (int k = 1; k * p <= limit; k++)
+                    perimeters[k * p]++;
+            }
         }
 
-        int max = 0;
-        int maxI = 0;
-        for (int j = 0; j <= 1000; j++) {
-            if (countSortedPs[j] <= max) continue;
-            max = countSortedPs[j];
-            maxI = j;
+        int maxP = 0, maxCount = 0;
+        for (int p = 0; p <= limit; p++) {
+            if (perimeters[p] <= maxCount) continue;
+            maxCount = perimeters[p];
+            maxP = p;
         }
-
-        return maxI;
+        return maxP;
     }
 }
