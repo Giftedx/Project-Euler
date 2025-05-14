@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Numerics;
+using System.Runtime.CompilerServices;
+
 // ReSharper disable CompareOfFloatsByEqualityOperator
 
 namespace Project_Euler;
@@ -9,58 +11,42 @@ public class Test {
     /*public Test() {
         Library.SieveOfEratosthenes(1000000, out _isPrime);
     }*/
-    
+
     public void Solve() {
-        Console.WriteLine(FindMinimumD());
+        
+        Console.WriteLine(FindMinimumDifference());
     }
 
-    private long FindMinimumD() {
-        long smallestDiff = long.MaxValue;  // Use long.MaxValue as LONG_MAX equivalent
-        long j = 0, k = 1;
-        long Pj = 0, Pk = 1;
-        int isNot;
+    
+    private int FindMinimumDifference() {
+        int m = 1;
+        while (true) {
+            int diff2 = m * (3 * m - 1);
+            int d = 1;
 
-        // Outer loop to find the smallest difference
-        do
-        {
-            j = 0;
-            Pj = 0;
-            isNot = 1;
+            while (d * d < diff2) {
+                if (diff2 % d == 0) {
+                    int numerator = (diff2 / d - 3 * d + 1);
+                    if (numerator % 6 == 0) {
+                        int j = numerator / 6;
+                        int k = j + d;
 
-            // Calculate the next pentagonal number Pk
-            Pk += k + k + k + 1;
-            k++;
+                        int pk = k * (3 * k - 1) / 2;
+                        int pj = j * (3 * j - 1) / 2;
 
-            // Inner loop to check pairs of pentagonal numbers
-            do
-            {
-                // Update Pj to the next pentagonal number
-                Pj += j + j + j + 1;
-                j++;
-
-                // Check if both Pj + Pk and Pk - Pj are pentagonal numbers
-                isNot = (IsPentagonal(Pj + Pk) == false || IsPentagonal(Pk - Pj) == false) ? 1 : 0;
-
-            } while (j < k && isNot == 1);
-
-            // If both numbers are pentagonal, check the difference
-            if (isNot == 0 && Pk - Pj < smallestDiff)
-            {
-                smallestDiff = Pk - Pj;
+                        if (j > 0 && IsPentagonal(pk + pj) &&
+                            IsPentagonal(pk - pj)) return pk - pj;
+                    }
+                }
+                d++;
             }
-
-        } while (isNot == 1 && Pk - Pj < smallestDiff);
-
-        // Print the smallest difference
-        return smallestDiff;
+            m++;
+        }
     }
 
-    // Function to check if a number is pentagonal
-    static bool IsPentagonal(long num)
-    {
-        // Solving P = n(3n - 1) / 2 for n, we get:
-        // n = (1 + sqrt(1 + 24P)) / 6
-        double sqrdiscr = Math.Sqrt(1 + 24 * num);
-        return sqrdiscr == (long)sqrdiscr && (long)sqrdiscr % 6 == 5;
+    private bool IsPentagonal(int num) {
+        double n = (1 + Math.Sqrt(1 + 24 * num)) / 6;
+        return Math.Abs(n - Math.Round(n)) < 1e-10 && 2 * num ==
+            (int)Math.Round(n) * (3 * (int)Math.Round(n) - 1);
     }
 }

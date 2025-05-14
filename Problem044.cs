@@ -6,37 +6,35 @@ public class Problem044 : Problem {
         Print(FindMinimumD());
     }
 
-    private long FindMinimumD() {
-        List<long> pentagonNumbers = [];
-    
-        int n = 1;
+    private int FindMinimumD() {
+        int diffIndex = 1;
         while (true) {
-            long pn = Pentagon(n);
-            pentagonNumbers.Add(pn);
+            int doubleDiff = diffIndex * (3 * diffIndex - 1);
+            int divisor = 1;
 
-            for (int i = 0; i < pentagonNumbers.Count - 1; i++) {
-                long pnm = pentagonNumbers[i];
-                long diff = pn - pnm;
-                long sum = pn + pnm;
-                
-                if (IsPentagonal(diff) && IsPentagonal(sum)) {
-                    return diff;
+            while (divisor * divisor < doubleDiff) {
+                if (doubleDiff % divisor == 0) {
+                    int numerator = (doubleDiff / divisor - 3 * divisor + 1);
+                    if (numerator % 6 == 0) {
+                        int j = numerator / 6;
+                        int k = j + divisor;
+
+                        int pk = k * (3 * k - 1) >> 1;
+                        int pj = j * (3 * j - 1) >> 1;
+
+                        if (j > 0 && IsPentagonal(pk + pj) &&
+                            IsPentagonal(pk - pj)) return pk - pj;
+                    }
                 }
+                divisor++;
             }
-            
-            if (pn > 10_000_000) break;
-            n++;
+            diffIndex++;
         }
-
-        return -1;
     }
 
-    private static long Pentagon(int n) {
-        return n * (3L * n - 1) >>1;
-    }
-
-    private static bool IsPentagonal(long x) {
-        double n = (1 + Math.Sqrt(1 + 24 * x)) / 6;
-        return n == (long)n;
+    private bool IsPentagonal(int num) {
+        double n = (1 + Math.Sqrt(1 + 24 * num)) / 6;
+        return Math.Abs(n - Math.Round(n)) < 1e-10 && 2 * num ==
+            (int)Math.Round(n) * (3 * (int)Math.Round(n) - 1);
     }
 }

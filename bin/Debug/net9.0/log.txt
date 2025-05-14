@@ -8,7 +8,7 @@ Problem 3: 6857
 Solved in 0 ms 
 
 Problem 4: 906609
-Solved in 0 ms 
+Solved in 1 ms 
 
 Problem 5: 232792560
 Solved in 0 ms 
@@ -26,16 +26,16 @@ Problem 9: 31875000
 Solved in 1 ms 
 
 Problem 10: 142913828922
-Solved in 4 ms 
+Solved in 5 ms 
 
 Problem 11: 70600674
-Solved in 0 ms 
+Solved in 1 ms 
 
 Problem 12: 76576500
-Solved in 11 ms 
+Solved in 8 ms 
 
 Problem 13: 5537376230
-Solved in 0 ms 
+Solved in 2 ms 
 
 Problem 14: 837799
 Solved in 37 ms 
@@ -44,12 +44,12 @@ Problem 15: 137846528820
 Solved in 0 ms 
 
 Problem 16: 1366
-Solved in 6 ms 
+Solved in 3 ms 
 
 Problem 17: 21124
 Solved in 0 ms 
 
-Problem 18: 8701
+Problem 18: 1074
 Solved in 0 ms 
 
 Problem 19: 171
@@ -62,22 +62,22 @@ Problem 21: 31626
 Solved in 0 ms 
 
 Problem 22: 470720137
-Solved in 5 ms 
+Solved in 8 ms 
 
-Problem 23: 4179871
-Solved in 69 ms 
+Problem 23: 4179029
+Solved in 11 ms 
 
 Problem 24: 2783714330
 Solved in 0 ms 
 
 Problem 25: 4782
-Solved in 0 ms 
-
-Problem 26: 983
 Solved in 1 ms 
 
+Problem 26: 983
+Solved in 3 ms 
+
 Problem 27: -59231
-Solved in 2 ms 
+Solved in 3 ms 
 
 Problem 28: 669171001
 Solved in 0 ms 
@@ -92,7 +92,7 @@ Problem 31: 73682
 Solved in 0 ms 
 
 Problem 32: 45228
-Solved in 2 ms 
+Solved in 5 ms 
 
 Problem 33: 100
 Solved in 0 ms 
@@ -101,16 +101,16 @@ Problem 34: 40730
 Solved in 1 ms 
 
 Problem 35: 55
-Solved in 7 ms 
+Solved in 8 ms 
 
 Problem 36: 872187
 Solved in 0 ms 
 
 Problem 37: 748317
-Solved in 0 ms 
+Solved in 4 ms 
 
 Problem 38: 932718654
-Solved in 1 ms 
+Solved in 4 ms 
 
 Problem 39: 840
 Solved in 0 ms 
@@ -122,19 +122,19 @@ Problem 41: 7652413
 Solved in 0 ms 
 
 Problem 42: 162
-Solved in 0 ms 
-
-Problem 43: 16695334890
-Solved in 8 ms 
-
-Problem 44: 5482660
-Solved in 78 ms 
-
-Problem 45: 1533776805
 Solved in 2 ms 
 
+Problem 43: 16695334890
+Solved in 19 ms 
+
+Problem 44: 5482660
+Solved in 22 ms 
+
+Problem 45: 1533776805
+Solved in 1 ms 
+
 Problem 46: 5777
-Solved in 0 ms 
+Solved in 1 ms 
 
 Problem 47: 134043
 Solved in 5 ms 
@@ -146,8 +146,8 @@ Problem 49: 296962999629
 Solved in 0 ms 
 
 Problem 50: 997651
-Solved in 0 ms 
+Solved in 3 ms 
 
-Solved all problems in 246 ms
-Average solution time: 4 ms
-Slowest solution was 44, 78 ms
+Solved all problems in 165 ms
+Average solution time: 3 ms
+Slowest solution was 14, 37 ms
