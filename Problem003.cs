@@ -8,9 +8,9 @@ public class Problem003 : Problem {
     private long LargestPrimeFactor(long n) {
         long largestPrimeFactor = 0;
 
-        while (n % 2 == 0) {
+        while ((n & 1) == 0) {
             largestPrimeFactor = 2;
-            n /= 2;
+            n >>= 1;
         }
 
         while (n % 3 == 0) {

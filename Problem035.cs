@@ -1,5 +1,3 @@
-using System.Collections;
-
 namespace Project_Euler;
 
 public class Problem035 : Problem {
@@ -32,19 +30,21 @@ public class Problem035 : Problem {
 
         for (int i = 0; i < digits; i++) {
             if (!_isPrime[rotated]) return false;
-            
+
             int lastDigit = rotated % 10;
             rotated = rotated / 10 + lastDigit * powTen;
         }
+
         return true;
     }
-    
+
     private bool IsEvenOr5(int n) {
         while (n > 0) {
             int d = n % 10;
             if (d % 2 == 0 || d == 5) return true;
             n /= 10;
         }
+
         return false;
     }
 }

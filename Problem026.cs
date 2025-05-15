@@ -11,18 +11,15 @@ public class Problem026 : Problem {
 
         for (int d = 2; d < limit; d++) {
             if (maxLength >= d) continue;
-
             int[] seen = new int[d];
             int value = 1;
             int position = 0;
-
-            while (seen[value] == 0 && value != 0) {
+            while (value != 0 && seen[value] == 0) {
                 seen[value] = position++;
-                value = (value * 10) % d;
+                value = value * 10 % d;
             }
 
             int length = position - seen[value];
-
             if (length <= maxLength) continue;
             maxLength = length;
             result = d;

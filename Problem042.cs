@@ -1,9 +1,11 @@
 // ReSharper disable CompareOfFloatsByEqualityOperator
 // ReSharper disable ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
+
 namespace Project_Euler;
 
 public class Problem042 : Problem {
     private readonly List<string> _words;
+
     public Problem042() {
         Library.ReadFile("words.txt", out _words);
     }

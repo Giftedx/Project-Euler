@@ -1,21 +1,23 @@
 namespace Project_Euler;
 
 public class Problem002 : Problem {
+    private const int Limit = 4000000;
+
     public override void Solve() {
         Print(EvenFibSum());
     }
 
     private int EvenFibSum() {
-        const int limit = 4000000;
-        int even1 = 2;
-        int even2 = 8;
-        int sum = even1 + even2;
+        int fib1 = 2;
+        int fib2 = 8;
+        int sum = fib1 + fib2;
         while (true) {
-            int nextEven = 4 * even2 + even1;
-            if (nextEven >= limit) break;
-            sum += nextEven;
-            (even1 , even2) = (even2 , nextEven);
+            int nextFib = 4 * fib2 + fib1;
+            if (nextFib >= Limit) break;
+            sum += nextFib;
+            (fib1, fib2) = (fib2, nextFib);
         }
+
         return sum;
     }
 }

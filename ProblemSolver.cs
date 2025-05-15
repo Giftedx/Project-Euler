@@ -2,6 +2,8 @@ using System.Collections;
 using System.Diagnostics;
 using static System.Reflection.Assembly;
 
+// ReSharper disable RedundantAssignment
+
 namespace Project_Euler;
 
 public class ProblemSolver {
@@ -62,9 +64,7 @@ public class ProblemSolver {
         var watch = Stopwatch.StartNew();
         problem?.Solve();
         watch.Stop();
-        // ReSharper disable once RedundantAssignment
         problem = null;
-        //GC.Collect(2, GCCollectionMode.Forced);
         return watch.ElapsedMilliseconds;
     }
 }

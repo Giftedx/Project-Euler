@@ -60,22 +60,23 @@ public static class Library {
         for (int i = 2; i <= n; i++) factorial *= i;
         return factorial;
     }
-    
+
     public static int Pow10(int exp) {
         int res = 1;
         while (exp-- > 0) res *= 10;
         return res;
     }
-    
+
     public static int DigitCount(int n) {
         int count = 0;
         while (n > 0) {
             count++;
             n /= 10;
         }
+
         return count;
     }
-    
+
     //Boolean Checks
 
     public static bool IsPalindrome(int n) {
@@ -166,7 +167,7 @@ public static class Library {
             for (int j = i * i; j < n; j += i) isPrime[j] = false;
         }
     }
-    
+
     public static void SieveOfEratosthenes(int n, out BitArray isPrime) {
         isPrime = new BitArray(n, false);
         if (n < 2) return;

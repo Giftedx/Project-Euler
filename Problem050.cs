@@ -2,7 +2,6 @@ namespace Project_Euler;
 
 public class Problem050 : Problem {
     private const int Limit = 1000000;
-
     private readonly bool[] _isPrime;
 
     public Problem050() {

@@ -12,15 +12,12 @@ public class Problem030 : Problem {
 
         for (int i = 0; i < 10; i++) {
             powers[i] = 1;
-            for (int j = 0; j < 5; j++)
-                powers[i] *= i;
+            for (int j = 0; j < 5; j++) powers[i] *= i;
         }
 
-        for (int i = 0; i < 9; i++)
-            diffs[i] = powers[i + 1] - powers[i];
+        for (int i = 0; i < 9; i++) diffs[i] = powers[i + 1] - powers[i];
 
-        long sum = 0;
-        long sumPow = 1, number = 1;
+        long sum = 0, sumPow = 1, number = 1;
         int pos = 0;
         digits[pos] = 1;
 

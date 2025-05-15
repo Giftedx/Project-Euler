@@ -10,7 +10,7 @@ public class Problem004 : Problem {
         for (int i = 11; i < max; i += 11)
         for (int j = min; j < max; j++) {
             int result = i * j;
-            if (result > lpp && Library.IsPalindrome(result.ToString()))
+            if (result > lpp && Library.IsPalindrome(result))
                 lpp = result;
         }
 

@@ -10,11 +10,11 @@ public class Problem043 : Problem {
 
     private long SubStringDivisiblePandigitalSum() {
         long total = 0;
-        BuildAndTest("", ref total);
+        BuildPandigitalSum("", ref total);
         return total;
     }
 
-    private void BuildAndTest(string s, ref long total) {
+    private void BuildPandigitalSum(string s, ref long total) {
         switch (s.Length) {
             case > 3 when int.Parse(s.Substring(s.Length - 3, 3))
                 % _tests[s.Length - 4] != 0:
@@ -28,7 +28,7 @@ public class Problem043 : Problem {
             int index = i & 15;
             if (_used[index]) continue;
             _used[index] = true;
-            BuildAndTest(s + i, ref total);
+            BuildPandigitalSum(s + i, ref total);
             _used[index] = false;
         }
     }

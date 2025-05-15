@@ -1,11 +1,12 @@
 using System.Runtime.CompilerServices;
+
 namespace Project_Euler;
 
 public class Problem023 : Problem {
     private const int Limit = 20161;
     private readonly bool[] _isAbundant = new bool[Limit + 1];
     private int _smallestAbundant;
-    
+
     public override void Solve() {
         Print(SumOfNonAbundantBelow());
     }
@@ -19,6 +20,7 @@ public class Problem023 : Problem {
             _isAbundant[i] = true;
             abundantList[abundantCount++] = i;
         }
+
         _smallestAbundant = 12;
         long total = 0;
 
@@ -33,12 +35,14 @@ public class Problem023 : Problem {
             int a = abundantList[i];
             if ((a & 1) == 1) oddAbundants[oddAbunCount++] = a;
         }
+
         for (int k = 1; k < _smallestAbundant; k++)
-            if (IsAbundantSum(k, smallAbundantNumbers, smallAbundantCount)) 
+            if (IsAbundantSum(k, smallAbundantNumbers, smallAbundantCount))
                 total += k;
         for (int k = 49; k <= 956; k += 2) total += k;
-        for (int k = 957; k <= Limit; k += 2) 
-            if (!IsAbundantSum(k, oddAbundants, oddAbunCount)) total += k;
+        for (int k = 957; k <= Limit; k += 2)
+            if (!IsAbundantSum(k, oddAbundants, oddAbunCount))
+                total += k;
         return total;
     }
 
@@ -52,6 +56,7 @@ public class Problem023 : Problem {
             int div = n / i;
             if (div != i) sum += div;
         }
+
         return sum > n;
     }
 
@@ -63,6 +68,7 @@ public class Problem023 : Problem {
             if (k - x <= Limit && _isAbundant[k - x]) return true;
             if (x - _smallestAbundant > k) return false;
         }
+
         return false;
     }
 }

@@ -6,8 +6,8 @@ public class Problem009 : Problem {
     }
 
     private int PythagoreanTripletProduct(int n) {
-        for (int a = 1; a <= n; a++)
-        for (int b = a + 1; b <= n - a; b++) {
+        for (int a = 1; a < n / 3; a++)
+        for (int b = a + 1; b < n / 2; b++) {
             int c = n - a - b;
             if (IsTriplet(a, b, c)) return a * b * c;
         }

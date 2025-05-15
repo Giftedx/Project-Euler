@@ -1,8 +1,9 @@
 namespace Project_Euler;
 
 public class Problem041 : Problem {
-    private int _result;
     private bool _found;
+    private int _result;
+
     public override void Solve() {
         Print(MaxPandigitalPrime());
     }
@@ -17,6 +18,7 @@ public class Problem041 : Problem {
             GeneratePrimePermutations(perm, 0);
             if (_found) return _result;
         }
+
         return -1;
     }
 

@@ -6,18 +6,22 @@ public class Problem017 : Problem {
     }
 
     private int NumberLetterCount() {
-        int digits = CountLetters("one two three four five six seven eight nine");
-        int teens = CountLetters("ten eleven twelve thirteen fourteen fifteen" +
-                                 "sixteen seventeen eighteen nineteen");
-        int tens = CountLetters("twenty thirty forty fifty sixty seventy" +
-                                "eighty ninety");
-        int hundreds = CountLetters("hundred");
+        int digits = CountLetters("onetwothreefourfivesixseveneightnine");
+        int teens = CountLetters("teneleventwelvethirteenfourteenfifteen" +
+                                 "sixteenseventeeneighteennineteen");
+        int tens = CountLetters("twentythirtyfortyfiftysixtyseventyeightyninety");
+        int hundred = CountLetters("hundred");
         int and = CountLetters("and");
-        int oneToNinetyNine = digits + teens + tens + 9 * tens + 8 * digits;
-        int oneHundredToOneThousand = 100 * digits + 9 * hundreds;
-        oneHundredToOneThousand += 9 * 99 * (hundreds + and) + 9 * oneToNinetyNine;
-        oneHundredToOneThousand += CountLetters("one thousand");
-        return oneToNinetyNine + oneHundredToOneThousand;
+        int oneThousand = CountLetters("onethousand");
+
+        int oneToNinetyNine = digits + teens + 8 * digits + 10 * tens;
+        int hundredsPart = 100 * digits;
+        int andPart = 99 * 9 * and;
+        int subHundredPart = 9 * oneToNinetyNine;
+        int hundredText = 9 * 100 * hundred;
+
+        return oneToNinetyNine + hundredsPart + andPart +
+               subHundredPart + hundredText + oneThousand;
     }
 
     private static int CountLetters(string s) {

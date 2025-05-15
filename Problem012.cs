@@ -13,7 +13,7 @@ public class Problem012 : Problem {
             else divisorsCount = Tau(n) * Tau((n + 1) >> 1);
 
             if (divisorsCount > minDivisors)
-                return (long)n * (n + 1) >> 1;
+                return ((long)n * (n + 1)) >> 1;
 
             n++;
         }
@@ -22,8 +22,9 @@ public class Problem012 : Problem {
     private int Tau(int num) {
         int count = 0;
         int root = (int)Math.Sqrt(num);
-        for (int i = 1; i <= root; i++) 
-            if (num % i == 0) count += 2;
+        for (int i = 1; i <= root; i++)
+            if (num % i == 0)
+                count += 2;
         if (root * root == num) count--;
         return count;
     }

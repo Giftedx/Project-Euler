@@ -25,6 +25,7 @@ public class Problem037 : Problem {
                 if (IsPrime(next)) queue.Enqueue(next);
             }
         }
+
         return results.Sum();
     }
 
@@ -42,6 +43,7 @@ public class Problem037 : Problem {
             x %= div;
             div /= 10;
         }
+
         return true;
     }
 

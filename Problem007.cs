@@ -11,6 +11,7 @@ public class Problem007 : Problem {
             if (Library.IsPrime(i)) n--;
             i++;
         }
+
         return i - 1;
     }
 }

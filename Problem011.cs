@@ -29,63 +29,41 @@ public class Problem011 : Problem {
     }
 
     private int MaximumGridProduct() {
-        int hor = MaxHorizontalProduct();
-        int vert = MaxVerticalProduct();
-        int se = MaxDiagonalProductSe();
-        int sw = MaxDiagonalProductSw();
-
-        int max = hor;
-        if (vert > max) max = vert;
-        if (se > max) max = se;
-        if (sw > max) max = sw;
-        return max;
-    }
-
-    private int MaxDiagonalProductSw() {
         int maxProduct = 0;
-        for (int row = 3; row < _grid.GetLength(0); row++)
-        for (int col = 0; col < _grid.GetLength(1) - 4; col++) {
-            int product = 1;
-            for (int i = 0; i < 4; i++) product *= _grid[row - i, col + i];
-            if (product > maxProduct) maxProduct = product;
+        int rows = _grid.GetLength(0);
+        int cols = _grid.GetLength(1);
+
+        int[][] directions = new int[][] {
+            [0, 1], [1, 0], [1, 1], [-1, 1]
+        };
+
+        foreach (int[] dir in directions) {
+            int dx = dir[0], dy = dir[1];
+
+            for (int row = 0; row < rows; row++)
+            for (int col = 0; col < cols; col++) {
+                if (!IsInBounds(row, col, dx, dy, rows, cols)) continue;
+                int product = 1;
+                for (int i = 0; i < 4; i++) {
+                    int val = _grid[row + i * dx, col + i * dy];
+                    if (val == 0) {
+                        product = 0;
+                        break;
+                    }
+
+                    product *= val;
+                }
+
+                if (product > maxProduct) maxProduct = product;
+            }
         }
 
         return maxProduct;
     }
 
-    private int MaxDiagonalProductSe() {
-        int maxProduct = 0;
-        for (int row = 0; row < _grid.GetLength(0) - 4; row++)
-        for (int col = 0; col < _grid.GetLength(1) - 4; col++) {
-            int product = 1;
-            for (int i = 0; i < 4; i++) product *= _grid[row + i, col + i];
-            if (product > maxProduct) maxProduct = product;
-        }
-
-        return maxProduct;
-    }
-
-    private int MaxVerticalProduct() {
-        int maxProduct = 0;
-        for (int row = 0; row < _grid.GetLength(0) - 4; row++)
-        for (int col = 0; col < _grid.GetLength(1); col++) {
-            int product = 1;
-            for (int i = 0; i < 4; i++) product *= _grid[row + i, col];
-            if (product > maxProduct) maxProduct = product;
-        }
-
-        return maxProduct;
-    }
-
-    private int MaxHorizontalProduct() {
-        int maxProduct = 0;
-        for (int row = 0; row < _grid.GetLength(0); row++)
-        for (int col = 0; col < _grid.GetLength(1) - 4; col++) {
-            int product = 1;
-            for (int i = 0; i < 4; i++) product *= _grid[row, col + i];
-            if (product > maxProduct) maxProduct = product;
-        }
-
-        return maxProduct;
+    private bool IsInBounds(int row, int col, int dx, int dy, int rows, int cols) {
+        int endRow = row + 3 * dx;
+        int endCol = col + 3 * dy;
+        return endRow >= 0 && endRow < rows && endCol >= 0 && endCol < cols;
     }
 }

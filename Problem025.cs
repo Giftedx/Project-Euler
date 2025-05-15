@@ -1,5 +1,3 @@
-using System.Numerics;
-
 namespace Project_Euler;
 
 public class Problem025 : Problem {
@@ -9,7 +7,7 @@ public class Problem025 : Problem {
 
     private int FibonacciNDigits(int n) {
         double phi = (1 + Math.Sqrt(5)) / 2;
-        double log10Phi = Math.Log10(phi);  // log10(φ)
+        double log10Phi = Math.Log10(phi); // log10(φ)
         double log10Sqrt5 = Math.Log10(Math.Sqrt(5)); // log10(√5)
 
         int index = 1;

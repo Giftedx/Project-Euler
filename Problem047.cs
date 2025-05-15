@@ -19,7 +19,8 @@ public class Problem047 : Problem {
             if (factorCounts[i] == 4 &&
                 factorCounts[i + 1] == 4 &&
                 factorCounts[i + 2] == 4 &&
-                factorCounts[i + 3] == 4) return i;
+                factorCounts[i + 3] == 4)
+                return i;
         return -1;
     }
 }

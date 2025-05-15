@@ -1,52 +1,55 @@
-using System.Collections;
-using System.Numerics;
-using System.Runtime.CompilerServices;
-
-// ReSharper disable CompareOfFloatsByEqualityOperator
-
 namespace Project_Euler;
 
 public class Test {
-    //private bool[] _isPrime;
-    /*public Test() {
-        Library.SieveOfEratosthenes(1000000, out _isPrime);
-    }*/
+    private const int Limit = 10000;
+    private readonly bool[] _isPrime;
+
+    public Test() {
+        Library.SieveOfEratosthenes(Limit, out _isPrime);
+    }
 
     public void Solve() {
-        
-        Console.WriteLine(FindMinimumDifference());
+        Console.WriteLine(OtherPrimePermuteConcat());
     }
 
-    
-    private int FindMinimumDifference() {
-        int m = 1;
-        while (true) {
-            int diff2 = m * (3 * m - 1);
-            int d = 1;
+    private string OtherPrimePermuteConcat() {
+        const int gap = 3330;
+        // Iterate over odd numbers starting from 1001 up to Limit
+        for (int i = 1001; i < Limit; i += 2) {
+            // Skip if the number is not prime
+            if (!_isPrime[i]) continue;
 
-            while (d * d < diff2) {
-                if (diff2 % d == 0) {
-                    int numerator = (diff2 / d - 3 * d + 1);
-                    if (numerator % 6 == 0) {
-                        int j = numerator / 6;
-                        int k = j + d;
+            // Calculate the two other numbers with the same difference
+            int i1 = i + gap;
+            int i2 = i1 + gap;
 
-                        int pk = k * (3 * k - 1) / 2;
-                        int pj = j * (3 * j - 1) / 2;
-
-                        if (j > 0 && IsPentagonal(pk + pj) &&
-                            IsPentagonal(pk - pj)) return pk - pj;
-                    }
-                }
-                d++;
-            }
-            m++;
+            // Check if both i1 and i2 are prime and have the same digits as i
+            if (i1 < Limit && _isPrime[i1] && SameDigits(i, i1) &&
+                i2 < Limit && _isPrime[i2] && SameDigits(i, i2) &&
+                i != 1487 && i != 4817 && i != 8147)
+                return $"{i}{i1}{i2}";
         }
+
+        return ":(";
     }
 
-    private bool IsPentagonal(int num) {
-        double n = (1 + Math.Sqrt(1 + 24 * num)) / 6;
-        return Math.Abs(n - Math.Round(n)) < 1e-10 && 2 * num ==
-            (int)Math.Round(n) * (3 * (int)Math.Round(n) - 1);
+    private bool SameDigits(int n, int m) {
+        // Check if two numbers have the same digits
+        int[] counter = new int[10];
+
+        // Count digits for n and m
+        while (n > 0) {
+            counter[n % 10]++;
+            counter[m % 10]--;
+            n /= 10;
+            m /= 10;
+        }
+
+        // If the counter is not zero for any digit, they are not the same
+        foreach (int t in counter)
+            if (t != 0)
+                return false;
+
+        return true;
     }
 }

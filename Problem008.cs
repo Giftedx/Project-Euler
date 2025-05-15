@@ -17,7 +17,6 @@ public class Problem008 : Problem {
             long product = 1;
             string strNum = digitString.Substring(i, 13);
             foreach (char c in strNum) product *= c & 15;
-
             if (product > highest) highest = product;
         }
 

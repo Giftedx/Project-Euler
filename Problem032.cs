@@ -7,14 +7,14 @@ public class Problem032 : Problem {
 
     private int SumPandigitalProducts() {
         HashSet<int> products = [];
-        
+
         for (int a = 1; a < 10; a++)
         for (int b = 1234; b < 9877; b++) {
             int c = a * b;
             if (c > 9999) continue;
             if (IsPandigital(a, b, c)) products.Add(c);
         }
-        
+
         for (int a = 12; a < 100; a++)
         for (int b = 123; b < 988; b++) {
             int c = a * b;
@@ -28,7 +28,7 @@ public class Problem032 : Problem {
     private bool IsPandigital(int a, int b, int c) {
         Span<byte> digits = stackalloc byte[10];
         int totalDigits = 0;
-        
+
         if (!CheckDigits(a, digits, ref totalDigits)) return false;
         if (!CheckDigits(b, digits, ref totalDigits)) return false;
         if (!CheckDigits(c, digits, ref totalDigits)) return false;
@@ -43,6 +43,7 @@ public class Problem032 : Problem {
             number /= 10;
             total++;
         }
+
         return true;
     }
 }

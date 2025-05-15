@@ -17,12 +17,13 @@ public class Problem049 : Problem {
         const int gap = 3330;
         for (int i = 1001; i < Limit; i += 2) {
             if (!_isPrime[i]) continue;
+
             int i1 = i + gap;
             int i2 = i1 + gap;
-            if (i1 < Limit && _isPrime[i1] && SameDigits(i1, i) &&
-                i2 < Limit && _isPrime[i2] && SameDigits(i2, i) &&
-                i != 1487 && i != 4817 && i != 8147)
-                return $"{i}{i1}{i2}";
+
+            if (i1 < Limit && _isPrime[i1] && SameDigits(i, i1) &&
+                i2 < Limit && _isPrime[i2] && SameDigits(i, i2) &&
+                i != 1487 && i != 4817 && i != 8147) return $"{i}{i1}{i2}";
         }
 
         return ":(";
@@ -30,6 +31,7 @@ public class Problem049 : Problem {
 
     private bool SameDigits(int n, int m) {
         int[] counter = new int[10];
+
         while (n > 0) {
             counter[n % 10]++;
             counter[m % 10]--;

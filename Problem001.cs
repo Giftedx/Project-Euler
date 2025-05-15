@@ -6,11 +6,17 @@ public class Problem001 : Problem {
     }
 
     private int SumMultiples(int m1, int m2, int n) {
-        int sum = 0;
-        for (int i = 0; i < n; i++)
-            if (i % m1 == 0 || i % m2 == 0)
-                sum += i;
+        return SumDivisibleBy(m1, n - 1) +
+               SumDivisibleBy(m2, n - 1) -
+               SumDivisibleBy(Lcm(m1, m2), n - 1);
+    }
 
-        return sum;
+    private int SumDivisibleBy(int m, int limit) {
+        int p = limit / m;
+        return m * p * (p + 1) / 2;
+    }
+
+    private int Lcm(int a, int b) {
+        return a / Library.Gcd(a, b) * b;
     }
 }

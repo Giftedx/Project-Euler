@@ -7,7 +7,7 @@ public class Problem010 : Problem {
     public Problem010() {
         Library.SieveOfEratosthenes(Limit, out _isPrime);
     }
-    
+
     public override void Solve() {
         Print(SumPrimesBelow());
     }
@@ -15,7 +15,8 @@ public class Problem010 : Problem {
     private long SumPrimesBelow() {
         long sum = 2;
         for (int i = 3; i < _isPrime.Length; i += 2)
-            if (_isPrime[i]) sum += i;
+            if (_isPrime[i])
+                sum += i;
         return sum;
     }
 }

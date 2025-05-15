@@ -10,7 +10,7 @@ public class Problem034 : Problem {
     private int SumCurious() {
         FillFactorials();
         int sum = 0;
-        const int upperBound = 50000;//7 * _factorials[9];
+        const int upperBound = 50000; //7 * _factorials[9];
         for (int i = 3; i < upperBound; i += 2)
             if (i == FactorialDigitsSum(i))
                 sum += i;

@@ -21,14 +21,14 @@ public class Problem040 : Problem {
             count *= 10;
             start *= 10;
         }
-        
+
         int number = start + (pos - 1) / length;
-        
+
         int fromLeft = (pos - 1) % length;
         int fromRight = length - fromLeft - 1;
         for (int i = 0; i < fromRight; i++)
             number /= 10;
-        
+
 
         return number % 10;
     }
