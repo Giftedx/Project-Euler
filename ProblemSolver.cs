@@ -1,70 +1,118 @@
-using System.Collections;
 using System.Diagnostics;
 using static System.Reflection.Assembly;
-
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
 // ReSharper disable RedundantAssignment
-
 namespace Project_Euler;
 
 public class ProblemSolver {
-    private readonly ArrayList _solvedProblems;
+    private readonly List<Problem> _solvedProblems;
 
     public ProblemSolver() {
-        GetSolvedProblems(out _solvedProblems);
+        _solvedProblems = GetSolvedProblems();
     }
 
-    public int GetProblemCount() {
-        return _solvedProblems.Count;
-    }
+    public int GetProblemCount() => _solvedProblems.Count;
+    
 
-    private void GetSolvedProblems(out ArrayList solvedProblems) {
-        solvedProblems = new ArrayList();
+    private List<Problem> GetSolvedProblems() {
         var allTypes = GetAssembly(typeof(Problem))?.GetTypes() ?? Type.EmptyTypes;
-        foreach (var type in allTypes)
-            if (type.IsSubclassOf(typeof(Problem)))
-                solvedProblems.Add(Activator.CreateInstance(type) as Problem);
+
+        return allTypes
+            .Where(t => t.IsSubclassOf(typeof(Problem)))
+            .Select(t => Activator.CreateInstance(t) as Problem)
+            .Where(p => p != null)
+            .ToList();
     }
 
     public void SolveIndividual(string problem) {
         int n = Convert.ToInt32(problem);
-        Library.FunPrint("Problem " + n + ": ");
-        long time = Solve(n);
-        Console.WriteLine("Solved in " + time + " ms");
+        Library.FunPrint($"Problem {n}: ");
+        double time = Solve(n, runs: 1, true);
+        Console.WriteLine($"Solved in {time} ms");
     }
 
     public void SolveAll() {
         const string file = "log.txt";
-        var fs = new FileStream(file, FileMode.Create);
-        var temp = Console.Out;
-        var sw = new StreamWriter(fs);
-        Console.SetOut(sw);
-        long timeSum = 0, slowestTime = 0;
-        int slowest = 0;
-        for (int i = 1; i <= _solvedProblems.Count; i++) {
-            Console.Write("Problem " + i + ": ");
-            long time = Solve(i);
-            Console.WriteLine("Solved in " + time + " ms \n");
-            timeSum += time;
-            if (time <= slowestTime) continue;
-            slowestTime = time;
-            slowest = i;
+        StreamWriter sw = null;
+        TextWriter originalOut = Console.Out;
+        
+        try
+        {
+            sw = new StreamWriter(new FileStream(file, FileMode.Create));
+            Console.SetOut(sw);
+
+            double totalTime = 0;
+            double slowestTime = 0;
+            int slowestProblem = 0;
+            
+
+            for (int i = 1; i <= _solvedProblems.Count; i++)
+            {
+                Console.Write($"Problem {i}: ");
+                double minTime = Solve(i, runs: 100, true);
+                Console.WriteLine($"Best of 100: {minTime:F3} ms\n");
+
+                totalTime += minTime;
+
+                if (minTime > slowestTime)
+                {
+                    slowestTime = minTime;
+                    slowestProblem = i;
+                }
+            }
+
+            double averageTime = totalTime / _solvedProblems.Count;
+            Console.WriteLine($"Solved all problems in {totalTime:F3} ms");
+            Console.WriteLine($"Average best solution time: {averageTime:F3} ms");
+            Console.WriteLine($"Slowest best time: Problem {slowestProblem}, {slowestTime:F3} ms");
+
+            Console.SetOut(originalOut);
+            Library.FunPrint($"Results output to {file}, {totalTime:F3} ms total");
+        }finally {
+            Console.SetOut(originalOut);
+            sw?.Dispose();
+        }
+    }
+    
+    private double Solve(int n, int runs, bool showOutput)
+    {
+        if (n < 1 || n > _solvedProblems.Count)
+            throw new ArgumentOutOfRangeException(nameof(n), "Problem number out of range");
+
+        double minTime = double.MaxValue;
+        var originalOut = Console.Out;
+
+        for (int i = 0; i < runs; i++)
+        {
+            var problem = _solvedProblems[n - 1];
+
+            if (i == 0 && showOutput)
+            {
+                // First run with output
+                var watch = Stopwatch.StartNew();
+                problem.Solve();
+                watch.Stop();
+                double time = watch.Elapsed.TotalMilliseconds;
+                minTime = time;
+            }
+            else
+            {
+                // Suppress output for benchmark runs
+                using var sw = new StringWriter();
+                Console.SetOut(sw);
+
+                var watch = Stopwatch.StartNew();
+                problem.Solve();
+                watch.Stop();
+                double time = watch.Elapsed.TotalMilliseconds;
+                if (time < minTime)
+                    minTime = time;
+
+                Console.SetOut(originalOut);
+            }
         }
 
-        long averageTime = timeSum / _solvedProblems.Count;
-        Console.WriteLine("Solved all problems in {0} ms", timeSum);
-        Console.WriteLine("Average solution time: {0} ms", averageTime);
-        Console.WriteLine("Slowest solution was {0}, {1} ms", slowest, slowestTime);
-        Console.SetOut(temp);
-        Library.FunPrint("Results output to " + file + ", " + timeSum + " ms total");
-        sw.Close();
-    }
-
-    private long Solve(int n) {
-        var problem = _solvedProblems[n - 1] as Problem;
-        var watch = Stopwatch.StartNew();
-        problem?.Solve();
-        watch.Stop();
-        problem = null;
-        return watch.ElapsedMilliseconds;
+        return minTime;
     }
 }

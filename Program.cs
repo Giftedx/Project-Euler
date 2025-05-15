@@ -8,8 +8,9 @@ internal class Program {
         var solver = new ProblemSolver();
         int problemCount = solver.GetProblemCount();
         Library.FunPrint("Project Euler Solver");
+        
         do {
-            Console.WriteLine(" ");
+            Console.WriteLine();
             string input = prog.GetInput(problemCount);
             switch (input) {
                 case "a":
@@ -26,30 +27,28 @@ internal class Program {
     }
 
     private string GetInput(int count) {
-        bool valid;
         string input;
         do {
             Library.FunPrint("Enter 'a' to solve all problems.");
-            Library.FunPrint("Enter Problem to solve (1 - " + count + "): ");
+            Library.FunPrint($"Enter Problem to solve (1 - {count}): ");
             input = Console.ReadLine() ?? string.Empty;
-            Console.WriteLine(" ");
-            valid = ValidInput(input, count);
-            if (!valid) Library.FunPrint("Invalid input");
-        } while (!valid);
-
+            Console.WriteLine();
+            if(!ValidInput(input, count))
+                Library.FunPrint("Invalid input. Please try again.");
+        } while (!ValidInput(input, count));
         return input;
     }
 
     private bool ValidInput(string input, int count) {
-        bool numeric = int.TryParse(input, out int num);
-        if (numeric) return num > 0 && num <= count;
+        if (int.TryParse(input, out int num)) 
+            return num > 0 && num <= count;
         return input is "a" or "t";
     }
 
     private bool RunAgain() {
         Library.FunPrint("Press any to run program again, Space to exit.");
-        var input = Console.ReadKey();
-        return input.Key != ConsoleKey.Spacebar;
+        var input = Console.ReadKey(intercept:true).Key;
+        return input != ConsoleKey.Spacebar;
     }
 
     private void Test() {
@@ -57,8 +56,6 @@ internal class Program {
         var watch = Stopwatch.StartNew();
         test.Solve();
         watch.Stop();
-        test = null;
-        //GC.Collect(2, GCCollectionMode.Forced);
-        Console.WriteLine("{0} ms", watch.ElapsedMilliseconds);
+        Console.WriteLine($"{watch.ElapsedMilliseconds} ms");
     }
 }

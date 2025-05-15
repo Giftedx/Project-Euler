@@ -15,15 +15,15 @@ public static class Library {
             Thread.Sleep(wait);
         }
 
-        Console.WriteLine("");
+        Console.WriteLine();
     }
 
     public static void ReadFile(string fileName, out List<string> data) {
-        string basePath = AppDomain.CurrentDomain.BaseDirectory;
-        string filePath = basePath + fileName;
-        string fileContent = File.ReadAllText(filePath);
-        fileContent = fileContent.Replace("\"", "");
-        data = fileContent.Split(',').ToList();
+        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+        data = File.ReadAllText(filePath)
+            .Replace("\"", "")
+            .Split(',')
+            .ToList();
     }
 
     //Maths tasks.
@@ -159,12 +159,13 @@ public static class Library {
 
     public static void SieveOfEratosthenes(int n, out bool[] isPrime) {
         isPrime = new bool[n];
-        for (int i = 0; i < isPrime.Length; i++) isPrime[i] = true;
-        isPrime[0] = false;
-        isPrime[1] = false;
-        for (int i = 2; i < Math.Sqrt(n); i++) {
+        if (n <= 2) return;
+        Array.Fill(isPrime, true, 2, n - 2);
+        int limit = (int)Math.Sqrt(n) + 1;
+        for (int i = 2; i < limit; i++) {
             if (!isPrime[i]) continue;
-            for (int j = i * i; j < n; j += i) isPrime[j] = false;
+            for (int j = i * i; j < n; j += i)
+                isPrime[j] = false;
         }
     }
 
@@ -173,7 +174,7 @@ public static class Library {
         if (n < 2) return;
         isPrime[2] = true;
         for (int i = 3; i < n; i += 2) isPrime[i] = true;
-        int limit = (int)Math.Sqrt(n);
+        int limit = (int)Math.Sqrt(n) + 1;
         for (int i = 3; i <= limit; i += 2) {
             if (!isPrime[i]) continue;
             for (int j = i * i; j < n; j += 2 * i) isPrime[j] = false;
@@ -181,10 +182,6 @@ public static class Library {
     }
 
     public static void GetPrimeList(IList<int> numbers, out HashSet<int> primeSet) {
-        var primeNumbers = new ConcurrentBag<int>();
-        Parallel.ForEach(numbers, number => {
-            if (IsPrime(number)) primeNumbers.Add(number);
-        });
-        primeSet = new HashSet<int>(primeNumbers);
+        primeSet = numbers.AsParallel().Where(IsPrime).ToHashSet();
     }
 }

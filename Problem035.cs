@@ -1,10 +1,11 @@
 namespace Project_Euler;
 
 public class Problem035 : Problem {
+    private const int Limit = 1000000;
     private readonly bool[] _isPrime;
 
     public Problem035() {
-        Library.SieveOfEratosthenes(1000000, out _isPrime);
+        Library.SieveOfEratosthenes(Limit, out _isPrime);
     }
 
     public override void Solve() {
