@@ -28,7 +28,7 @@ public class ProblemSolver {
     public void SolveIndividual(string problem) {
         int n = Convert.ToInt32(problem);
         Library.FunPrint($"Problem {n}: ");
-        double time = Solve(n, runs: 1, true);
+        double time = Solve(n, runs: 1);
         Console.WriteLine($"Solved in {time} ms");
     }
 
@@ -47,19 +47,16 @@ public class ProblemSolver {
             int slowestProblem = 0;
             
 
-            for (int i = 1; i <= _solvedProblems.Count; i++)
-            {
+            for (int i = 1; i <= _solvedProblems.Count; i++) {
                 Console.Write($"Problem {i}: ");
-                double minTime = Solve(i, runs: 100, true);
+                double minTime = Solve(i, runs: 100);
                 Console.WriteLine($"Best of 100: {minTime:F3} ms\n");
 
                 totalTime += minTime;
 
-                if (minTime > slowestTime)
-                {
-                    slowestTime = minTime;
-                    slowestProblem = i;
-                }
+                if (!(minTime > slowestTime)) continue;
+                slowestTime = minTime;
+                slowestProblem = i;
             }
 
             double averageTime = totalTime / _solvedProblems.Count;
@@ -75,44 +72,22 @@ public class ProblemSolver {
         }
     }
     
-    private double Solve(int n, int runs, bool showOutput)
-    {
-        if (n < 1 || n > _solvedProblems.Count)
-            throw new ArgumentOutOfRangeException(nameof(n), "Problem number out of range");
-
+    private double Solve(int n, int runs) {
         double minTime = double.MaxValue;
         var originalOut = Console.Out;
-
-        for (int i = 0; i < runs; i++)
-        {
+        using var sw = new StringWriter();
+        for (int i = 0; i < runs; i++) {
             var problem = _solvedProblems[n - 1];
-
-            if (i == 0 && showOutput)
-            {
-                // First run with output
-                var watch = Stopwatch.StartNew();
-                problem.Solve();
-                watch.Stop();
-                double time = watch.Elapsed.TotalMilliseconds;
-                minTime = time;
-            }
-            else
-            {
-                // Suppress output for benchmark runs
-                using var sw = new StringWriter();
-                Console.SetOut(sw);
-
-                var watch = Stopwatch.StartNew();
-                problem.Solve();
-                watch.Stop();
-                double time = watch.Elapsed.TotalMilliseconds;
-                if (time < minTime)
-                    minTime = time;
-
-                Console.SetOut(originalOut);
-            }
+            if (i != 0) Console.SetOut(sw);
+            
+            var watch = Stopwatch.StartNew();
+            problem.Solve();
+            watch.Stop();
+            
+            double time = watch.Elapsed.TotalMilliseconds;
+            if (time < minTime) minTime = time;
+            if (i != 0) Console.SetOut(originalOut);
         }
-
         return minTime;
     }
 }

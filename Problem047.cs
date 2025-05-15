@@ -7,7 +7,7 @@ public class Problem047 : Problem {
 
     private int FirstInFourPrimeRun() {
         const int limit = 200000;
-        int[] factorCounts = new int[limit];
+        byte[] factorCounts = new byte[limit];
 
         for (int i = 2; i < limit; i++) {
             if (factorCounts[i] != 0) continue;

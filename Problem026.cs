@@ -8,10 +8,10 @@ public class Problem026 : Problem {
     private int GetLongestCycleDenominator(int limit) {
         int maxLength = 0;
         int result = 0;
-
+        int[] seen = new int[limit];
         for (int d = 2; d < limit; d++) {
             if (maxLength >= d) continue;
-            int[] seen = new int[d];
+            
             int value = 1;
             int position = 0;
             while (value != 0 && seen[value] == 0) {
