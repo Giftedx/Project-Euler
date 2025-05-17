@@ -11,14 +11,13 @@ public class Problem044 : Problem {
         int pentagonGap = 1;
         int currentPentagon = 1;
 
-        while (true)
-        {
+        while (true) {
             pentagonGap += 3;
             currentPentagon += pentagonGap;
 
             int triangleFactor = 2 + pentagonGap % 9;
             int triangleGap = 3 * triangleFactor + 12;
-            int difference = currentPentagon - triangleFactor * 
+            int difference = currentPentagon - triangleFactor *
                 (triangleFactor - 1) / 6;
 
             while (triangleFactor <= difference) {
@@ -27,12 +26,12 @@ public class Problem044 : Problem {
                     int delta = 1 + 24 * (j * (3 * j - 1) + currentPentagon);
                     int sqrtDelta = (int)Math.Sqrt(delta);
 
-                    if (sqrtDelta * sqrtDelta == delta && sqrtDelta % 6 == 5) 
+                    if (sqrtDelta * sqrtDelta == delta && sqrtDelta % 6 == 5)
                         return currentPentagon;
                 }
 
                 if (difference < triangleGap) break;
-                
+
                 triangleFactor += 9;
                 difference -= triangleGap;
                 triangleGap += 27;

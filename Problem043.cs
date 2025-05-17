@@ -16,7 +16,7 @@ public class Problem043 : Problem {
     }
 
     private void BuildPandigitalSum(int depth, char[] buffer, ref long total) {
-        if (depth >= 4 && depth <= 10) {
+        if (depth is >= 4 and <= 10) {
             int value = (buffer[depth - 3] & 15) * 100 +
                         (buffer[depth - 2] & 15) * 10 +
                         (buffer[depth - 1] & 15);

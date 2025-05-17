@@ -2,7 +2,7 @@ namespace Project_Euler;
 
 public class Problem017 : Problem {
     public override object Solve() {
-         return NumberLetterCount();
+        return NumberLetterCount();
     }
 
     private int NumberLetterCount() {

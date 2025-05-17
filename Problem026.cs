@@ -4,7 +4,7 @@ public class Problem026 : Problem {
     public override object Solve() {
         return GetLongestCycleDenominator(1000);
     }
-    
+
     private int GetLongestCycleDenominator(int limit) {
         int maxCycleLength = 0;
         int denominatorWithMaxCycle = 0;
@@ -28,7 +28,7 @@ public class Problem026 : Problem {
         int position = 0;
 
         do {
-            remainder = (remainder * 10) % d;
+            remainder = remainder * 10 % d;
             position++;
         } while (remainder != 1 && remainder != 0);
 

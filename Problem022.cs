@@ -1,4 +1,5 @@
 // ReSharper disable ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
+
 namespace Project_Euler;
 
 public class Problem022 : Problem {

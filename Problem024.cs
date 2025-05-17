@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Text;
-
 namespace Project_Euler;
 
 public class Problem024 : Problem {
@@ -20,8 +17,8 @@ public class Problem024 : Problem {
             int i = (int)(target / fn);
             target -= (ulong)i * fn;
             number[nDigits++] = digits[i];
-            
-            for (int r = i; r < n; r++) 
+
+            for (int r = i; r < n; r++)
                 digits[r] = digits[r + 1];
         }
 

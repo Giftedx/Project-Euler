@@ -1,15 +1,12 @@
-using static Project_Euler.Library;
-
 namespace Project_Euler;
 
 public class Test {
-    public Test() {
-        //Library.SieveOfEratosthenes(Limit, out _isPrime);
-    }
-
+    /* public Test() {
+         Library.SieveOfEratosthenes(Limit, out _isPrime);
+     }*/
+    
     public void Solve() {
-        Console.WriteLine();
+        Console.WriteLine("no tests atm :)");
     }
 
-   
 }
