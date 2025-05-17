@@ -107,8 +107,8 @@ public class Problem013 : Problem {
         Parse("53503534226472524250874054075591789781264330331690")
     ];
 
-    public override void Solve() {
-        Print(FirstTenDigits(BigSum().ToString()));
+    public override object Solve() {
+        return FirstTenDigits(BigSum().ToString());
     }
 
     private string FirstTenDigits(string s) {

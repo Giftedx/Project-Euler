@@ -3,8 +3,8 @@ using System.Numerics;
 namespace Project_Euler;
 
 public class Problem015 : Problem {
-    public override void Solve() {
-        Print(LatticePaths(20, 20));
+    public override object Solve() {
+        return LatticePaths(20, 20);
     }
 
     private BigInteger LatticePaths(int i, int j) {

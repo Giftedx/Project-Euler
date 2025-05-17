@@ -3,8 +3,8 @@ using System.Numerics;
 namespace Project_Euler;
 
 public class Problem048 : Problem {
-    public override void Solve() {
-        Print(SelfPowSumLastTen());
+    public override object Solve() {
+        return SelfPowSumLastTen();
     }
 
     private BigInteger SelfPowSumLastTen() {

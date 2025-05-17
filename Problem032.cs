@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem032 : Problem {
-    public override void Solve() {
-        Print(SumPandigitalProducts());
+    public override object Solve() {
+        return SumPandigitalProducts();
     }
 
     private int SumPandigitalProducts() {

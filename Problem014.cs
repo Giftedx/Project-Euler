@@ -3,8 +3,8 @@ namespace Project_Euler;
 public class Problem014 : Problem {
     private static uint _threshold;
 
-    public override void Solve() {
-        Print(FindBestCandidate((uint)1e6));
+    public override object Solve() {
+        return FindBestCandidate((uint)1e6);
     }
 
     private static uint FindBestCandidate(uint maxLimit) {

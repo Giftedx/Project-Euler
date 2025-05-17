@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem003 : Problem {
-    public override void Solve() {
-        Print(LargestPrimeFactor(600851475143));
+    public override object Solve() {
+        return LargestPrimeFactor(600851475143);
     }
 
     private long LargestPrimeFactor(long n) {

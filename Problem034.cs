@@ -3,8 +3,8 @@ namespace Project_Euler;
 public class Problem034 : Problem {
     private readonly int[] _factorials = new int[10];
 
-    public override void Solve() {
-        Print(SumCurious());
+    public override object Solve() {
+        return SumCurious();
     }
 
     private int SumCurious() {

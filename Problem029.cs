@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem029 : Problem {
-    public override void Solve() {
-        Print(DistinctPowers());
+    public override object Solve() {
+        return DistinctPowers();
     }
 
     private long DistinctPowers() {

@@ -3,8 +3,8 @@ namespace Project_Euler;
 public class Problem031 : Problem {
     private readonly int[] _coins = [1, 2, 5, 10, 20, 50, 100, 200];
 
-    public override void Solve() {
-        Print(CoinCombosForN(200));
+    public override object Solve() {
+        return CoinCombosForN(200);
     }
 
     private int CoinCombosForN(int n) {

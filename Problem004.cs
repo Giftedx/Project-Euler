@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem004 : Problem {
-    public override void Solve() {
-        Print(LargestPalindromeProduct(100, 1000));
+    public override object Solve() {
+        return LargestPalindromeProduct(100, 1000);
     }
 
     private int LargestPalindromeProduct(int min, int max) {

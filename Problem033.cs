@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem033 : Problem {
-    public override void Solve() {
-        Print(DigitCancellingFractions());
+    public override object Solve() {
+        return DigitCancellingFractions();
     }
 
     private int DigitCancellingFractions() {

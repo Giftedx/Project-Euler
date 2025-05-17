@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem021 : Problem {
-    public override void Solve() {
-        Print(AmicableSumBelow(10000));
+    public override object Solve() {
+        return AmicableSumBelow(10000);
     }
 
     private int AmicableSumBelow(int n) {

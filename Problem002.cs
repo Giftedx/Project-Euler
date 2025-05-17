@@ -3,8 +3,8 @@ namespace Project_Euler;
 public class Problem002 : Problem {
     private const int Limit = 4000000;
 
-    public override void Solve() {
-        Print(EvenFibSum());
+    public override object Solve() {
+        return EvenFibSum();
     }
 
     private int EvenFibSum() {

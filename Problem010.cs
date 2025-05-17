@@ -8,8 +8,8 @@ public class Problem010 : Problem {
         Library.SieveOfEratosthenes(Limit, out _isPrime);
     }
 
-    public override void Solve() {
-        Print(SumPrimesBelow());
+    public override object Solve() {
+        return SumPrimesBelow();
     }
 
     private long SumPrimesBelow() {

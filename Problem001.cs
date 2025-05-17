@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem001 : Problem {
-    public override void Solve() {
-        Print(SumMultiples(3, 5, 1000));
+    public override object Solve() {
+        return SumMultiples(3, 5, 1000);
     }
 
     private int SumMultiples(int m1, int m2, int n) {

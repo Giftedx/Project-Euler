@@ -4,8 +4,8 @@ public class Problem041 : Problem {
     private bool _found;
     private int _result;
 
-    public override void Solve() {
-        Print(MaxPandigitalPrime());
+    public override object Solve() {
+        return MaxPandigitalPrime();
     }
 
     private int MaxPandigitalPrime() {

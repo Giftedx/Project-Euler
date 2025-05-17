@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem025 : Problem {
-    public override void Solve() {
-        Print(FibonacciNDigits(1000));
+    public override object Solve() {
+        return FibonacciNDigits(1000);
     }
 
     private int FibonacciNDigits(int n) {

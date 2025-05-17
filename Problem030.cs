@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem030 : Problem {
-    public override void Solve() {
-        Print(SumAllFifthPowers());
+    public override object Solve() {
+        return SumAllFifthPowers();
     }
 
     private long SumAllFifthPowers() {

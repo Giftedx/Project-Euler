@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem045 : Problem {
-    public override void Solve() {
-        Print(FindNextTphNumber(143));
+    public override object Solve() {
+        return FindNextTphNumber(143);
     }
 
     private long FindNextTphNumber(int n) {

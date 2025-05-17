@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-
 namespace Project_Euler;
 
 internal class Program {
@@ -7,9 +6,10 @@ internal class Program {
         var prog = new Program();
         var solver = new ProblemSolver();
         int problemCount = solver.GetProblemCount();
-        Library.FunPrint("Project Euler Solver");
         
         do {
+            Console.Clear();
+            Library.FunPrint("Project Euler Solver");
             Console.WriteLine();
             string input = prog.GetInput(problemCount);
             switch (input) {

@@ -8,8 +8,8 @@ public class Problem050 : Problem {
         Library.SieveOfEratosthenes(Limit, out _isPrime);
     }
 
-    public override void Solve() {
-        Print(ConsecutivePrimeSumBelow(Limit));
+    public override object Solve() {
+        return ConsecutivePrimeSumBelow(Limit);
     }
 
     private long ConsecutivePrimeSumBelow(int n) {

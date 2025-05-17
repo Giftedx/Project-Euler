@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem028 : Problem {
-    public override void Solve() {
-        Print(SpiralSum(1001));
+    public override object Solve() {
+        return SpiralSum(1001);
     }
 
     private int SpiralSum(int size) {

@@ -10,8 +10,8 @@ public class Problem042 : Problem {
         Library.ReadFile("words.txt", out _words);
     }
 
-    public override void Solve() {
-        Print(CountWordScoreTriangleNums());
+    public override object Solve() {
+        return CountWordScoreTriangleNums();
     }
 
     private int CountWordScoreTriangleNums() {

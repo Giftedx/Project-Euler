@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem020 : Problem {
-    public override void Solve() {
-        Print(ExponentSum());
+    public override object Solve() {
+        return ExponentSum();
     }
 
     private int ExponentSum() {

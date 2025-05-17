@@ -8,8 +8,8 @@ public class Problem027 : Problem {
         Library.SieveOfEratosthenes(Limit * Limit, out _isPrime);
     }
 
-    public override void Solve() {
-        Print(CoefficientProduct(Limit));
+    public override object Solve() {
+        return CoefficientProduct(Limit);
     }
 
     private int CoefficientProduct(int limit) {

@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem017 : Problem {
-    public override void Solve() {
-        Console.WriteLine(NumberLetterCount());
+    public override object Solve() {
+         return NumberLetterCount();
     }
 
     private int NumberLetterCount() {

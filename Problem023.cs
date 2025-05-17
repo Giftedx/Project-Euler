@@ -1,74 +1,57 @@
-using System.Runtime.CompilerServices;
+// ReSharper disable ForeachCanBeConvertedToQueryUsingAnotherGetEnumerator
 
 namespace Project_Euler;
 
 public class Problem023 : Problem {
-    private const int Limit = 20161;
-    private readonly bool[] _isAbundant = new bool[Limit + 1];
-    private int _smallestAbundant;
-
-    public override void Solve() {
-        Print(SumOfNonAbundantBelow());
+    private const int Limit = 28123;
+    private readonly int[] _properDivisorSum = new int[Limit];
+    
+    public Problem023() {
+        for (int i = 1; i < Limit; i++) {
+            for (int j = 2 * i; j < Limit; j += i) {
+                _properDivisorSum[j] += i;
+            }
+        }
     }
 
-    private long SumOfNonAbundantBelow() {
-        int[] abundantList = new int[7000];
-        int abundantCount = 0;
+    public override object Solve() {
+        return SumOfNonAbundantBelow();
+    }
 
-        for (int i = 12; i <= Limit; i++) {
-            if (!IsAbundant(i)) continue;
-            _isAbundant[i] = true;
-            abundantList[abundantCount++] = i;
+    private int SumOfNonAbundantBelow() {
+        List<int> allAbundantNumbers = [];
+        for (int n = 12; n < Limit; n++)
+            if (IsAbundant(n)) allAbundantNumbers.Add(n);
+        
+        Dictionary<int, List<int>> abundantNumbers = new();
+        for (int i = 0; i < 6; i++) abundantNumbers[i] = [];
+
+        foreach (int n in allAbundantNumbers)
+            abundantNumbers[n % 6].Add(n);
+
+        HashSet<int> abundantSums = [];
+        
+        for(int i = 0; i < 5; i++)
+            if (abundantNumbers[i].Count > i)
+                for (int j = 12 + abundantNumbers[i].Min(); j < Limit; j += 6)
+                    abundantSums.Add(j);
+        
+        if (Limit > 40) abundantSums.Add(40);
+
+        for (int n = 0; n < Limit; n++) {
+            if (n % 6 != 1 && n % 6 != 5) continue;
+            foreach (int a in abundantNumbers[3]) {
+                if (!IsAbundant(n - a)) continue;
+                abundantSums.Add(n);
+                break;
+            }
         }
-
-        _smallestAbundant = 12;
-        long total = 0;
-
-        Span<int> smallAbundantNumbers = stackalloc int[48];
-        int smallAbundantCount = 0;
-        for (int i = 0; i < abundantCount && abundantList[i] < 48; i++)
-            smallAbundantNumbers[smallAbundantCount++] = abundantList[i];
-
-        Span<int> oddAbundants = stackalloc int[abundantCount];
-        int oddAbunCount = 0;
-        for (int i = 0; i < abundantCount; i++) {
-            int a = abundantList[i];
-            if ((a & 1) == 1) oddAbundants[oddAbunCount++] = a;
-        }
-
-        for (int k = 1; k < _smallestAbundant; k++)
-            if (IsAbundantSum(k, smallAbundantNumbers, smallAbundantCount))
-                total += k;
-        for (int k = 49; k <= 956; k += 2) total += k;
-        for (int k = 957; k <= Limit; k += 2)
-            if (!IsAbundantSum(k, oddAbundants, oddAbunCount))
-                total += k;
+        
+        int total = 0;
+        for (int i = 0; i < Limit; i++)
+            if (!abundantSums.Contains(i)) 
+                total += i;
         return total;
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private bool IsAbundant(int n) {
-        int sum = 1;
-        int sqrt = (int)Math.Sqrt(n);
-        for (int i = 2; i <= sqrt; i++) {
-            if (n % i != 0) continue;
-            sum += i;
-            int div = n / i;
-            if (div != i) sum += div;
-        }
-
-        return sum > n;
-    }
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private bool IsAbundantSum(int k, Span<int> candidates, int count) {
-        for (int i = 0; i < count; i++) {
-            int x = candidates[i];
-            if (x >= k) break;
-            if (k - x <= Limit && _isAbundant[k - x]) return true;
-            if (x - _smallestAbundant > k) return false;
-        }
-
-        return false;
+        bool IsAbundant(int n) => n > 0 && _properDivisorSum[n] > n;
     }
 }

@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem040 : Problem {
-    public override void Solve() {
-        Print(DigitProduct());
+    public override object Solve() {
+        return DigitProduct();
     }
 
     private long DigitProduct() {

@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem039 : Problem {
-    public override void Solve() {
-        Print(MaxTrianglePerimeter());
+    public override object Solve() {
+        return MaxTrianglePerimeter();
     }
 
     private int MaxTrianglePerimeter() {

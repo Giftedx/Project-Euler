@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem046 : Problem {
-    public override void Solve() {
-        Print(DisproveGoldbach());
+    public override object Solve() {
+        return DisproveGoldbach();
     }
 
     private int DisproveGoldbach() {

@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem009 : Problem {
-    public override void Solve() {
-        Print(PythagoreanTripletProduct(1000));
+    public override object Solve() {
+        return PythagoreanTripletProduct(1000);
     }
 
     private int PythagoreanTripletProduct(int n) {

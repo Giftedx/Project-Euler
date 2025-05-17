@@ -8,8 +8,8 @@ public class Problem049 : Problem {
         Library.SieveOfEratosthenes(Limit, out _isPrime);
     }
 
-    public override void Solve() {
-        Print(OtherPrimePermuteConcat());
+    public override object Solve() {
+        return OtherPrimePermuteConcat();
     }
 
     private string OtherPrimePermuteConcat() {

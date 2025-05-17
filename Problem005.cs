@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem005 : Problem {
-    public override void Solve() {
-        Print(MinimumEvenlyDivisibleByRange(1, 20));
+    public override object Solve() {
+        return MinimumEvenlyDivisibleByRange(1, 20);
     }
 
     private string MinimumEvenlyDivisibleByRange(int min, int max) {

@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem006 : Problem {
-    public override void Solve() {
-        Print(SumSquareDifference(1, 100));
+    public override object Solve() {
+       return SumSquareDifference(1, 100);
     }
 
     private long SumSquareDifference(int min, int max) {

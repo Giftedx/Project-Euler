@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem047 : Problem {
-    public override void Solve() {
-        Print(FirstInFourPrimeRun());
+    public override object Solve() {
+        return FirstInFourPrimeRun();
     }
 
     private int FirstInFourPrimeRun() {

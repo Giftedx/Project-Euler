@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem007 : Problem {
-    public override void Solve() {
-        Print(NthPrime(10001));
+    public override object Solve() {
+        return NthPrime(10001);
     }
 
     private int NthPrime(int n) {

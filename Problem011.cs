@@ -24,8 +24,8 @@ public class Problem011 : Problem {
         { 1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48 }
     };
 
-    public override void Solve() {
-        Print(MaximumGridProduct());
+    public override object Solve() {
+        return MaximumGridProduct();
     }
 
     private int MaximumGridProduct() {

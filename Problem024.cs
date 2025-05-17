@@ -4,24 +4,27 @@ using System.Text;
 namespace Project_Euler;
 
 public class Problem024 : Problem {
-    public override void Solve() {
-        Print(NthLexicalPermutation(1000000));
+    public override object Solve() {
+        return NthLexicalPermutation(1000000);
     }
 
-    private string NthLexicalPermutation(int n) {
-        var numbers = new ArrayList();
-        n--; //initial array is the first permutation
-        for (int i = 0; i < 10; i++) numbers.Add(i);
-        var result = new StringBuilder();
-        for (int i = numbers.Count - 1; i >= 0; i--) {
-            int fact = (int)Library.Factorial(i);
-            int j = n / fact;
-            result.Append(numbers[j]);
-            numbers.Remove(j);
-            numbers.Insert(i, j);
-            n %= fact;
+    private string NthLexicalPermutation(ulong target) {
+        char[] digits = "0123456789".ToCharArray();
+        char[] number = "          ".ToCharArray();
+        target--;
+        int n = 10;
+        int nDigits = 0;
+
+        while (n-- > 0) {
+            ulong fn = (ulong)Library.Factorial(n);
+            int i = (int)(target / fn);
+            target -= (ulong)i * fn;
+            number[nDigits++] = digits[i];
+            
+            for (int r = i; r < n; r++) 
+                digits[r] = digits[r + 1];
         }
 
-        return result.ToString();
+        return new string(number);
     }
 }

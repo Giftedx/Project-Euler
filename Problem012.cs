@@ -1,8 +1,8 @@
 namespace Project_Euler;
 
 public class Problem012 : Problem {
-    public override void Solve() {
-        Print(HighlyDivisibleTriangle(500));
+    public override object Solve() {
+        return HighlyDivisibleTriangle(500);
     }
 
     private long HighlyDivisibleTriangle(int minDivisors) {

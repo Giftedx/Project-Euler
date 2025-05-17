@@ -3,8 +3,8 @@ using System.Text;
 namespace Project_Euler;
 
 public class Problem038 : Problem {
-    public override void Solve() {
-        Print(PandigitalMultiples());
+    public override object Solve() {
+        return PandigitalMultiples();
     }
 
     private int PandigitalMultiples() {

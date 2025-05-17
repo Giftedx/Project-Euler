@@ -19,8 +19,8 @@ public class Problem018 : Problem {
         new[] { 04, 62, 98, 27, 23, 09, 70, 98, 73, 93, 38, 53, 60, 04, 23 }
     ];
 
-    public override void Solve() {
-        Console.WriteLine(MaxPathSum());
+    public override object Solve() {
+        return MaxPathSum();
     }
 
     private int MaxPathSum() {
