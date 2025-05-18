@@ -23,7 +23,7 @@ public static class ProblemSolver {
         var range = Enumerable.Range(1, problemCount);
 
         int completedTasks = 0;
-        var progressThread = new Thread(() => 
+        var progressThread = new Thread(() =>
             DisplayProgressBar(() => completedTasks, problemCount));
 
         var watch = Stopwatch.StartNew();
@@ -79,14 +79,14 @@ public static class ProblemSolver {
         }
     }
 
-    public static void Test() {
-        var test = new Test();
+    public static void RunTest() {
         var watch = Stopwatch.StartNew();
-        test.Solve();
+        Test.Solve();
         watch.Stop();
         Console.WriteLine($"{watch.ElapsedMilliseconds} ms");
     }
 }
+
 public class ProblemData(int index, int runs) {
     public readonly int Index = index;
     public readonly List<double> Times = new(runs);
@@ -94,7 +94,7 @@ public class ProblemData(int index, int runs) {
 }
 
 public class BenchmarkData {
-    public double TotalTime;
-    public double SlowestTime = double.MinValue;
     public int SlowestProblem;
+    public double SlowestTime = double.MinValue;
+    public double TotalTime;
 }

@@ -20,9 +20,9 @@ public static class Library {
     public static void ReadFile(string fileName, out List<string> data) {
         string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
         data = File.ReadAllText(filePath)
-            .Replace("\"", "")
-            .Split(',')
-            .ToList();
+                   .Replace("\"", "")
+                   .Split(',')
+                   .ToList();
     }
 
     //Maths tasks.

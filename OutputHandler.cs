@@ -3,12 +3,13 @@ using System.Text.Json;
 
 namespace Project_Euler;
 
-public static class OutputHandler {
+internal static class OutputHandler {
     public const string LogFile = "log.txt";
     private const string JsonFile = "benchmark.json";
-    private const string HtmlTemplate = "template.html";
     private const string HtmlFile = "benchmark.html";
-    
+    private const string HtmlTemplate = "template.html";
+    private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
+
     public static void GenerateFullReport(List<ProblemData> results, BenchmarkData testData) {
         WriteBenchmarkReport(results, testData);
         WriteBenchmarkJson(results, testData);
@@ -28,7 +29,7 @@ public static class OutputHandler {
                 testData.SlowestTime = worst;
                 testData.SlowestProblem = result.Index;
             }
-            
+
             fileContent.AppendLine($"Problem {result.Index:D2}: {result.Result}");
             fileContent.AppendLine($"    Best:   {best:F3} ms");
             fileContent.AppendLine($"    Worst:  {worst:F3} ms");
@@ -53,14 +54,14 @@ public static class OutputHandler {
                     timeMs = testData.SlowestTime
                 }
             },
-            problems = results.Select(r => 
+            problems = results.Select(r =>
                 (index: r.Index, result: r.Result, times: r.Times,
                     bestTimeMs: r.Times.Min(), worstTimeMs: r.Times.Max(),
                     averageTimeMs: r.Times.Average()))
         };
 
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        string json = JsonSerializer.Serialize(jsonOutput, options);
+
+        string json = JsonSerializer.Serialize(jsonOutput, JsonOptions);
         File.WriteAllText(JsonFile, json);
     }
 
@@ -85,8 +86,7 @@ public static class OutputHandler {
         };
 
         string jsonData = JsonSerializer.Serialize(new { summary, problems });
-        const string templatePath = HtmlTemplate;
-        string htmlTemplate = File.ReadAllText(templatePath);
+        string htmlTemplate = File.ReadAllText(HtmlTemplate);
         string finalHtml = htmlTemplate.Replace("{{DATA}}", jsonData);
 
         File.WriteAllText(HtmlFile, finalHtml);

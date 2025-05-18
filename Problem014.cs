@@ -50,8 +50,7 @@ public class Problem014 : Problem {
                     transformedValue += transformedValue >> 1;
                     transformedValue++;
                     depth++;
-                }
-                else {
+                } else {
                     transformedValue >>= 1;
                     count++;
                     if (transformedValue < _threshold) {
@@ -78,8 +77,7 @@ public class Problem014 : Problem {
             if (bestScores[i] == bestScores[15]) {
                 if (bestNumbers[i] < bestNumbers[15])
                     bestNumbers[15] = bestNumbers[i];
-            }
-            else {
+            } else {
                 break;
             }
 
@@ -145,8 +143,7 @@ public class Problem014 : Problem {
                 accumulator += accumulator >> 1;
                 accumulator++;
                 temp2++;
-            }
-            else {
+            } else {
                 accumulator >>= 1;
                 temp1++;
                 if (accumulator < seqIndex) {

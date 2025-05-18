@@ -14,8 +14,8 @@ public class Problem050 : Problem {
 
     private long ConsecutivePrimeSumBelow(int n) {
         int highestPrime = n - Enumerable
-            .Range(1, n)
-            .First(i => Library.IsPrime(n - i));
+                               .Range(1, n)
+                               .First(i => Library.IsPrime(n - i));
 
         int maxSequence = GetMaxSequence(highestPrime);
 
@@ -28,8 +28,7 @@ public class Problem050 : Problem {
                 if (primes.Count < sequence) {
                     primes.Enqueue(i);
                     if (primes.Count < sequence) continue;
-                }
-                else {
+                } else {
                     primes.Dequeue();
                     primes.Enqueue(i);
                 }

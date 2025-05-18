@@ -44,8 +44,7 @@ public class Problem030 : Problem {
                 digits[pos] = i;
                 number = number * 10 + i;
                 sumPow += powers[i];
-            }
-            else {
+            } else {
                 while (pos > 0 && digits[pos] == 9) {
                     pos--;
                     number /= 10;
