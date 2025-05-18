@@ -1,28 +1,37 @@
-﻿using static Project_Euler.InputHandler;
-
-namespace Project_Euler;
+﻿namespace Project_Euler;
 
 internal static class Program {
-    public static void Main() {
-        var solver = new ProblemSolver();
-        int problemCount = solver.GetProblemCount();
+    private static readonly Dictionary<string, (string Description, Action Action)> MenuActions = 
+        new(StringComparer.OrdinalIgnoreCase) {
+        { "a", ("solve all problems", ProblemSolver.FullBenchmark) },
+        { "t", ("run test routine", ProblemSolver.Test) }
+    };
 
+    public static void Main() => RunInteractionLoop();
+
+    private static void RunInteractionLoop() {
         do {
-            Console.Clear();
-            Library.FunPrint("Project Euler Solver");
-            Console.WriteLine();
-            string input = GetInput(problemCount);
-            switch (input) {
-                case "a":
-                    solver.SolveAll();
-                    break;
-                case "t":
-                    ProblemSolver.Test();
-                    break;
-                default:
-                    solver.SolveIndividual(input);
-                    break;
-            }
-        } while (RunAgain());
+            PrintMenu();
+            string input = InputHandler.GetMenuSelection();
+            HandleMenuSelection(input);
+        } while (InputHandler.ShouldRunAgain());
+    }
+
+    private static void PrintMenu() {
+        Console.Clear();
+        Library.FunPrint("Project Euler Solver");
+        Console.WriteLine();
+        foreach (var (key, (description, _)) in MenuActions)
+            Library.FunPrint($"Enter '{key}' to {description}.");
+        
+        Library.FunPrint($"Enter Problem to solve (1 - {ProblemFactory.SolvedProblems()}): ");
+    }
+
+    private static void HandleMenuSelection(string input) {
+        if (MenuActions.TryGetValue(input, out var action)) {
+            action.Action.Invoke();
+        } else {
+            ProblemSolver.IndividualBenchmark(input);
+        }
     }
 }
