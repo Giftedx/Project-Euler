@@ -8,8 +8,7 @@ namespace Project_Euler;
 public static class Library {
     //Program-wide tasks.
     public static void FunPrint(string s) {
-        Random random = new Random();
-        int wait = random.Next(5, 50);
+        const int wait = 10;
         foreach (char c in s) {
             Console.Write(c);
             Thread.Sleep(wait);

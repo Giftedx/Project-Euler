@@ -21,7 +21,7 @@ internal static class Program {
         Console.Clear();
         Library.FunPrint("Project Euler Solver");
         Console.WriteLine();
-        foreach (var (key, (description, _)) in MenuActions)
+        foreach ((string key, (string description, _)) in MenuActions)
             Library.FunPrint($"Enter '{key}' to {description}.");
         
         Library.FunPrint($"Enter Problem to solve (1 - {ProblemFactory.SolvedProblems()}): ");
