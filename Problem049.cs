@@ -1,11 +1,15 @@
 namespace Project_Euler;
 
 public class Problem049 : Problem {
-    private const int Limit = 10000;
+    private const int Limit = 10000; // Sieve up to 9999
     private readonly bool[] _isPrime;
 
     public Problem049() {
-        Library.SieveOfEratosthenes(Limit, out _isPrime);
+        // SieveOfEratosthenesBoolArray returns an array of size Limit + 1
+        // So, for Limit = 10000, _isPrime will have indices 0 to 10000.
+        // The problem logic iterates i up to Limit-1 (9999).
+        // And checks i1 < Limit, i2 < Limit.
+        _isPrime = Library.SieveOfEratosthenesBoolArray(Limit);
     }
 
     public override object Solve() {

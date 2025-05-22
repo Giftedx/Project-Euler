@@ -1,6 +1,11 @@
 namespace Project_Euler;
 
 public class Problem001 : Problem {
+    /// <summary>
+    /// Solves Project Euler Problem 1: Multiples of 3 or 5.
+    /// Finds the sum of all the multiples of 3 or 5 below 1000.
+    /// </summary>
+    /// <returns>The sum of all multiples of 3 or 5 below 1000.</returns>
     public override object Solve() {
         return SumMultiples(3, 5, 1000);
     }

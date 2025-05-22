@@ -2,10 +2,11 @@ namespace Project_Euler;
 
 public class Problem050 : Problem {
     private const int Limit = 1000000;
-    private readonly bool[] _isPrime;
+    private readonly bool[] _isPrime; // Will store primes up to Limit (inclusive)
 
     public Problem050() {
-        Library.SieveOfEratosthenes(Limit, out _isPrime);
+        // SieveOfEratosthenesBoolArray returns an array of size Limit + 1
+        _isPrime = Library.SieveOfEratosthenesBoolArray(Limit);
     }
 
     public override object Solve() {
