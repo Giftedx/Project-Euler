@@ -1,8 +1,6 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-#pragma warning disable CS8619 // Nullability of reference types in value doesn't match target type.
 // ReSharper disable RedundantAssignment
 namespace Project_Euler;
 
@@ -37,6 +35,30 @@ public static class ProblemSolver {
         var results = bag.OrderBy(p => p.Index).ToList();
 
         watch.Stop();
+
+        testData.TotalTime = watch.Elapsed.TotalMilliseconds;
+
+        if (results.Any()) {
+            // Initialize SlowestProblem and SlowestTime with the first problem's data
+            // SlowestTime is already initialized to double.MinValue in its class definition,
+            // so any valid average time will be greater.
+            // However, it's good practice to initialize with the first actual value.
+            var firstProblem = results.First();
+            testData.SlowestProblem = firstProblem.Index;
+            testData.SlowestTime = firstProblem.Times.Any() ? firstProblem.Times.Average() : 0;
+
+            foreach (var problemData in results) {
+                double avgTime = problemData.Times.Any() ? problemData.Times.Average() : 0;
+                if (avgTime > testData.SlowestTime) {
+                    testData.SlowestTime = avgTime;
+                    testData.SlowestProblem = problemData.Index;
+                }
+            }
+        } else {
+            testData.SlowestTime = 0;
+            testData.SlowestProblem = 0; // Problem indices are 1-based, so 0 can indicate no problems or error.
+        }
+
         OutputHandler.GenerateFullReport(results, testData);
         Library.FunPrint($"Results output to {OutputHandler.LogFile}, {watch.ElapsedMilliseconds} ms total");
     }
@@ -51,7 +73,7 @@ public static class ProblemSolver {
             object result = problem.Solve();
             watch.Stop();
 
-            if (i == 0) data.Result = result.ToString() ?? string.Empty;
+            if (i == 0) data.Result = result?.ToString() ?? string.Empty; // Handle if result itself is null
             data.Times.Add(watch.Elapsed.TotalMilliseconds);
         }
 
