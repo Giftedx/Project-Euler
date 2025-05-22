@@ -24,20 +24,34 @@ public class Problem011 : Problem {
         { 1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48 }
     };
 
+    private static readonly int[][] Directions = new int[][] {
+        new int[] {0, 1},  // Right
+        new int[] {1, 0},  // Down
+        new int[] {1, 1},  // Diagonal Down-Right
+        new int[] {-1, 1}  // Diagonal Up-Right (from starting cell's perspective)
+                           // With iterating all cells as start, these 4 cover all lines.
+    };
+
+    /// <summary>
+    /// Solves Project Euler Problem 11: Largest product in a 20x20 grid.
+    /// Finds the greatest product of four adjacent numbers in the same direction 
+    /// (up, down, left, right, or diagonally) in the 20x20 grid.
+    /// </summary>
+    /// <returns>The greatest product of four adjacent numbers in the grid.</returns>
     public override object Solve() {
         return MaximumGridProduct();
     }
 
+    /// <summary>
+    /// Calculates the maximum product of four adjacent numbers in any direction within the grid.
+    /// </summary>
+    /// <returns>The maximum product found.</returns>
     private int MaximumGridProduct() {
         int maxProduct = 0;
         int rows = _grid.GetLength(0);
         int cols = _grid.GetLength(1);
 
-        int[][] directions = new int[][] {
-            [0, 1], [1, 0], [1, 1], [-1, 1]
-        };
-
-        foreach (int[] dir in directions) {
+        foreach (int[] dir in Directions) {
             int dx = dir[0], dy = dir[1];
 
             for (int row = 0; row < rows; row++)
@@ -61,6 +75,17 @@ public class Problem011 : Problem {
         return maxProduct;
     }
 
+    /// <summary>
+    /// Checks if a sequence of 4 numbers, starting from (row, col) and moving in direction (dx, dy),
+    /// stays within the grid boundaries.
+    /// </summary>
+    /// <param name="row">Starting row.</param>
+    /// <param name="col">Starting column.</param>
+    /// <param name="dx">Row direction component.</param>
+    /// <param name="dy">Column direction component.</param>
+    /// <param name="rows">Total rows in the grid.</param>
+    /// <param name="cols">Total columns in the grid.</param>
+    /// <returns>True if the sequence is fully within bounds, false otherwise.</returns>
     private bool IsInBounds(int row, int col, int dx, int dy, int rows, int cols) {
         int endRow = row + 3 * dx;
         int endCol = col + 3 * dy;

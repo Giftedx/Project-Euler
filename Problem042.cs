@@ -7,7 +7,7 @@ public class Problem042 : Problem {
     private readonly List<string> _words;
 
     public Problem042() {
-        Library.ReadFile("words.txt", out _words);
+        _words = Library.ReadFile("words.txt");
     }
 
     public override object Solve() {

@@ -19,11 +19,26 @@ public class Problem018 : Problem {
         new[] { 04, 62, 98, 27, 23, 09, 70, 98, 73, 93, 38, 53, 60, 04, 23 }
     ];
 
+    /// <summary>
+    /// Solves Project Euler Problem 18: Maximum path sum I.
+    /// Finds the maximum total from top to bottom of the provided triangle of numbers.
+    /// </summary>
+    /// <returns>The maximum path sum.</returns>
     public override object Solve() {
         return MaxPathSum();
     }
 
+    /// <summary>
+    /// Calculates the maximum path sum from the top to the bottom of the triangle
+    /// stored in the _triangle field, using a bottom-up dynamic programming approach.
+    /// The _triangle field is modified in place.
+    /// </summary>
+    /// <returns>The maximum path sum.</returns>
     private int MaxPathSum() {
+        // Using dynamic programming, work from the second-to-last row upwards.
+        // Each element (i,j) is updated to be itself plus the maximum of 
+        // the two adjacent elements in the row below: (i+1,j) or (i+1,j+1).
+        // After processing all rows, the top element _triangle[0][0] will contain the maximum path sum.
         for (int i = _triangle.Count - 2; i >= 0; i--)
         for (int j = 0; j < _triangle[i].Length; j++)
             _triangle[i][j] += Math.Max(_triangle[i + 1][j], _triangle[i + 1][j + 1]);

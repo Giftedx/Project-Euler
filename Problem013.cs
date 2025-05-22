@@ -1,10 +1,10 @@
 using System.Numerics;
-using static System.Numerics.BigInteger;
+using static System.Numerics.BigInteger; // For Parse and Zero
 
 namespace Project_Euler;
 
 public class Problem013 : Problem {
-    private readonly BigInteger[] _sumNums = [
+    private static readonly BigInteger[] SumNums = [ // Changed to static readonly SumNums
         Parse("37107287533902102798797998220837590246510135740250"),
         Parse("46376937677490009712648124896970078050417018260538"),
         Parse("74324986199524741059474233309513058123726617309629"),
@@ -107,17 +107,31 @@ public class Problem013 : Problem {
         Parse("53503534226472524250874054075591789781264330331690")
     ];
 
+    /// <summary>
+    /// Solves Project Euler Problem 13: Large sum.
+    /// Works out the first ten digits of the sum of one-hundred 50-digit numbers.
+    /// </summary>
+    /// <returns>A string representing the first ten digits of the sum.</returns>
     public override object Solve() {
         return FirstTenDigits(BigSum().ToString());
     }
 
+    /// <summary>
+    /// Extracts the first ten characters from a string.
+    /// </summary>
+    /// <param name="s">The input string. Must have at least 10 characters.</param>
+    /// <returns>The first ten characters of the string.</returns>
     private string FirstTenDigits(string s) {
         return s[..10];
     }
 
+    /// <summary>
+    /// Calculates the sum of all BigInteger numbers stored in the SumNums array.
+    /// </summary>
+    /// <returns>The BigInteger sum.</returns>
     private BigInteger BigSum() {
         var result = Zero;
-        foreach (var sumNum in _sumNums) result += sumNum;
+        foreach (var sumNum in SumNums) result += sumNum; // Changed to SumNums
 
         return result;
     }

@@ -6,7 +6,7 @@ public class Problem022 : Problem {
     private readonly List<string> _names;
 
     public Problem022() {
-        Library.ReadFile("names.txt", out _names);
+        _names = Library.ReadFile("names.txt");
     }
 
     public override object Solve() {
