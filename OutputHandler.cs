@@ -11,24 +11,28 @@ internal static class OutputHandler {
     private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
 
     public static void GenerateFullReport(List<ProblemData> results, BenchmarkData testData) {
-        WriteBenchmarkReport(results, testData);
-        WriteBenchmarkJson(results, testData);
-        WriteBenchmarkHtml(results, testData);
+        double sumOfAverageProblemTimes = 0;
+        if (results.Any()) {
+            // Ensure Times list is not empty before calling Average to prevent InvalidOperationException
+            sumOfAverageProblemTimes = results.Sum(r => r.Times.Any() ? r.Times.Average() : 0.0);
+        }
+
+        // Note: testData.TotalTime is the total wall clock time for the benchmark run.
+        // testData.SlowestTime is the average time of the slowest problem (calculated in ProblemSolver).
+
+        WriteBenchmarkReport(results, testData, sumOfAverageProblemTimes);
+        WriteBenchmarkJson(results, testData, sumOfAverageProblemTimes);
+        WriteBenchmarkHtml(results, testData, sumOfAverageProblemTimes);
     }
 
-    private static void WriteBenchmarkReport(List<ProblemData> results, BenchmarkData testData) {
+    private static void WriteBenchmarkReport(List<ProblemData> results, BenchmarkData testData, double sumOfAverageProblemTimes) {
         var fileContent = new StringBuilder();
 
         foreach (var result in results) {
-            double best = result.Times.Min();
-            double worst = result.Times.Max();
-            double avg = result.Times.Average();
-
-            testData.TotalTime += best;
-            if (worst > testData.SlowestTime) {
-                testData.SlowestTime = worst;
-                testData.SlowestProblem = result.Index;
-            }
+            // Ensure Times list is not empty to prevent InvalidOperationException
+            double best = result.Times.Any() ? result.Times.Min() : 0.0;
+            double worst = result.Times.Any() ? result.Times.Max() : 0.0;
+            double avg = result.Times.Any() ? result.Times.Average() : 0.0;
 
             fileContent.AppendLine($"Problem {result.Index:D2}: {result.Result}");
             fileContent.AppendLine($"    Best:   {best:F3} ms");
@@ -37,55 +41,70 @@ internal static class OutputHandler {
             fileContent.AppendLine();
         }
 
-        fileContent.AppendLine($"Total Time: {testData.TotalTime:F3} ms");
-        fileContent.AppendLine($"Average solution time: {testData.TotalTime / results.Count:F3} ms");
-        fileContent.AppendLine($"Slowest Problem: {testData.SlowestProblem} with {testData.SlowestTime:F3} ms");
+        fileContent.AppendLine($"Total wall-clock benchmark time: {testData.TotalTime:F3} ms");
+        if (results.Any()) {
+            fileContent.AppendLine($"Sum of average problem solution times: {sumOfAverageProblemTimes:F3} ms");
+            fileContent.AppendLine($"Average problem solution time: {(results.Count > 0 ? sumOfAverageProblemTimes / results.Count : 0):F3} ms");
+        } else {
+            fileContent.AppendLine($"Sum of average problem solution times: 0.000 ms");
+            fileContent.AppendLine($"Average problem solution time: 0.000 ms");
+        }
+        fileContent.AppendLine($"Slowest Problem (by avg time): {testData.SlowestProblem} with {testData.SlowestTime:F3} ms");
         File.WriteAllText(LogFile, fileContent.ToString());
     }
 
-    private static void WriteBenchmarkJson(List<ProblemData> results, BenchmarkData testData) {
-        var jsonOutput = new {
-            summary = new {
-                totalProblems = results.Count,
-                totalTimeMs = testData.TotalTime,
-                averageTimeMs = testData.TotalTime / results.Count,
-                slowestProblem = new {
-                    index = testData.SlowestProblem,
-                    timeMs = testData.SlowestTime
-                }
-            },
-            problems = results.Select(r =>
-                (index: r.Index, result: r.Result, times: r.Times,
-                    bestTimeMs: r.Times.Min(), worstTimeMs: r.Times.Max(),
-                    averageTimeMs: r.Times.Average()))
+    private static void WriteBenchmarkJson(List<ProblemData> results, BenchmarkData testData, double sumOfAverageProblemTimes) {
+        var summaryJson = new {
+            totalProblems = results.Count,
+            totalWallClockTimeMs = testData.TotalTime, // Renamed for clarity
+            sumOfAverageProblemTimesMs = sumOfAverageProblemTimes, // Added
+            averageProblemSolutionTimeMs = results.Count > 0 ? sumOfAverageProblemTimes / results.Count : 0, // Renamed and logic updated
+            slowestProblem = new {
+                index = testData.SlowestProblem,
+                averageTimeMs = testData.SlowestTime // Renamed for clarity
+            }
         };
 
+        var problemsJson = results.Select(r => new {
+            index = r.Index,
+            result = r.Result,
+            // times = r.Times, // Optionally include all times if needed, or just stats
+            bestTimeMs = r.Times.Any() ? r.Times.Min() : 0.0,
+            worstTimeMs = r.Times.Any() ? r.Times.Max() : 0.0,
+            averageTimeMs = r.Times.Any() ? r.Times.Average() : 0.0
+        });
+        
+        var jsonOutput = new {
+            summary = summaryJson,
+            problems = problemsJson
+        };
 
         string json = JsonSerializer.Serialize(jsonOutput, JsonOptions);
         File.WriteAllText(JsonFile, json);
     }
 
-    private static void WriteBenchmarkHtml(List<ProblemData> results, BenchmarkData testData) {
-        var problems = results.Select(r => new {
+    private static void WriteBenchmarkHtml(List<ProblemData> results, BenchmarkData testData, double sumOfAverageProblemTimes) {
+        var problemsHtml = results.Select(r => new {
             index = r.Index,
             result = r.Result,
-            times = r.Times,
-            bestTimeMs = r.Times.Min(),
-            worstTimeMs = r.Times.Max(),
-            averageTimeMs = r.Times.Average()
+            // times = r.Times, // Optionally include all times
+            bestTimeMs = r.Times.Any() ? r.Times.Min() : 0.0,
+            worstTimeMs = r.Times.Any() ? r.Times.Max() : 0.0,
+            averageTimeMs = r.Times.Any() ? r.Times.Average() : 0.0
         }).ToList();
 
-        var summary = new {
+        var summaryHtml = new {
             totalProblems = results.Count,
-            totalTimeMs = testData.TotalTime,
-            averageTimeMs = testData.TotalTime / results.Count,
+            totalWallClockTimeMs = testData.TotalTime, // Renamed
+            sumOfAverageProblemTimesMs = sumOfAverageProblemTimes, // Added
+            averageProblemSolutionTimeMs = results.Count > 0 ? sumOfAverageProblemTimes / results.Count : 0, // Renamed and logic updated
             slowestProblem = new {
                 index = testData.SlowestProblem,
-                timeMs = testData.SlowestTime
+                averageTimeMs = testData.SlowestTime // Renamed
             }
         };
 
-        string jsonData = JsonSerializer.Serialize(new { summary, problems });
+        string jsonData = JsonSerializer.Serialize(new { summary = summaryHtml, problems = problemsHtml });
         string htmlTemplate = File.ReadAllText(HtmlTemplate);
         string finalHtml = htmlTemplate.Replace("{{DATA}}", jsonData);
 
