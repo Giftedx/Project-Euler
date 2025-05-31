@@ -1,11 +1,12 @@
 namespace Project_Euler;
 
 public class Problem037 : Problem {
-    private const int Limit = 700000;
+    private const int Limit = 700000; // Max prime to sieve up to. Truncatable primes are not extremely large.
     private readonly bool[] _isPrime;
 
     public Problem037() {
-        Library.SieveOfEratosthenes(Limit, out _isPrime);
+        // SieveOfEratosthenesBoolArray returns an array of size Limit + 1
+        _isPrime = Library.SieveOfEratosthenesBoolArray(Limit);
     }
 
     public override object Solve() {
@@ -49,6 +50,12 @@ public class Problem037 : Problem {
     }
 
     private bool IsPrime(int n) {
-        return n < _isPrime.Length ? _isPrime[n] : Library.IsPrime(n);
+        // Check if n is within the bounds of the sieve array
+        if (n >= 0 && n <= Limit) {
+            return _isPrime[n];
+        }
+        // If n is outside the sieve's range (e.g., negative or too large), use the general IsPrime method.
+        // (Though for this problem, numbers are positive and likely within a reasonable range from the queue generation)
+        return Library.IsPrime(n);
     }
 }

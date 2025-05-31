@@ -5,7 +5,7 @@ public class Problem010 : Problem {
     private readonly bool[] _isPrime;
 
     public Problem010() {
-        Library.SieveOfEratosthenes(Limit, out _isPrime);
+        _isPrime = Library.SieveOfEratosthenesBoolArray(Limit);
     }
 
     public override object Solve() {
@@ -13,10 +13,14 @@ public class Problem010 : Problem {
     }
 
     private long SumPrimesBelow() {
-        long sum = 2;
-        for (int i = 3; i < _isPrime.Length; i += 2)
-            if (_isPrime[i])
+        long sum = 0;
+        // _isPrime array is of size Limit + 1. Indices from 0 to Limit.
+        // Primes start from 2.
+        for (int i = 2; i <= Limit; i++) {
+            if (_isPrime[i]) {
                 sum += i;
+            }
+        }
         return sum;
     }
 }
