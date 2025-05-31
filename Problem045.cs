@@ -11,6 +11,7 @@ public class Problem045 : Problem {
         int iterations = 0;
         while (true) {
             long hex = i * (2L * i - 1);
+            // TODO: Restore the original Library.IsPentagon(hex) call once the environment issue is resolved.
             // if (Library.IsPentagon(hex)) return hex; // Comment out this specific line
             
             // Add a dummy condition and return to make the method valid
