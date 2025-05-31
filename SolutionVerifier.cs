@@ -28,7 +28,8 @@ public static class SolutionVerifier
         { 17, "21124" },
         { 18, "1074" },
         { 19, "171" },
-        { 20, "648" }
+        { 20, "648" },
+        { 999, "20" }
         // More answers will be added here
     };
 
