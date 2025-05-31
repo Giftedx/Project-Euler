@@ -2,7 +2,7 @@ using System;
 using System.Numerics;
 
 public class Test {
-    public static void Main(string[] args) {
+    public static void Solve() {
         BigInteger n = new BigInteger(12345);
         try {
             // Attempt to use GetBitLength()
