@@ -61,13 +61,8 @@ public class Problem004 : Problem {
                 if ((long)i * (maxFactorExclusive - 1) < lpp) {
                     // If the largest possible product for this 'i' is already less than lpp,
                     // then decreasing 'i' further won't help.
-                    // This check should be done carefully. If i is a multiple of 11,
-                    // j can be any number.
-                    // This break is for the outer loop.
-                    // Let's refine this: if i * (maxFactorExclusive -1) < lpp, then for this i, no j will yield a product > lpp.
-                    // And since outer loop i is also decreasing, subsequent i's will also not yield a better product.
-                    // This optimization should be `if ((long)i * i_max < lpp) return lpp;` or similar before the j-loop.
-                    // For now, stick to the simpler product <= lpp break.
+                    // Exit the method early as no larger palindrome can be found.
+                    return lpp;
                 }
 
                 int product = i * j;
