@@ -4,7 +4,7 @@ internal static class Program {
     private static readonly Dictionary<string, (string Description, Action Action)> MenuActions =
         new(StringComparer.OrdinalIgnoreCase) {
             { "a", ("solve all problems", ProblemSolver.FullBenchmark) },
-            { "t", ("run test routine", ProblemSolver.RunTest) }
+            { "t", ("verify all known solutions", SolutionVerifier.VerifyAllKnownSolutions) }
         };
 
     public static void Main() {
