@@ -1,11 +1,13 @@
+using System.Collections; // Required for BitArray
+
 namespace Project_Euler;
 
 public class Problem010 : Problem {
     private const int Limit = 2000000;
-    private readonly bool[] _isPrime;
+    private readonly BitArray _isPrime; // Changed from bool[] to BitArray
 
     public Problem010() {
-        _isPrime = Library.SieveOfEratosthenesBoolArray(Limit);
+        _isPrime = Library.SieveOfEratosthenesBitArray(Limit); // Changed to use BitArray sieve
     }
 
     public override object Solve() {

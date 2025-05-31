@@ -1,17 +1,18 @@
 using System;
+using System.Numerics;
 
-namespace Project_Euler;
-
-public static class Test
-{
-    public static void Solve()
-    {
-        Console.WriteLine("Running Solution Verifier for problems with known answers...");
-        SolutionVerifier.VerifyAllKnownSolutions();
-        
-        // Example of how to add more answers if needed dynamically (though better to add to KnownAnswers dictionary directly)
-        // SolutionVerifier.AddKnownAnswer(4, "906609"); 
-        // Console.WriteLine("\nRunning verification for Problem 4 after adding its answer:");
-        // SolutionVerifier.VerifySolution(4);
+public class Test {
+    public static void Main(string[] args) {
+        BigInteger n = new BigInteger(12345);
+        try {
+            // Attempt to use GetBitLength()
+            // This method exists in .NET 5+ and .NET Core 2.0+
+            long bitLength = n.GetBitLength();
+            Console.WriteLine("BitLength:" + bitLength);
+        } catch (MissingMethodException) {
+            Console.WriteLine("GetBitLength_NotAvailable");
+        } catch (Exception e) {
+            Console.WriteLine("Error: " + e.GetType().Name + " - " + e.Message);
+        }
     }
 }

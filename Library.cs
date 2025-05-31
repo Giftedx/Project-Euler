@@ -242,48 +242,22 @@ public static class Library {
             return 0;
         }
 
-        BigInteger x;
-        // Initial guess
-        // For very large numbers, a guess based on bit length is much better.
-        // n.GetBitLength() is not public. Approximate with n.ToByteArray().Length.
-        // Each byte is 8 bits. So, bit length is roughly n.ToByteArray().Length * 8.
-        // sqrt(2^k) = 2^(k/2). So, shift right by (bitLength / 2).
-        // Add 1 to ensure guess is not too small, especially for small n.
-        try {
-            int bitLength = 0;
-            // BigInteger.ToByteArray() returns an empty array for 0, but we handled n=0.
-            // For small positive numbers, it might return a single byte.
-            byte[] bytes = n.ToByteArray();
-            if (bytes.Length == 0 && n > 0) { // Should not happen for n > 0 with standard BigInteger
-                bitLength = 64; // Default for safety if byte array is unexpectedly empty
-            } else {
-                bitLength = bytes.Length * 8;
-                // Correct for leading zero bits in the last byte if possible, though this is an approximation.
-                // For instance, if the last byte is 0b00000100, bitLength is too high.
-                // However, for Newton's method, a rough guess is usually fine.
-                // A common heuristic: if last byte has leading zeros, subtract them.
-                // This is complex to do perfectly without a GetBitLength().
-                // Let's keep it simpler: use n itself or n/2 for smaller numbers if bit length is tricky.
-            }
+        // Initial guess:
+        // If GetBitLength() were available and public, an initial guess could be:
+        //   int bitLength = n.GetBitLength();
+        //   x = BigInteger.One << (bitLength / 2 + (bitLength % 2));
+        // Since we cannot confirm GetBitLength()'s availability, we use a simpler, robust guess.
+        // Using n itself (or n/2 + 1) as the initial guess is robust.
+        // Let x = n. If n is very large, this is not optimal for speed but is correct.
+        // For n=1, x=1. For n=0, already handled.
+        BigInteger x = n;
 
-            if (bitLength > 120) { // Heuristic: for "large enough" numbers, use bit shift guess
-                 x = BigInteger.One << (bitLength / 2); // Initial guess: 2^(bitLength/2)
-            } else if (n > 1000000) { // Heuristic for moderately large numbers
-                x = n / (BigInteger.One << 10); // n / 1024, a bit arbitrary
-                 if (x == 0) x = BigInteger.One;
-            }
-            else {
-                 x = n; // For smaller numbers, n itself or n/2 is fine.
-            }
-             if (x == 0) x = BigInteger.One; // Ensure guess is at least 1 for n > 0
-        }
-        catch (Exception) { // Fallback in case of any issue with guess estimation
-            x = n;
-            if (x == 0 && n > 0) x = BigInteger.One;
-        }
-
-
+        // Newton's method iterations:
+        // The first iteration: y = (x + n/x) / 2 = (n + n/n) / 2 = (n+1)/2 if x=n and n>0.
+        // This is a good starting point.
+        // Ensure x is not zero for n/x, but n=0 is handled, so if here, n > 0, thus x > 0.
         BigInteger y = (x + n / x) / 2;
+
         // Loop until y >= x. This is a standard termination for integer Newton's method.
         // When y >= x, x is either floor(sqrt(n)) or floor(sqrt(n))+1.
         while (y < x) {
