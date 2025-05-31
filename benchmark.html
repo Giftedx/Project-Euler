@@ -97,9 +97,9 @@
     const summaryDiv = document.getElementById('summary');
     summaryDiv.innerHTML = `
       <strong>Total Problems:</strong> ${data.summary.totalProblems}<br>
-      <strong>Total Time:</strong> ${data.summary.totalTimeMs.toFixed(3)} ms<br>
-      <strong>Average Time:</strong> ${data.summary.averageTimeMs.toFixed(3)} ms<br>
-      <strong>Slowest Problem:</strong> #${data.summary.slowestProblem.index} (${data.summary.slowestProblem.timeMs.toFixed(3)} ms)
+      <strong>Total Time:</strong> ${data.summary.totalWallClockTimeMs.toFixed(3)} ms<br>
+      <strong>Average Time:</strong> ${data.summary.averageProblemSolutionTimeMs.toFixed(3)} ms<br>
+      <strong>Slowest Problem:</strong> #${data.summary.slowestProblem.index} (${data.summary.slowestProblem.averageTimeMs.toFixed(3)} ms)
     `;
 
     const labels = data.problems.map(p => "P" + p.index);
