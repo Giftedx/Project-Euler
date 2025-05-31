@@ -6,6 +6,8 @@ using System.Numerics;
 namespace Project_Euler;
 
 public static class Library {
+    private const int MaxSafeIntPow10Exponent = 9;
+
     //Program-wide tasks.
     /// <summary>
     /// Prints a string to the console, character by character, with an optional delay.
@@ -48,10 +50,20 @@ public static class Library {
     /// <param name="digits">The BigInteger whose digits are to be summed.</param>
     /// <returns>The sum of the digits as an integer.</returns>
     public static int SumDigits(BigInteger digits) {
+        if (digits < 0) {
+            digits = BigInteger.Abs(digits);
+        }
+        // It's good practice to also handle BigInteger.Zero explicitly if Abs might not be ideal for it,
+        // but Abs(0) is 0, so the loop condition digits != 0 handles it correctly.
+        // An explicit 'if (digits == 0) return 0;' could be added before Abs for minor optimization,
+        // but the loop naturally handles it.
+
         BigInteger sum = 0;
         while (digits != 0) {
-            var last = digits % 10;
-            sum += last;
+            // For positive numbers, digits % 10 is always positive.
+            // BigInteger.DivRem(digits, 10, out BigInteger remainder); is an alternative.
+            // remainder would be non-negative if digits is non-negative.
+            sum += digits % 10; // 'last' variable was not strictly necessary
             digits /= 10;
         }
 
@@ -70,8 +82,16 @@ public static class Library {
             b = a % b;
             a = temp;
         }
-
-        return a;
+        // By convention, GCD is non-negative.
+        // If 'a' is int.MinValue, Math.Abs(a) would throw. This happens if inputs
+        // like (int.MinValue, 0) or (int.MinValue, int.MinValue) are given.
+        // The positive GCD, in this case, is 2^31, unrepresentable as a positive int.
+        // Returning int.MinValue is a way to signal this or adhere to a convention
+        // where the result retains the sign of 'a' from the algorithm if it's int.MinValue.
+        if (a == int.MinValue) {
+            return int.MinValue;
+        }
+        return Math.Abs(a);
     }
 
     /// <summary>
@@ -111,28 +131,49 @@ public static class Library {
     /// <param name="exp">The non-negative exponent.</param>
     /// <returns>10 to the power of exp as an int.</returns>
     /// <exception cref="System.ArgumentOutOfRangeException">Thrown if exp is negative (as it would result in a fraction).</exception>
+    /// <exception cref="OverflowException">Thrown if 10^<paramref name="exp" /> would overflow Int32.</exception>
     /// <remarks>This method may overflow for large exponents (e.g., exp > 9).</remarks>
     public static int Pow10(int exp) {
-        if (exp < 0) throw new ArgumentOutOfRangeException(nameof(exp), "Exponent must be non-negative.");
+        if (exp < 0) {
+            throw new ArgumentOutOfRangeException(nameof(exp), "Exponent must be non-negative.");
+        }
+        if (exp > MaxSafeIntPow10Exponent) { // MaxSafeIntPow10Exponent would be 9
+            throw new OverflowException($"Cannot calculate 10^{exp} as it would overflow Int32. Maximum safe exponent is {MaxSafeIntPow10Exponent}.");
+        }
+
         int res = 1;
-        while (exp-- > 0) res *= 10;
+        int e = exp; // Use a copy of exp for the loop counter
+        while (e-- > 0) {
+            res *= 10;
+        }
         return res;
     }
 
     /// <summary>
-    /// Counts the number of digits in a positive integer.
+    /// Counts the number of decimal digits in an integer.
+    /// Handles negative numbers by counting digits in their absolute value.
     /// </summary>
-    /// <param name="n">The positive integer. Behavior for n=0 or negative n is not standard (returns 0).</param>
-    /// <returns>The number of digits in n. Returns 0 if n is zero or negative.</returns>
+    /// <param name="n">The integer to count digits for.</param>
+    /// <returns>The number of decimal digits in n. Returns 1 for n=0.</returns>
     public static int DigitCount(int n) {
-        if (n == 0) return 1; // Standard definition for digit count of 0 is 1.
-        if (n < 0) n = -n; // Work with positive number for counting.
+        if (n == 0) {
+            return 1;
+        }
+
+        if (n == int.MinValue) {
+            return 10; // int.MinValue (-2,147,483,648) has 10 digits.
+        }
+
+        if (n < 0) {
+            n = Math.Abs(n); // Safe now as int.MinValue is handled.
+        }
+
         int count = 0;
+        // Loop for positive numbers
         while (n > 0) {
             count++;
             n /= 10;
         }
-
         return count;
     }
 
@@ -140,8 +181,7 @@ public static class Library {
     /// Calculates the list of all positive divisors of a given number.
     /// </summary>
     /// <param name="n">The number for which to find divisors. Must be positive.</param>
-    /// <returns>A list of long integers representing all positive divisors of n, sorted in ascending order.
-    /// Returns {1} if n is 1. Returns an empty list if n is zero or negative (or consider throwing ArgumentOutOfRangeException for n <= 0 based on desired strictness).</returns>
+    /// <returns>A list of long integers representing all positive divisors of n, sorted in ascending order. Returns {1} if n is 1.</returns>
     /// <exception cref="System.ArgumentOutOfRangeException">Thrown if n is less than or equal to 0.</exception>
     public static List<long> GetDivisors(long n) {
         if (n <= 0) {
@@ -151,17 +191,23 @@ public static class Library {
             return new List<long> { 1 };
         }
 
-        var divisors = new List<long>();
+        var smallDivisors = new List<long>();
+        var largeDivisors = new List<long>();
+
         for (long i = 1; i * i <= n; i++) {
             if (n % i == 0) {
-                divisors.Add(i);
+                smallDivisors.Add(i);
                 if (i * i != n) {
-                    divisors.Add(n / i);
+                    largeDivisors.Add(n / i);
                 }
             }
         }
-        divisors.Sort();
-        return divisors;
+
+        for (int i = largeDivisors.Count - 1; i >= 0; i--) {
+            smallDivisors.Add(largeDivisors[i]);
+        }
+
+        return smallDivisors;
     }
 
     /// <summary>
@@ -177,21 +223,28 @@ public static class Library {
         }
 
         long result = n;
-        long p = 2;
         long tempN = n;
 
-        while (p * p <= tempN) {
-            if (tempN % p == 0) {
-                while (tempN % p == 0) {
-                    tempN /= p;
-                }
-                result -= result / p;
+        // Handle the factor 2 separately
+        if (tempN % 2 == 0) {
+            result -= result / 2; // Apply (1 - 1/2) factor
+            while (tempN % 2 == 0) {
+                tempN /= 2; // Remove all factors of 2 from tempN
             }
-            p++;
+        }
+
+        // Iterate for odd factors p, starting from 3
+        for (long p = 3; p * p <= tempN; p += 2) {
+            if (tempN % p == 0) { // If p is a prime factor
+                result -= result / p; // Apply (1 - 1/p) factor
+                while (tempN % p == 0) {
+                    tempN /= p; // Remove all factors of p from tempN
+                }
+            }
         }
 
         if (tempN > 1) { // Remaining tempN is a prime factor
-            result -= result / tempN;
+            result -= result / tempN; // Apply (1 - 1/tempN) factor
         }
 
         return result;
@@ -242,18 +295,29 @@ public static class Library {
             return 0;
         }
 
-        // Initial guess:
-        // If GetBitLength() were available and public, an initial guess could be:
-        //   int bitLength = n.GetBitLength();
-        //   x = BigInteger.One << (bitLength / 2 + (bitLength % 2));
-        // Since we cannot confirm GetBitLength()'s availability, we use a simpler, robust guess.
-        // Using n itself (or n/2 + 1) as the initial guess is robust.
-        // Let x = n. If n is very large, this is not optimal for speed but is correct.
-        // For n=1, x=1. For n=0, already handled.
-        BigInteger x = n;
+        // Improved initial guess using bit length for faster convergence.
+        // (n.GetBitLength() + 1) / 2 effectively calculates ceil(bitLength / 2.0).
+        // Cast to int for the shift operator is safe for practical BigInteger sizes in Project Euler.
+        int shiftAmount = (int)((n.GetBitLength() + 1) / 2);
+        BigInteger x = BigInteger.One << shiftAmount;
+
+        // Newton's method iterations (ensure x is not zero if n/x is used, but x will be > 0 here)
+        // If n=1, bitLength=1, shiftAmount=1, x=2. y=(2+1/2)/2 = 1. Loop: x=1, y=(1+1/1)/2=1. Ends. Returns 1. Correct.
+        // If x happens to be 0 from initial guess (e.g. if n was 0, but that's handled), n/x would fail.
+        // But for n > 0, GetBitLength >= 1, shiftAmount >= 1, so x >= 2 or x = 1 (for n=1 after first iter).
+
+        // The original code for y and the loop is fine, but ensure x is not 0 before n/x
+        // For n>0, x will be >0 from the bitlength guess. For n=1, x becomes 2, then 1.
+        // For n=2, bl=2, sa=1, x=2. y=(2+2/2)/2=1. Loop: x=1, y=(1+2/1)/2=1. Loop ends. Returns 1.
+        // For n=3, bl=2, sa=1, x=2. y=(2+3/2)/2=1. Loop: x=1, y=(1+3/1)/2=2. Loop ends. Returns 1.
+        // For n=4, bl=3, sa=2, x=4. y=(4+4/4)/2=2. Loop: x=2, y=(2+4/2)/2=2. Loop ends. Returns 2.
+        // Initial y calculation needs to be robust if x could be < sqrt(n)
+        // The existing loop handles x correctly.
+        // Consider if x + n/x could overflow if x is small and n is large.
+        // All are BigInteger, so intermediate sum won't overflow standard types.
 
         // Newton's method iterations:
-        // The first iteration: y = (x + n/x) / 2 = (n + n/n) / 2 = (n+1)/2 if x=n and n>0.
+        // The first iteration: y = (x + n/x) / 2
         // This is a good starting point.
         // Ensure x is not zero for n/x, but n=0 is handled, so if here, n > 0, thus x > 0.
         BigInteger y = (x + n / x) / 2;
