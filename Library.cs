@@ -53,7 +53,6 @@ public static class Library {
         if (digits < 0) {
             digits = BigInteger.Abs(digits);
         }
-        // BigInteger.Zero is naturally handled by the loop condition digits != 0.
 
         BigInteger sum = 0;
         while (digits != 0) {
