@@ -167,7 +167,7 @@ public class Problem014 : Problem {
             uint temp2 = 2;
             
             // Refactored goto loop for table generation
-            while(true) {
+            while(accumulator >= seqIndex) {
                 if ((accumulator & 1) > 0) { // If odd
                     accumulator += accumulator >> 1;
                     accumulator++;
