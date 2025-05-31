@@ -61,7 +61,7 @@ public class Problem014 : Problem {
                                                           // This logic appears to be part of an optimization where steps are combined.
                                                           // Assuming 'transformedValue' starts related to the Collatz sequence.
 
-                while(true) { // Refactored from goto loop
+                while(transformedValue >= _threshold) { // Refactored from goto loop
                     if ((transformedValue & 1) > 0) { // If odd
                         // This is equivalent to (3*val + 1)/2, a 2-step Collatz operation (3n+1 followed by n/2).
                         transformedValue += transformedValue >> 1;
