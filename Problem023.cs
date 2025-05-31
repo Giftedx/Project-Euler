@@ -17,18 +17,14 @@ public class Problem023 : Problem {
     }
 
     private int SumOfNonAbundantBelow() {
-        bool IsAbundant(int n) {
-            // n must be within the bounds of _properDivisorSum array if we are checking it.
-            // Smallest abundant is 12. Max n checked for abundancy is Limit-1.
-            if (n <= 0 || n >= Limit) return false;
-            return _properDivisorSum[n] > n;
-        }
-
-        List<int> abundantNumbers = new List<int>();
+        // Initialize with a capacity based on the known approximate count of abundant numbers.
+        List<int> abundantNumbers = new List<int>(7000);
         // Smallest abundant number is 12.
         // Populate list of abundant numbers up to Limit - 1.
+        // Inlined IsAbundant(n) logic: _properDivisorSum[n] > n
+        // n is always within bounds [12, Limit-1] here, so no need for n <= 0 || n >= Limit check.
         for (int n = 12; n < Limit; n++) {
-            if (IsAbundant(n)) {
+            if (_properDivisorSum[n] > n) {
                 abundantNumbers.Add(n);
             }
         }

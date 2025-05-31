@@ -10,11 +10,11 @@
         "projectUniqueName": "/app/Project Euler.csproj",
         "projectName": "Project Euler",
         "projectPath": "/app/Project Euler.csproj",
-        "packagesPath": "/home/swebot/.nuget/packages/",
+        "packagesPath": "/root/.nuget/packages/",
         "outputPath": "/app/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/swebot/.nuget/NuGet/NuGet.Config"
+          "/root/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -42,6 +42,20 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.8.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -58,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/dotnet/sdk/8.0.410/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/root/.dotnet/sdk/8.0.410/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

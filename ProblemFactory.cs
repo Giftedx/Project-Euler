@@ -13,7 +13,7 @@ public static class ProblemFactory {
                                                  Type = t,
                                                  Id = ExtractProblemId(t.Name)
                                              })
-                                             .Where(x => x.Id.HasValue)
+                                             .Where(x => x.Id.HasValue && x.Id.Value < 900) // Exclude problem 999 and similar
                                              .ToDictionary(x => {
                                                  Debug.Assert(x.Id != null); // Id is checked by x.Id.HasValue
                                                  return x.Id!.Value; // Null-forgiving: Id is checked by x.Id.HasValue

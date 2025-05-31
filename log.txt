@@ -1,0 +1,254 @@
+Problem 01: 233168
+    Best:   0.000 ms
+    Worst:  0.493 ms
+    Avg:    0.005 ms
+
+Problem 02: 4613732
+    Best:   0.000 ms
+    Worst:  0.172 ms
+    Avg:    0.002 ms
+
+Problem 03: 6857
+    Best:   0.006 ms
+    Worst:  0.321 ms
+    Avg:    0.010 ms
+
+Problem 04: 906609
+    Best:   0.128 ms
+    Worst:  4.255 ms
+    Avg:    0.180 ms
+
+Problem 05: 232792560
+    Best:   0.001 ms
+    Worst:  0.323 ms
+    Avg:    0.004 ms
+
+Problem 06: 25164150
+    Best:   0.000 ms
+    Worst:  0.149 ms
+    Avg:    0.002 ms
+
+Problem 07: 104743
+    Best:   6.038 ms
+    Worst:  24.356 ms
+    Avg:    9.134 ms
+
+Problem 08: 23514624000
+    Best:   0.091 ms
+    Worst:  4.403 ms
+    Avg:    0.220 ms
+
+Problem 09: 31875000
+    Best:   0.653 ms
+    Worst:  12.732 ms
+    Avg:    1.611 ms
+
+Problem 10: 142913828922
+    Best:   12.825 ms
+    Worst:  29.563 ms
+    Avg:    19.455 ms
+
+Problem 11: 70600674
+    Best:   0.061 ms
+    Worst:  0.962 ms
+    Avg:    0.074 ms
+
+Problem 12: 76576500
+    Best:   8.854 ms
+    Worst:  25.383 ms
+    Avg:    14.550 ms
+
+Problem 13: 5537376230
+    Best:   0.007 ms
+    Worst:  0.660 ms
+    Avg:    0.019 ms
+
+Problem 14: 837799
+    Best:   12.023 ms
+    Worst:  96.726 ms
+    Avg:    28.931 ms
+
+Problem 15: 137846528820
+    Best:   0.005 ms
+    Worst:  0.242 ms
+    Avg:    0.009 ms
+
+Problem 16: 1366
+    Best:   0.177 ms
+    Worst:  3.277 ms
+    Avg:    0.224 ms
+
+Problem 17: 21124
+    Best:   0.002 ms
+    Worst:  1.101 ms
+    Avg:    0.013 ms
+
+Problem 18: 1074
+    Best:   0.003 ms
+    Worst:  0.407 ms
+    Avg:    0.008 ms
+
+Problem 19: 171
+    Best:   0.020 ms
+    Worst:  0.348 ms
+    Avg:    0.024 ms
+
+Problem 20: 648
+    Best:   0.064 ms
+    Worst:  1.196 ms
+    Avg:    0.086 ms
+
+Problem 21: 31626
+    Best:   0.368 ms
+    Worst:  0.786 ms
+    Avg:    0.393 ms
+
+Problem 22: 871198282
+    Best:   5.224 ms
+    Worst:  24.543 ms
+    Avg:    8.071 ms
+
+Problem 23: 4179871
+    Best:   114.979 ms
+    Worst:  192.555 ms
+    Avg:    117.541 ms
+
+Problem 24: 2783915460
+    Best:   0.002 ms
+    Worst:  0.525 ms
+    Avg:    0.007 ms
+
+Problem 25: 4782
+    Best:   0.027 ms
+    Worst:  2.019 ms
+    Avg:    0.055 ms
+
+Problem 26: 983
+    Best:   0.022 ms
+    Worst:  0.469 ms
+    Avg:    0.028 ms
+
+Problem 27: -59231
+    Best:   3.359 ms
+    Worst:  18.638 ms
+    Avg:    4.427 ms
+
+Problem 28: 669171001
+    Best:   0.007 ms
+    Worst:  0.185 ms
+    Avg:    0.009 ms
+
+Problem 29: 9183
+    Best:   0.001 ms
+    Worst:  0.309 ms
+    Avg:    0.005 ms
+
+Problem 30: 443839
+    Best:   0.418 ms
+    Worst:  1.069 ms
+    Avg:    0.455 ms
+
+Problem 31: 73682
+    Best:   0.004 ms
+    Worst:  0.227 ms
+    Avg:    0.007 ms
+
+Problem 32: 45228
+    Best:   2.820 ms
+    Worst:  10.699 ms
+    Avg:    3.272 ms
+
+Problem 33: 100
+    Best:   0.060 ms
+    Worst:  0.325 ms
+    Avg:    0.067 ms
+
+Problem 34: 40730
+    Best:   1.512 ms
+    Worst:  5.737 ms
+    Avg:    1.693 ms
+
+Problem 35: 55
+    Best:   0.276 ms
+    Worst:  8.355 ms
+    Avg:    0.623 ms
+
+Problem 36: 872187
+    Best:   0.184 ms
+    Worst:  4.236 ms
+    Avg:    0.402 ms
+
+Problem 37: 748317
+    Best:   0.081 ms
+    Worst:  14.984 ms
+    Avg:    0.526 ms
+
+Problem 38: 932718654
+    Best:   1.419 ms
+    Worst:  13.746 ms
+    Avg:    3.353 ms
+
+Problem 39: 840
+    Best:   0.013 ms
+    Worst:  0.382 ms
+    Avg:    0.018 ms
+
+Problem 40: 210
+    Best:   0.000 ms
+    Worst:  0.242 ms
+    Avg:    0.003 ms
+
+Problem 41: 7652413
+    Best:   0.000 ms
+    Worst:  0.524 ms
+    Avg:    0.005 ms
+
+Problem 42: 162
+    Best:   0.164 ms
+    Worst:  0.977 ms
+    Avg:    0.183 ms
+
+Problem 43: 16695334890
+    Best:   3.258 ms
+    Worst:  7.392 ms
+    Avg:    3.637 ms
+
+Problem 44: 5482660
+    Best:   4.049 ms
+    Worst:  12.457 ms
+    Avg:    7.490 ms
+
+Problem 45: 47895
+    Best:   0.000 ms
+    Worst:  0.170 ms
+    Avg:    0.002 ms
+
+Problem 46: 5777
+    Best:   0.579 ms
+    Worst:  4.676 ms
+    Avg:    1.041 ms
+
+Problem 47: 134043
+    Best:   3.567 ms
+    Worst:  18.378 ms
+    Avg:    5.677 ms
+
+Problem 48: 9110846700
+    Best:   1.948 ms
+    Worst:  7.846 ms
+    Avg:    2.559 ms
+
+Problem 49: 296962999629
+    Best:   0.014 ms
+    Worst:  0.532 ms
+    Avg:    0.028 ms
+
+Problem 50: 997651
+    Best:   0.484 ms
+    Worst:  15.398 ms
+    Avg:    1.637 ms
+
+Total wall-clock benchmark time: 13618.959 ms
+Sum of average problem solution times: 237.776 ms
+Average problem solution time: 4.756 ms
+Slowest Problem (by avg time): 23 with 117.541 ms

@@ -1,0 +1,364 @@
+{
+  "summary": {
+    "totalProblems": 50,
+    "totalWallClockTimeMs": 13618.9592,
+    "sumOfAverageProblemTimesMs": 237.77582899999985,
+    "averageProblemSolutionTimeMs": 4.7555165799999966,
+    "slowestProblem": {
+      "index": 23,
+      "averageTimeMs": 117.54118599999994
+    }
+  },
+  "problems": [
+    {
+      "index": 1,
+      "result": "233168",
+      "bestTimeMs": 0.0001,
+      "worstTimeMs": 0.4928,
+      "averageTimeMs": 0.005038999999999989
+    },
+    {
+      "index": 2,
+      "result": "4613732",
+      "bestTimeMs": 0,
+      "worstTimeMs": 0.1725,
+      "averageTimeMs": 0.0018659999999999985
+    },
+    {
+      "index": 3,
+      "result": "6857",
+      "bestTimeMs": 0.006,
+      "worstTimeMs": 0.3206,
+      "averageTimeMs": 0.010131999999999995
+    },
+    {
+      "index": 4,
+      "result": "906609",
+      "bestTimeMs": 0.1275,
+      "worstTimeMs": 4.255,
+      "averageTimeMs": 0.17977100000000004
+    },
+    {
+      "index": 5,
+      "result": "232792560",
+      "bestTimeMs": 0.0009,
+      "worstTimeMs": 0.3225,
+      "averageTimeMs": 0.00412900000000001
+    },
+    {
+      "index": 6,
+      "result": "25164150",
+      "bestTimeMs": 0.0003,
+      "worstTimeMs": 0.1492,
+      "averageTimeMs": 0.0018680000000000077
+    },
+    {
+      "index": 7,
+      "result": "104743",
+      "bestTimeMs": 6.0379,
+      "worstTimeMs": 24.3559,
+      "averageTimeMs": 9.133883000000003
+    },
+    {
+      "index": 8,
+      "result": "23514624000",
+      "bestTimeMs": 0.0906,
+      "worstTimeMs": 4.4029,
+      "averageTimeMs": 0.2204790000000001
+    },
+    {
+      "index": 9,
+      "result": "31875000",
+      "bestTimeMs": 0.6532,
+      "worstTimeMs": 12.7323,
+      "averageTimeMs": 1.610672
+    },
+    {
+      "index": 10,
+      "result": "142913828922",
+      "bestTimeMs": 12.8251,
+      "worstTimeMs": 29.5627,
+      "averageTimeMs": 19.454828999999997
+    },
+    {
+      "index": 11,
+      "result": "70600674",
+      "bestTimeMs": 0.0614,
+      "worstTimeMs": 0.9619,
+      "averageTimeMs": 0.074368
+    },
+    {
+      "index": 12,
+      "result": "76576500",
+      "bestTimeMs": 8.8543,
+      "worstTimeMs": 25.3833,
+      "averageTimeMs": 14.550240999999998
+    },
+    {
+      "index": 13,
+      "result": "5537376230",
+      "bestTimeMs": 0.0073,
+      "worstTimeMs": 0.6602,
+      "averageTimeMs": 0.019439000000000015
+    },
+    {
+      "index": 14,
+      "result": "837799",
+      "bestTimeMs": 12.0234,
+      "worstTimeMs": 96.7257,
+      "averageTimeMs": 28.930542999999997
+    },
+    {
+      "index": 15,
+      "result": "137846528820",
+      "bestTimeMs": 0.0053,
+      "worstTimeMs": 0.2425,
+      "averageTimeMs": 0.008644999999999991
+    },
+    {
+      "index": 16,
+      "result": "1366",
+      "bestTimeMs": 0.1769,
+      "worstTimeMs": 3.2767,
+      "averageTimeMs": 0.22360500000000008
+    },
+    {
+      "index": 17,
+      "result": "21124",
+      "bestTimeMs": 0.0018,
+      "worstTimeMs": 1.1011,
+      "averageTimeMs": 0.012901000000000022
+    },
+    {
+      "index": 18,
+      "result": "1074",
+      "bestTimeMs": 0.0029,
+      "worstTimeMs": 0.4074,
+      "averageTimeMs": 0.00776
+    },
+    {
+      "index": 19,
+      "result": "171",
+      "bestTimeMs": 0.0196,
+      "worstTimeMs": 0.3477,
+      "averageTimeMs": 0.024343000000000004
+    },
+    {
+      "index": 20,
+      "result": "648",
+      "bestTimeMs": 0.0643,
+      "worstTimeMs": 1.1963,
+      "averageTimeMs": 0.08646400000000001
+    },
+    {
+      "index": 21,
+      "result": "31626",
+      "bestTimeMs": 0.3681,
+      "worstTimeMs": 0.7864,
+      "averageTimeMs": 0.39323499999999995
+    },
+    {
+      "index": 22,
+      "result": "871198282",
+      "bestTimeMs": 5.2243,
+      "worstTimeMs": 24.5427,
+      "averageTimeMs": 8.071198000000003
+    },
+    {
+      "index": 23,
+      "result": "4179871",
+      "bestTimeMs": 114.9792,
+      "worstTimeMs": 192.555,
+      "averageTimeMs": 117.54118599999994
+    },
+    {
+      "index": 24,
+      "result": "2783915460",
+      "bestTimeMs": 0.0015,
+      "worstTimeMs": 0.5252,
+      "averageTimeMs": 0.007110999999999984
+    },
+    {
+      "index": 25,
+      "result": "4782",
+      "bestTimeMs": 0.027,
+      "worstTimeMs": 2.0194,
+      "averageTimeMs": 0.05455500000000005
+    },
+    {
+      "index": 26,
+      "result": "983",
+      "bestTimeMs": 0.0218,
+      "worstTimeMs": 0.4694,
+      "averageTimeMs": 0.027641999999999972
+    },
+    {
+      "index": 27,
+      "result": "-59231",
+      "bestTimeMs": 3.3587,
+      "worstTimeMs": 18.6378,
+      "averageTimeMs": 4.4272009999999975
+    },
+    {
+      "index": 28,
+      "result": "669171001",
+      "bestTimeMs": 0.0068,
+      "worstTimeMs": 0.1846,
+      "averageTimeMs": 0.009204000000000007
+    },
+    {
+      "index": 29,
+      "result": "9183",
+      "bestTimeMs": 0.0014,
+      "worstTimeMs": 0.3089,
+      "averageTimeMs": 0.004609000000000011
+    },
+    {
+      "index": 30,
+      "result": "443839",
+      "bestTimeMs": 0.4177,
+      "worstTimeMs": 1.069,
+      "averageTimeMs": 0.455384
+    },
+    {
+      "index": 31,
+      "result": "73682",
+      "bestTimeMs": 0.004,
+      "worstTimeMs": 0.2266,
+      "averageTimeMs": 0.007378999999999993
+    },
+    {
+      "index": 32,
+      "result": "45228",
+      "bestTimeMs": 2.8203,
+      "worstTimeMs": 10.6991,
+      "averageTimeMs": 3.2722160000000002
+    },
+    {
+      "index": 33,
+      "result": "100",
+      "bestTimeMs": 0.0605,
+      "worstTimeMs": 0.3253,
+      "averageTimeMs": 0.06735600000000004
+    },
+    {
+      "index": 34,
+      "result": "40730",
+      "bestTimeMs": 1.5115,
+      "worstTimeMs": 5.7369,
+      "averageTimeMs": 1.693494000000001
+    },
+    {
+      "index": 35,
+      "result": "55",
+      "bestTimeMs": 0.2758,
+      "worstTimeMs": 8.3547,
+      "averageTimeMs": 0.6227990000000001
+    },
+    {
+      "index": 36,
+      "result": "872187",
+      "bestTimeMs": 0.1837,
+      "worstTimeMs": 4.2361,
+      "averageTimeMs": 0.4021370000000002
+    },
+    {
+      "index": 37,
+      "result": "748317",
+      "bestTimeMs": 0.0806,
+      "worstTimeMs": 14.9842,
+      "averageTimeMs": 0.5264319999999998
+    },
+    {
+      "index": 38,
+      "result": "932718654",
+      "bestTimeMs": 1.4194,
+      "worstTimeMs": 13.7458,
+      "averageTimeMs": 3.352746
+    },
+    {
+      "index": 39,
+      "result": "840",
+      "bestTimeMs": 0.0131,
+      "worstTimeMs": 0.3823,
+      "averageTimeMs": 0.018227999999999994
+    },
+    {
+      "index": 40,
+      "result": "210",
+      "bestTimeMs": 0.0003,
+      "worstTimeMs": 0.2416,
+      "averageTimeMs": 0.002746000000000015
+    },
+    {
+      "index": 41,
+      "result": "7652413",
+      "bestTimeMs": 0,
+      "worstTimeMs": 0.5244,
+      "averageTimeMs": 0.005268999999999997
+    },
+    {
+      "index": 42,
+      "result": "162",
+      "bestTimeMs": 0.1642,
+      "worstTimeMs": 0.9773,
+      "averageTimeMs": 0.18283799999999995
+    },
+    {
+      "index": 43,
+      "result": "16695334890",
+      "bestTimeMs": 3.2579,
+      "worstTimeMs": 7.3916,
+      "averageTimeMs": 3.6367130000000016
+    },
+    {
+      "index": 44,
+      "result": "5482660",
+      "bestTimeMs": 4.0486,
+      "worstTimeMs": 12.4574,
+      "averageTimeMs": 7.4896569999999985
+    },
+    {
+      "index": 45,
+      "result": "47895",
+      "bestTimeMs": 0,
+      "worstTimeMs": 0.1702,
+      "averageTimeMs": 0.0017819999999999982
+    },
+    {
+      "index": 46,
+      "result": "5777",
+      "bestTimeMs": 0.5792,
+      "worstTimeMs": 4.6763,
+      "averageTimeMs": 1.040711
+    },
+    {
+      "index": 47,
+      "result": "134043",
+      "bestTimeMs": 3.5675,
+      "worstTimeMs": 18.3785,
+      "averageTimeMs": 5.676672000000001
+    },
+    {
+      "index": 48,
+      "result": "9110846700",
+      "bestTimeMs": 1.9477,
+      "worstTimeMs": 7.8465,
+      "averageTimeMs": 2.5590039999999994
+    },
+    {
+      "index": 49,
+      "result": "296962999629",
+      "bestTimeMs": 0.0138,
+      "worstTimeMs": 0.5317,
+      "averageTimeMs": 0.02788899999999999
+    },
+    {
+      "index": 50,
+      "result": "997651",
+      "bestTimeMs": 0.4842,
+      "worstTimeMs": 15.3976,
+      "averageTimeMs": 1.637459
+    }
+  ]
+}

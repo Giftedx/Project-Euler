@@ -7,9 +7,9 @@ internal static class Program {
             { "t", ("run test routine", ProblemSolver.RunTest) }
         };
 
-    public static void Main() {
-        RunInteractionLoop();
-    }
+    // public static void Main() {
+    //     RunInteractionLoop();
+    // }
 
     private static void RunInteractionLoop() {
         do {
