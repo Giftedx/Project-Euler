@@ -3,7 +3,15 @@ using static System.Numerics.BigInteger;
 
 namespace Project_Euler;
 
+/// <summary>
+/// Solves Project Euler Problem 13: Large sum.
+/// Further details can be found at https://projecteuler.net/problem/13
+/// </summary>
 public class Problem013 : Problem {
+    /// <summary>
+    /// An array holding the one hundred 50-digit numbers for Project Euler Problem 13.
+    /// Each number is parsed into a BigInteger.
+    /// </summary>
     private readonly BigInteger[] _sumNums = [
         Parse("37107287533902102798797998220837590246510135740250"),
         Parse("46376937677490009712648124896970078050417018260538"),
@@ -107,18 +115,36 @@ public class Problem013 : Problem {
         Parse("53503534226472524250874054075591789781264330331690")
     ];
 
+    /// <summary>
+    /// Solves Project Euler Problem 13: Large sum.
+    /// Calculates the sum of one hundred 50-digit numbers and returns the first ten digits of this sum.
+    /// </summary>
+    /// <returns>A string representing the first ten digits of the sum.</returns>
     public override object Solve() {
         return FirstTenDigits(BigSum().ToString());
     }
 
+    /// <summary>
+    /// Extracts the first ten characters from a given string.
+    /// Assumes the string has at least 10 characters.
+    /// </summary>
+    /// <param name="s">The input string.</param>
+    /// <returns>A string consisting of the first ten characters of <paramref name="s"/>.</returns>
     private string FirstTenDigits(string s) {
-        return s[..10];
+        if (s == null) throw new ArgumentNullException(nameof(s));
+        if (s.Length < 10) throw new ArgumentException("String must be at least 10 characters long.", nameof(s));
+        return s[..10]; // Uses string range operator (C# 8.0+)
     }
 
+    /// <summary>
+    /// Calculates the sum of all <see cref="BigInteger"/> numbers stored in the <see cref="_sumNums"/> array.
+    /// </summary>
+    /// <returns>A <see cref="BigInteger"/> representing the total sum.</returns>
     private BigInteger BigSum() {
-        var result = Zero;
-        foreach (var sumNum in _sumNums) result += sumNum;
-
+        var result = Zero; // Static property BigInteger.Zero
+        foreach (var sumNum in _sumNums) {
+            result += sumNum;
+        }
         return result;
     }
 }

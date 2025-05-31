@@ -63,7 +63,7 @@ internal static class OutputHandler {
         var problemsJson = results.Select(r => new {
             index = r.Index,
             result = r.Result,
-            // times = r.Times, // Optionally include all times if needed, or just stats
+            times = r.Times, // Optionally include all times if needed, or just stats
             bestTimeMs = r.MinTime,
             worstTimeMs = r.MaxTime,
             averageTimeMs = r.AverageTime
@@ -82,7 +82,7 @@ internal static class OutputHandler {
         var problemsHtml = results.Select(r => new {
             index = r.Index,
             result = r.Result,
-            // times = r.Times, // Optionally include all times
+            times = r.Times, // Optionally include all times
             bestTimeMs = r.MinTime,
             worstTimeMs = r.MaxTime,
             averageTimeMs = r.AverageTime
