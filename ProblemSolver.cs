@@ -39,24 +39,23 @@ public static class ProblemSolver {
         testData.TotalTime = watch.Elapsed.TotalMilliseconds;
 
         if (results.Any()) {
-            // Initialize SlowestProblem and SlowestTime with the first problem's data
-            // SlowestTime is already initialized to double.MinValue in its class definition,
-            // so any valid average time will be greater.
-            // However, it's good practice to initialize with the first actual value.
-            var firstProblem = results.First();
-            testData.SlowestProblem = firstProblem.Index;
-            testData.SlowestTime = firstProblem.Times.Any() ? firstProblem.Times.Average() : 0;
+            var slowestProblemData = results
+                .Select(p => new { Problem = p, AvgTime = p.Times.Any() ? p.Times.Average() : 0 })
+                .OrderByDescending(x => x.AvgTime)
+                .FirstOrDefault();
 
-            foreach (var problemData in results) {
-                double avgTime = problemData.Times.Any() ? problemData.Times.Average() : 0;
-                if (avgTime > testData.SlowestTime) {
-                    testData.SlowestTime = avgTime;
-                    testData.SlowestProblem = problemData.Index;
-                }
+            if (slowestProblemData != null) {
+                testData.SlowestProblem = slowestProblemData.Problem.Index;
+                testData.SlowestTime = slowestProblemData.AvgTime;
+            } else {
+                // This case should ideally not be hit if results.Any() is true and all problems have data,
+                // but it's a safeguard.
+                testData.SlowestTime = 0;
+                testData.SlowestProblem = 0;
             }
         } else {
             testData.SlowestTime = 0;
-            testData.SlowestProblem = 0; // Problem indices are 1-based, so 0 can indicate no problems or error.
+            testData.SlowestProblem = 0;
         }
 
         OutputHandler.GenerateFullReport(results, testData);
@@ -113,6 +112,10 @@ public class ProblemData(int index, int runs) {
     public readonly int Index = index;
     public readonly List<double> Times = new(runs);
     public string Result = "";
+
+    public double AverageTime => Times.Any() ? Times.Average() : 0.0;
+    public double MinTime => Times.Any() ? Times.Min() : 0.0;
+    public double MaxTime => Times.Any() ? Times.Max() : 0.0;
 }
 
 public class BenchmarkData {

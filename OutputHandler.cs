@@ -29,15 +29,10 @@ internal static class OutputHandler {
         var fileContent = new StringBuilder();
 
         foreach (var result in results) {
-            // Ensure Times list is not empty to prevent InvalidOperationException
-            double best = result.Times.Any() ? result.Times.Min() : 0.0;
-            double worst = result.Times.Any() ? result.Times.Max() : 0.0;
-            double avg = result.Times.Any() ? result.Times.Average() : 0.0;
-
             fileContent.AppendLine($"Problem {result.Index:D2}: {result.Result}");
-            fileContent.AppendLine($"    Best:   {best:F3} ms");
-            fileContent.AppendLine($"    Worst:  {worst:F3} ms");
-            fileContent.AppendLine($"    Avg:    {avg:F3} ms");
+            fileContent.AppendLine($"    Best:   {result.MinTime:F3} ms");
+            fileContent.AppendLine($"    Worst:  {result.MaxTime:F3} ms");
+            fileContent.AppendLine($"    Avg:    {result.AverageTime:F3} ms");
             fileContent.AppendLine();
         }
 
@@ -69,9 +64,9 @@ internal static class OutputHandler {
             index = r.Index,
             result = r.Result,
             // times = r.Times, // Optionally include all times if needed, or just stats
-            bestTimeMs = r.Times.Any() ? r.Times.Min() : 0.0,
-            worstTimeMs = r.Times.Any() ? r.Times.Max() : 0.0,
-            averageTimeMs = r.Times.Any() ? r.Times.Average() : 0.0
+            bestTimeMs = r.MinTime,
+            worstTimeMs = r.MaxTime,
+            averageTimeMs = r.AverageTime
         });
         
         var jsonOutput = new {
@@ -88,9 +83,9 @@ internal static class OutputHandler {
             index = r.Index,
             result = r.Result,
             // times = r.Times, // Optionally include all times
-            bestTimeMs = r.Times.Any() ? r.Times.Min() : 0.0,
-            worstTimeMs = r.Times.Any() ? r.Times.Max() : 0.0,
-            averageTimeMs = r.Times.Any() ? r.Times.Average() : 0.0
+            bestTimeMs = r.MinTime,
+            worstTimeMs = r.MaxTime,
+            averageTimeMs = r.AverageTime
         }).ToList();
 
         var summaryHtml = new {
