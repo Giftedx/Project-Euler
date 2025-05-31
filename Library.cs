@@ -259,7 +259,6 @@ public static class Library {
         BigInteger y = (x + n / x) / 2;
 
         // Loop until y >= x. This is a standard termination for integer Newton's method.
-        // Loop until y >= x. This is a standard termination for integer Newton's method.
         // When y >= x, x is either floor(sqrt(n)) or floor(sqrt(n))+1.
         while (y < x) {
             x = y;
