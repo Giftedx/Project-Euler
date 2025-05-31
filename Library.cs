@@ -53,10 +53,6 @@ public static class Library {
         if (digits < 0) {
             digits = BigInteger.Abs(digits);
         }
-        // It's good practice to also handle BigInteger.Zero explicitly if Abs might not be ideal for it,
-        // but Abs(0) is 0, so the loop condition digits != 0 handles it correctly.
-        // An explicit 'if (digits == 0) return 0;' could be added before Abs for minor optimization,
-        // but the loop naturally handles it.
 
         BigInteger sum = 0;
         while (digits != 0) {
