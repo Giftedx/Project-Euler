@@ -43,11 +43,9 @@ public class Problem008 : Problem {
         // This is digitString.Length - len.
         for (int i = 0; i <= digitString.Length - len; i++) {
             long currentProduct = 1;
-            // Take a substring of 'len' digits starting from index 'i'.
-            string sub = digitString.Substring(i, len);
             bool containsZero = false;
-            for(int k=0; k < len; k++) {
-                char c = sub[k];
+            for (int k = 0; k < len; k++) {
+                char c = digitString[i + k];
                 if (c == '0') {
                     containsZero = true;
                     break;
