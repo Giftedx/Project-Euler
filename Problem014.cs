@@ -131,7 +131,8 @@ public class Problem014 : Problem {
 
         // Refine the best candidate: if multiple threads found the same max score, pick the smallest starting number.
         // Starts from the second-to-last element (index 14) and compares with the highest score (index 15).
-        for (int i = 14; i > 3; i--) { // The `> 3` seems arbitrary, perhaps top few distinct scores are enough.
+        const int MinScoreIndexToCheck = 3; // Minimum index to check for refining the best candidate.
+        for (int i = 14; i > MinScoreIndexToCheck; i--) { // Check top few distinct scores for refinement.
             if (bestScores[i] == bestScores[15]) { // If score is same as the max
                 if (bestNumbers[i] < bestNumbers[15]) { // If this candidate number is smaller
                     bestNumbers[15] = bestNumbers[i]; // Update to the smaller candidate
