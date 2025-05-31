@@ -130,7 +130,7 @@
 
     const table = document.querySelector("#results tbody");
     data.problems.forEach(p => {
-      const std = stdDev(p.times);
+      const std = p.times && Array.isArray(p.times) ? stdDev(p.times) : 0;
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>P${p.index}</td>
