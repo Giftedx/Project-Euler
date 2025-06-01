@@ -71,7 +71,7 @@ public class Problem033 : Problem {
         }
 
         // Simplify the total product by dividing by their GCD.
-        int commonDivisor = Library.Gcd(productNumerator, productDenominator);
-        return productDenominator / commonDivisor;
+        int commonDivisor = Library.Gcd(overallNumeratorProduct, overallDenominatorProduct);
+        return overallDenominatorProduct / commonDivisor;
     }
 }

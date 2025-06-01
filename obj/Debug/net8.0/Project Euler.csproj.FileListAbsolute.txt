@@ -13,6 +13,11 @@
 /app/obj/Debug/net8.0/Project Euler.pdb
 /app/obj/Debug/net8.0/Project Euler.genruntimeconfig.cache
 /app/obj/Debug/net8.0/ref/Project Euler.dll
+/home/runner/work/Project-Euler/Project-Euler/bin/Debug/net8.0/Project Euler
+/home/runner/work/Project-Euler/Project-Euler/bin/Debug/net8.0/Project Euler.deps.json
+/home/runner/work/Project-Euler/Project-Euler/bin/Debug/net8.0/Project Euler.runtimeconfig.json
+/home/runner/work/Project-Euler/Project-Euler/bin/Debug/net8.0/Project Euler.dll
+/home/runner/work/Project-Euler/Project-Euler/bin/Debug/net8.0/Project Euler.pdb
 /home/runner/work/Project-Euler/Project-Euler/obj/Debug/net8.0/Project Euler.GeneratedMSBuildEditorConfig.editorconfig
 /home/runner/work/Project-Euler/Project-Euler/obj/Debug/net8.0/Project Euler.AssemblyInfoInputs.cache
 /home/runner/work/Project-Euler/Project-Euler/obj/Debug/net8.0/Project Euler.AssemblyInfo.cs
@@ -21,3 +26,5 @@
 /home/runner/work/Project-Euler/Project-Euler/obj/Debug/net8.0/Project Euler.dll
 /home/runner/work/Project-Euler/Project-Euler/obj/Debug/net8.0/refint/Project Euler.dll
 /home/runner/work/Project-Euler/Project-Euler/obj/Debug/net8.0/Project Euler.pdb
+/home/runner/work/Project-Euler/Project-Euler/obj/Debug/net8.0/Project Euler.genruntimeconfig.cache
+/home/runner/work/Project-Euler/Project-Euler/obj/Debug/net8.0/ref/Project Euler.dll

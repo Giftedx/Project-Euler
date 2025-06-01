@@ -49,6 +49,17 @@ public class Problem023 : Problem {
     }
 
     /// <summary>
+    /// Estimates the count of abundant numbers below Limit.
+    /// Based on empirical data, approximately 25% of numbers below 28123 are abundant.
+    /// </summary>
+    /// <returns>Estimated count of abundant numbers below Limit.</returns>
+    private int EstimateAbundantCount() {
+        // Empirically, about 25% of numbers below 28123 are abundant
+        // Starting from 12 (first abundant), we have (Limit - 12) candidates
+        return (int)((Limit - 12) * 0.25);
+    }
+
+    /// <summary>
     /// Calculates the sum of all positive integers below <see cref="Limit"/> that cannot be
     /// expressed as the sum of two abundant numbers.
     /// The method first identifies all abundant numbers up to <see cref="Limit"/>.
@@ -57,24 +68,16 @@ public class Problem023 : Problem {
     /// </summary>
     /// <returns>The sum of integers not expressible as the sum of two abundant numbers.</returns>
     private int SumOfNonAbundantBelow() {
-        /// <summary>
-        /// Determines if a number 'n' is abundant.
-        /// A number is abundant if the sum of its proper divisors is greater than the number itself.
-        /// Uses the pre-computed <see cref="_properDivisorSum"/> array.
-        /// </summary>
-        /// <param name="n">The number to check for abundancy.</param>
-        /// <returns>True if 'n' is abundant, false otherwise.</returns>
-        bool IsAbundant(int n) {
-            // Ensure n is within the valid range for the _properDivisorSum array.
-            // Smallest abundant number is 12. Max n to check is Limit - 1.
-            if (n <= 0 || n >= Limit) return false; // Numbers outside this range are not considered or not in table.
-            return _properDivisorSum[n] > n;
-        }
-
-        var abundantNumbers = new List<int>();
-        // Populate the list of abundant numbers. Smallest abundant number is 12.
+        // Calculate the approximate count of abundant numbers below Limit.
+        int abundantCountEstimate = EstimateAbundantCount();
+        // Initialize with a capacity based on the calculated estimate.
+        List<int> abundantNumbers = new List<int>(abundantCountEstimate);
+        // Smallest abundant number is 12.
+        // Populate list of abundant numbers up to Limit - 1.
+        // Inlined IsAbundant(n) logic: _properDivisorSum[n] > n
+        // n is always within bounds [12, Limit-1] here, so no need for n <= 0 || n >= Limit check.
         for (int n = 12; n < Limit; n++) {
-            if (IsAbundant(n)) {
+            if (_properDivisorSum[n] > n) {
                 abundantNumbers.Add(n);
             }
         }
