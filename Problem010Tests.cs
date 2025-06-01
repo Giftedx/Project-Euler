@@ -12,7 +12,7 @@ namespace Project_Euler
             string expectedSolution = "142913828922";
 
             var actualSolution = problem.Solve();
-            Assert.AreEqual(expectedSolution, actualSolution.ToString(), $"The solution for Problem 010 is incorrect.");
+            Assert.AreEqual(expectedSolution, actualSolution.ToString(), $"The solution for Problem 010 is incorrect. Expected: {expectedSolution}, Actual: {actualSolution}");
         }
     }
 }
