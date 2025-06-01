@@ -5,7 +5,7 @@ namespace Project_Euler
 {
     public class AnswerGenerator
     {
-        public static void Main(string[] args)
+        public static void Generate(string[] args)
         {
             int startId = 1;
             int endId = 50;

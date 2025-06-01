@@ -98,7 +98,7 @@ public class Problem041 : Problem {
 
             // Check if the formed number is prime.
             // Assumes Library.IsPrime is efficient enough (e.g., uses a sieve for smaller numbers if appropriate).
-            if (Library.IsPrime(number)) {
+            if (Library.IsPrime((int)number)) {
                 _result = (int)number; // Cast to int, assuming pandigital primes fit. Largest is 7-digit.
                 _found = true;
             }
