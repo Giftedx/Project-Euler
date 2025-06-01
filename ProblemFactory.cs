@@ -4,6 +4,12 @@ using static System.Reflection.Assembly;
 namespace Project_Euler;
 
 public static class ProblemFactory {
+    /// <summary>
+    /// Maximum problem ID to include. Problems with IDs >= MaxProblemId are excluded 
+    /// (e.g., Problem999 and similar test problems).
+    /// </summary>
+    private const int MaxProblemId = 900;
+    
     private static readonly Dictionary<int, Type> ProblemTypes;
 
     static ProblemFactory() {
@@ -13,7 +19,7 @@ public static class ProblemFactory {
                                                  Type = t,
                                                  Id = ExtractProblemId(t.Name)
                                              })
-                                             .Where(x => x.Id.HasValue)
+                                             .Where(x => x.Id.HasValue && x.Id.Value < MaxProblemId) // Exclude problem IDs >= MaxProblemId
                                              .ToDictionary(x => {
                                                  Debug.Assert(x.Id != null); // Id is checked by x.Id.HasValue
                                                  return x.Id!.Value; // Null-forgiving: Id is checked by x.Id.HasValue

@@ -261,7 +261,6 @@ paket-files/
 __pycache__/
 *.pyc
 
-# Project-specific files
+# Project-specific files that are generated
 benchmark.json
-benchmark.html
 log.txt
