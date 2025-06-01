@@ -46,6 +46,7 @@ public static class Library {
 
     /// <summary>
     /// Calculates the sum of the digits of a BigInteger.
+    /// Optimized using DivRem for better performance on large numbers.
     /// </summary>
     /// <param name="digits">The BigInteger whose digits are to be summed.</param>
     /// <returns>The sum of the digits as an integer.</returns>
@@ -54,20 +55,19 @@ public static class Library {
             digits = BigInteger.Abs(digits);
         }
 
-        BigInteger sum = 0;
+        int sum = 0;
         while (digits != 0) {
-            // For positive numbers, digits % 10 is always positive.
-            // BigInteger.DivRem(digits, 10, out BigInteger remainder); is an alternative.
-            // remainder would be non-negative if digits is non-negative.
-            sum += digits % 10; // 'last' variable was not strictly necessary
-            digits /= 10;
+            // Use DivRem for better performance - single operation instead of separate % and /
+            digits = BigInteger.DivRem(digits, 10, out BigInteger remainder);
+            sum += (int)remainder;
         }
 
-        return (int)sum;
+        return sum;
     }
 
     /// <summary>
     /// Calculates the Greatest Common Divisor (GCD) of two integers using the Euclidean algorithm.
+    /// Time Complexity: O(log(min(a, b))) - very efficient for all practical inputs.
     /// </summary>
     /// <param name="a">The first integer.</param>
     /// <param name="b">The second integer.</param>
@@ -92,21 +92,35 @@ public static class Library {
 
     /// <summary>
     /// Calculates the factorial of a non-negative integer using BigInteger to handle large results.
+    /// Optimized with early returns for small values and leverages IntFactorial for efficiency.
     /// </summary>
     /// <param name="n">The non-negative integer.</param>
     /// <returns>The factorial of n as a BigInteger. Returns 1 for n=0 or n=1.</returns>
     /// <exception cref="System.ArgumentOutOfRangeException">Thrown if n is negative.</exception>
     public static BigInteger Factorial(int n) {
         if (n < 0) throw new ArgumentOutOfRangeException(nameof(n), "Factorial is not defined for negative numbers.");
-        BigInteger factorial = 1;
-        for (int i = 2; i <= n; i++) factorial *= i;
+        
+        // Use optimized int factorial for small values
+        if (n <= 12) return IntFactorial(n);
+        
+        // For larger values, start from the largest precomputed value
+        BigInteger factorial = FactorialLookup[12]; // 12! = 479001600
+        for (int i = 13; i <= n; i++) factorial *= i;
         return factorial;
     }
+
+    /// <summary>
+    /// Pre-computed factorial values for n=0 to n=12 for optimal performance.
+    /// </summary>
+    private static readonly int[] FactorialLookup = {
+        1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800, 39916800, 479001600
+    };
 
     /// <summary>
     /// Calculates the factorial of a non-negative integer. Result is an int.
     /// This method is limited to small inputs (n <= 12) due to int overflow.
     /// For larger inputs, use Factorial(int n) which returns BigInteger.
+    /// Optimized with pre-computed lookup table for maximum performance.
     /// </summary>
     /// <param name="n">The non-negative integer. Must be <= 12.</param>
     /// <returns>The factorial of n as an int. Returns 1 for n=0 or n=1.</returns>
@@ -116,13 +130,19 @@ public static class Library {
         if (n > 12) {
             throw new ArgumentOutOfRangeException(nameof(n), "Input too large for int factorial, use BigInteger Factorial(int n) instead.");
         }
-        int factorial = 1;
-        for (int i = 2; i <= n; i++) factorial *= i;
-        return factorial;
+        return FactorialLookup[n];
     }
 
     /// <summary>
+    /// Pre-computed powers of 10 for exponents 0-9 for optimal performance.
+    /// </summary>
+    private static readonly int[] Pow10Lookup = {
+        1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000
+    };
+
+    /// <summary>
     /// Calculates 10 raised to the power of a non-negative exponent.
+    /// Optimized with pre-computed lookup table for maximum performance.
     /// </summary>
     /// <param name="exp">The non-negative exponent.</param>
     /// <returns>10 to the power of exp as an int.</returns>
@@ -137,12 +157,7 @@ public static class Library {
             throw new OverflowException($"Cannot calculate 10^{exp} as it would overflow Int32. Maximum safe exponent is {MaxSafeIntPow10Exponent}.");
         }
 
-        int res = 1;
-        int e = exp; // Use a copy of exp for the loop counter
-        while (e-- > 0) {
-            res *= 10;
-        }
-        return res;
+        return Pow10Lookup[exp];
     }
 
     /// <summary>
@@ -175,6 +190,8 @@ public static class Library {
 
     /// <summary>
     /// Calculates the list of all positive divisors of a given number.
+    /// Time Complexity: O(√n) - optimal algorithm for divisor generation.
+    /// Space Complexity: O(d(n)) where d(n) is the number of divisors.
     /// </summary>
     /// <param name="n">The number for which to find divisors. Must be positive.</param>
     /// <returns>A list of long integers representing all positive divisors of n, sorted in ascending order. Returns {1} if n is 1.</returns>
@@ -742,6 +759,9 @@ public static class Library {
 
     /// <summary>
     /// Generates a boolean array indicating primality up to a specified limit using the Sieve of Eratosthenes.
+    /// Time Complexity: O(n log log n) - optimal for prime generation up to n.
+    /// Space Complexity: O(n) - uses bool array for fast access but higher memory usage.
+    /// Recommended for limits < 100,000 or when frequent random access is needed.
     /// </summary>
     /// <param name="limit">The inclusive upper bound for the sieve. Must be non-negative.</param>
     /// <returns>A boolean array `isPrime` of size `limit + 1` where `isPrime[i]` is true if `i` is prime, and false otherwise.
@@ -764,7 +784,9 @@ public static class Library {
 
     /// <summary>
     /// Generates a BitArray indicating primality up to a specified limit using the Sieve of Eratosthenes.
-    /// This version is more memory-efficient for large limits than SieveOfEratosthenesBoolArray.
+    /// Time Complexity: O(n log log n) - optimal for prime generation up to n.
+    /// Space Complexity: O(n/8) - uses BitArray for ~87.5% memory reduction vs bool array.
+    /// Recommended for large limits (>= 100,000) where memory efficiency is important.
     /// </summary>
     /// <param name="limit">The inclusive upper bound for the sieve. Must be non-negative.</param>
     /// <returns>A BitArray `isPrime` of size `limit + 1` where `isPrime[i]` is true if `i` is prime, and false otherwise.
