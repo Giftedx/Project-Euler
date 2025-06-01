@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "/home/swebot/.nuget/packages/": {}
+    "/home/runner/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/app/Project Euler.csproj",
+      "projectUniqueName": "/home/runner/work/Project-Euler/Project-Euler/Project Euler.csproj",
       "projectName": "Project Euler",
-      "projectPath": "/app/Project Euler.csproj",
-      "packagesPath": "/home/swebot/.nuget/packages/",
-      "outputPath": "/app/obj/",
+      "projectPath": "/home/runner/work/Project-Euler/Project-Euler/Project Euler.csproj",
+      "packagesPath": "/home/runner/.nuget/packages/",
+      "outputPath": "/home/runner/work/Project-Euler/Project-Euler/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/swebot/.nuget/NuGet/NuGet.Config"
+        "/home/runner/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -38,11 +38,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -64,7 +59,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/dotnet/sdk/8.0.410/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.116/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
