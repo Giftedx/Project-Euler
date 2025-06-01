@@ -84,6 +84,7 @@ public class Problem049 : Problem {
     /// <summary>
     /// Checks if two integers, <paramref name="num1"/> and <paramref name="num2"/>, are permutations of each other's digits.
     /// Assumes both numbers are positive and have the same number of digits (implicitly true for 4-digit primes in this problem).
+    /// Optimized with early termination for better performance on non-permutations.
     /// </summary>
     /// <param name="num1">The first integer.</param>
     /// <param name="num2">The second integer.</param>
@@ -100,7 +101,12 @@ public class Problem049 : Problem {
 
         int temp2 = num2;
         while (temp2 > 0) {
-            digitCounts[temp2 % 10]--; // Decrement count for digits of num2
+            int digit = temp2 % 10;
+            digitCounts[digit]--; // Decrement count for digits of num2
+            // Early termination: if count goes negative, not a permutation
+            if (digitCounts[digit] < 0) {
+                return false;
+            }
             temp2 /= 10;
         }
 

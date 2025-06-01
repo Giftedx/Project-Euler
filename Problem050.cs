@@ -1,3 +1,5 @@
+using System.Collections; // Required for BitArray
+
 namespace Project_Euler;
 
 /// <summary>
@@ -13,19 +15,19 @@ public class Problem050 : Problem {
     private const int MaxSumLimit = 1000000;
 
     /// <summary>
-    /// Boolean array storing pre-computed primes up to <see cref="MaxSumLimit"/>.
+    /// BitArray storing pre-computed primes up to <see cref="MaxSumLimit"/> for memory efficiency.
     /// `_isPrimeSieve[k]` is true if k is prime.
-    /// Assumes Library.SieveOfEratosthenesBoolArray(N) returns bool[N+1].
+    /// Uses BitArray instead of bool[] for ~87.5% memory reduction with large prime sieves.
     /// </summary>
-    private readonly bool[] _isPrimeSieve;
+    private readonly BitArray _isPrimeSieve;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Problem050"/> class.
     /// This constructor pre-computes primes up to <see cref="MaxSumLimit"/> using
-    /// <see cref="Library.SieveOfEratosthenesBoolArray"/> for efficient primality testing.
+    /// <see cref="Library.SieveOfEratosthenesBitArray"/> for efficient memory usage.
     /// </summary>
     public Problem050() {
-        _isPrimeSieve = Library.SieveOfEratosthenesBoolArray(MaxSumLimit);
+        _isPrimeSieve = Library.SieveOfEratosthenesBitArray(MaxSumLimit);
     }
 
     /// <summary>

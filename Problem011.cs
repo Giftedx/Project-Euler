@@ -87,12 +87,10 @@ public class Problem011 : Problem {
                     }
 
                     int currentProduct = 1;
-                    bool zeroEncountered = false;
                     for (int i = 0; i < 4; i++) {
                         int val = _grid[r + i * dx, c + i * dy];
                         if (val == 0) {
                             currentProduct = 0; // Product becomes 0 if any element is 0
-                            zeroEncountered = true;
                             break; // No need to multiply further for this sequence
                         }
                         currentProduct *= val;
