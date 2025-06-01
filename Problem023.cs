@@ -17,8 +17,10 @@ public class Problem023 : Problem {
     }
 
     private int SumOfNonAbundantBelow() {
-        // Initialize with a capacity based on the known approximate count of abundant numbers.
-        List<int> abundantNumbers = new List<int>(7000);
+        // Calculate the approximate count of abundant numbers below Limit.
+        int abundantCountEstimate = EstimateAbundantCount();
+        // Initialize with a capacity based on the calculated estimate.
+        List<int> abundantNumbers = new List<int>(abundantCountEstimate);
         // Smallest abundant number is 12.
         // Populate list of abundant numbers up to Limit - 1.
         // Inlined IsAbundant(n) logic: _properDivisorSum[n] > n
