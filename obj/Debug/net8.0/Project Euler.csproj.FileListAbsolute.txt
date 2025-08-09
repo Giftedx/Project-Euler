@@ -125,3 +125,115 @@
 /home/runner/work/Project-Euler/Project-Euler/bin/Debug/net8.0/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
 /home/runner/work/Project-Euler/Project-Euler/bin/Debug/net8.0/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 /home/runner/work/Project-Euler/Project-Euler/obj/Debug/net8.0/Project Euler.csproj.CopyComplete
+/workspace/bin/Debug/net8.0/Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+/workspace/bin/Debug/net8.0/Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+/workspace/bin/Debug/net8.0/Microsoft.TestPlatform.AdapterUtilities.dll
+/workspace/bin/Debug/net8.0/Project Euler
+/workspace/bin/Debug/net8.0/Project Euler.deps.json
+/workspace/bin/Debug/net8.0/Project Euler.runtimeconfig.json
+/workspace/bin/Debug/net8.0/Project Euler.dll
+/workspace/bin/Debug/net8.0/Project Euler.pdb
+/workspace/bin/Debug/net8.0/Microsoft.VisualStudio.CodeCoverage.Shim.dll
+/workspace/bin/Debug/net8.0/Microsoft.TestPlatform.CoreUtilities.dll
+/workspace/bin/Debug/net8.0/Microsoft.TestPlatform.PlatformAbstractions.dll
+/workspace/bin/Debug/net8.0/Microsoft.VisualStudio.TestPlatform.ObjectModel.dll
+/workspace/bin/Debug/net8.0/Microsoft.TestPlatform.CommunicationUtilities.dll
+/workspace/bin/Debug/net8.0/Microsoft.TestPlatform.CrossPlatEngine.dll
+/workspace/bin/Debug/net8.0/Microsoft.TestPlatform.Utilities.dll
+/workspace/bin/Debug/net8.0/Microsoft.VisualStudio.TestPlatform.Common.dll
+/workspace/bin/Debug/net8.0/testhost.dll
+/workspace/bin/Debug/net8.0/Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+/workspace/bin/Debug/net8.0/Newtonsoft.Json.dll
+/workspace/bin/Debug/net8.0/NuGet.Frameworks.dll
+/workspace/bin/Debug/net8.0/cs/Microsoft.TestPlatform.CoreUtilities.resources.dll
+/workspace/bin/Debug/net8.0/cs/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+/workspace/bin/Debug/net8.0/de/Microsoft.TestPlatform.CoreUtilities.resources.dll
+/workspace/bin/Debug/net8.0/de/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+/workspace/bin/Debug/net8.0/es/Microsoft.TestPlatform.CoreUtilities.resources.dll
+/workspace/bin/Debug/net8.0/es/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+/workspace/bin/Debug/net8.0/fr/Microsoft.TestPlatform.CoreUtilities.resources.dll
+/workspace/bin/Debug/net8.0/fr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+/workspace/bin/Debug/net8.0/it/Microsoft.TestPlatform.CoreUtilities.resources.dll
+/workspace/bin/Debug/net8.0/it/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+/workspace/bin/Debug/net8.0/ja/Microsoft.TestPlatform.CoreUtilities.resources.dll
+/workspace/bin/Debug/net8.0/ja/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+/workspace/bin/Debug/net8.0/ko/Microsoft.TestPlatform.CoreUtilities.resources.dll
+/workspace/bin/Debug/net8.0/ko/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+/workspace/bin/Debug/net8.0/pl/Microsoft.TestPlatform.CoreUtilities.resources.dll
+/workspace/bin/Debug/net8.0/pl/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+/workspace/bin/Debug/net8.0/pt-BR/Microsoft.TestPlatform.CoreUtilities.resources.dll
+/workspace/bin/Debug/net8.0/pt-BR/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+/workspace/bin/Debug/net8.0/ru/Microsoft.TestPlatform.CoreUtilities.resources.dll
+/workspace/bin/Debug/net8.0/ru/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+/workspace/bin/Debug/net8.0/tr/Microsoft.TestPlatform.CoreUtilities.resources.dll
+/workspace/bin/Debug/net8.0/tr/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+/workspace/bin/Debug/net8.0/zh-Hans/Microsoft.TestPlatform.CoreUtilities.resources.dll
+/workspace/bin/Debug/net8.0/zh-Hans/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+/workspace/bin/Debug/net8.0/zh-Hant/Microsoft.TestPlatform.CoreUtilities.resources.dll
+/workspace/bin/Debug/net8.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.ObjectModel.resources.dll
+/workspace/bin/Debug/net8.0/cs/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+/workspace/bin/Debug/net8.0/cs/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+/workspace/bin/Debug/net8.0/cs/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/workspace/bin/Debug/net8.0/de/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+/workspace/bin/Debug/net8.0/de/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+/workspace/bin/Debug/net8.0/de/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/workspace/bin/Debug/net8.0/es/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+/workspace/bin/Debug/net8.0/es/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+/workspace/bin/Debug/net8.0/es/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/workspace/bin/Debug/net8.0/fr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+/workspace/bin/Debug/net8.0/fr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+/workspace/bin/Debug/net8.0/fr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/workspace/bin/Debug/net8.0/it/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+/workspace/bin/Debug/net8.0/it/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+/workspace/bin/Debug/net8.0/it/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/workspace/bin/Debug/net8.0/ja/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+/workspace/bin/Debug/net8.0/ja/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+/workspace/bin/Debug/net8.0/ja/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/workspace/bin/Debug/net8.0/ko/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+/workspace/bin/Debug/net8.0/ko/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+/workspace/bin/Debug/net8.0/ko/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/workspace/bin/Debug/net8.0/pl/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+/workspace/bin/Debug/net8.0/pl/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+/workspace/bin/Debug/net8.0/pl/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/workspace/bin/Debug/net8.0/pt-BR/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+/workspace/bin/Debug/net8.0/pt-BR/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+/workspace/bin/Debug/net8.0/pt-BR/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/workspace/bin/Debug/net8.0/ru/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+/workspace/bin/Debug/net8.0/ru/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+/workspace/bin/Debug/net8.0/ru/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/workspace/bin/Debug/net8.0/tr/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+/workspace/bin/Debug/net8.0/tr/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+/workspace/bin/Debug/net8.0/tr/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/workspace/bin/Debug/net8.0/zh-Hans/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+/workspace/bin/Debug/net8.0/zh-Hans/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+/workspace/bin/Debug/net8.0/zh-Hans/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/workspace/bin/Debug/net8.0/zh-Hant/Microsoft.TestPlatform.CommunicationUtilities.resources.dll
+/workspace/bin/Debug/net8.0/zh-Hant/Microsoft.TestPlatform.CrossPlatEngine.resources.dll
+/workspace/bin/Debug/net8.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
+/workspace/bin/Debug/net8.0/cs/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+/workspace/bin/Debug/net8.0/de/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+/workspace/bin/Debug/net8.0/es/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+/workspace/bin/Debug/net8.0/fr/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+/workspace/bin/Debug/net8.0/it/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+/workspace/bin/Debug/net8.0/ja/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+/workspace/bin/Debug/net8.0/ko/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+/workspace/bin/Debug/net8.0/pl/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+/workspace/bin/Debug/net8.0/pt-BR/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+/workspace/bin/Debug/net8.0/ru/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+/workspace/bin/Debug/net8.0/tr/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+/workspace/bin/Debug/net8.0/zh-Hans/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+/workspace/bin/Debug/net8.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+/workspace/bin/Debug/net8.0/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+/workspace/bin/Debug/net8.0/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+/workspace/obj/Debug/net8.0/Project Euler.csproj.AssemblyReference.cache
+/workspace/obj/Debug/net8.0/Project Euler.GeneratedMSBuildEditorConfig.editorconfig
+/workspace/obj/Debug/net8.0/Project Euler.AssemblyInfoInputs.cache
+/workspace/obj/Debug/net8.0/Project Euler.AssemblyInfo.cs
+/workspace/obj/Debug/net8.0/Project Euler.csproj.CoreCompileInputs.cache
+/workspace/obj/Debug/net8.0/Project Euler.sourcelink.json
+/workspace/obj/Debug/net8.0/Project .D09D9CD8.Up2Date
+/workspace/obj/Debug/net8.0/Project Euler.dll
+/workspace/obj/Debug/net8.0/refint/Project Euler.dll
+/workspace/obj/Debug/net8.0/Project Euler.pdb
+/workspace/obj/Debug/net8.0/Project Euler.genruntimeconfig.cache
+/workspace/obj/Debug/net8.0/ref/Project Euler.dll
