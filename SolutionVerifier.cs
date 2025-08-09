@@ -57,8 +57,7 @@ public static class SolutionVerifier
         { 47, "134043" },
         { 48, "9110846700" },
         { 49, "296962999629" },
-        { 50, "997651" },
-        { 999, "20" }
+        { 50, "997651" }
         // More answers will be added here
     };
 
