@@ -10,38 +10,88 @@ public static class ProblemFactory {
     /// </summary>
     private const int MaxProblemId = 900;
     
-    private static readonly Dictionary<int, Type> ProblemTypes;
+    private static readonly Dictionary<int, Type> ProblemTypes = new();
+    private static readonly Dictionary<int, Func<Problem>> ProblemFactories = new();
+    private static bool _isInitialized = false;
 
     static ProblemFactory() {
-        ProblemTypes = GetExecutingAssembly().GetTypes()
-                                             .Where(t => typeof(Problem).IsAssignableFrom(t) && !t.IsAbstract)
-                                             .Select(t => new {
-                                                 Type = t,
-                                                 Id = ExtractProblemId(t.Name)
-                                             })
-                                             .Where(x => x.Id.HasValue && x.Id.Value < MaxProblemId) // Exclude problem IDs >= MaxProblemId
-                                             .ToDictionary(x => {
-                                                 Debug.Assert(x.Id != null); // Id is checked by x.Id.HasValue
-                                                 return x.Id!.Value; // Null-forgiving: Id is checked by x.Id.HasValue
-                                             }, x => x.Type);
+        InitializeProblemRegistry();
+    }
+
+    private static void InitializeProblemRegistry()
+    {
+        if (_isInitialized) return;
+
+        // Register all problems explicitly for better performance and type safety
+        RegisterProblem<Problem001>();
+        RegisterProblem<Problem002>();
+        RegisterProblem<Problem003>();
+        RegisterProblem<Problem004>();
+        RegisterProblem<Problem005>();
+        RegisterProblem<Problem006>();
+        RegisterProblem<Problem007>();
+        RegisterProblem<Problem008>();
+        RegisterProblem<Problem009>();
+        RegisterProblem<Problem010>();
+        RegisterProblem<Problem011>();
+        RegisterProblem<Problem012>();
+        RegisterProblem<Problem013>();
+        RegisterProblem<Problem014>();
+        RegisterProblem<Problem015>();
+        RegisterProblem<Problem016>();
+        RegisterProblem<Problem017>();
+        RegisterProblem<Problem018>();
+        RegisterProblem<Problem019>();
+        RegisterProblem<Problem020>();
+        RegisterProblem<Problem021>();
+        RegisterProblem<Problem022>();
+        RegisterProblem<Problem023>();
+        RegisterProblem<Problem024>();
+        RegisterProblem<Problem025>();
+        RegisterProblem<Problem026>();
+        RegisterProblem<Problem027>();
+        RegisterProblem<Problem028>();
+        RegisterProblem<Problem029>();
+        RegisterProblem<Problem030>();
+        RegisterProblem<Problem031>();
+        RegisterProblem<Problem032>();
+        RegisterProblem<Problem033>();
+        RegisterProblem<Problem034>();
+        RegisterProblem<Problem035>();
+        RegisterProblem<Problem036>();
+        RegisterProblem<Problem037>();
+        RegisterProblem<Problem038>();
+        RegisterProblem<Problem039>();
+        RegisterProblem<Problem040>();
+        RegisterProblem<Problem041>();
+        RegisterProblem<Problem042>();
+        RegisterProblem<Problem043>();
+        RegisterProblem<Problem044>();
+        RegisterProblem<Problem045>();
+        RegisterProblem<Problem046>();
+        RegisterProblem<Problem047>();
+        RegisterProblem<Problem048>();
+        RegisterProblem<Problem049>();
+        RegisterProblem<Problem050>();
+
+        _isInitialized = true;
+    }
+
+    private static void RegisterProblem<T>() where T : Problem, new()
+    {
+        var problem = new T();
+        int problemId = ExtractProblemId(typeof(T).Name);
+        
+        if (problemId.HasValue && problemId.Value < MaxProblemId)
+        {
+            ProblemTypes[problemId.Value] = typeof(T);
+            ProblemFactories[problemId.Value] = () => new T();
+        }
     }
 
     public static Problem CreateProblem(int id) {
-        if (ProblemTypes.TryGetValue(id, out Type? type)) {
-            // Type 'type' here is known to be non-null if TryGetValue returns true and it's a value type,
-            // but for reference types, it can be null if the dictionary stores nulls.
-            // However, our dictionary construction ensures types are non-null.
-            // So, type will not be null here.
-            object? instance = Activator.CreateInstance(type!); // Null-forgiving: type is guaranteed by TryGetValue and dictionary construction.
-            if (instance is Problem problemInstance) {
-                return problemInstance;
-            }
-            // It's also possible Activator.CreateInstance itself returns null
-            if (instance == null) {
-                 throw new InvalidOperationException($"Activator.CreateInstance returned null for type {type!.FullName} for Problem{id:D3}.");
-            }
-            // If it's not null but not a Problem instance (shouldn't happen if type is correct)
-            throw new InvalidOperationException($"Created instance for Problem{id:D3} was not of type Problem (actual type: {instance.GetType().FullName}).");
+        if (ProblemFactories.TryGetValue(id, out var factory)) {
+            return factory();
         }
 
         throw new ArgumentOutOfRangeException(nameof(id), $"Problem with ID {id} not found.");
