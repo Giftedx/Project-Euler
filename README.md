@@ -20,18 +20,18 @@ This project is a C# application designed to solve problems from [Project Euler]
 
 1.  Clone the repository.
 2.  Navigate to the root directory of the project.
-3.  Run the build command:
+3.  Build the solution:
     ```bash
-    dotnet build
+    dotnet build ProjectEuler.sln
     ```
 
 ### Running the Application
 
-1.  After building, run the application from the root directory:
+1.  After building, run the application:
     ```bash
-    dotnet run
+    dotnet run --project src/ProjectEuler/ProjectEuler.csproj
     ```
-    Alternatively, you can run the executable directly from the output directory (e.g., `bin/Debug/net8.0/Project Euler`).
+    Alternatively, you can run the executable directly from the output directory (e.g., `src/ProjectEuler/bin/Debug/net8.0/ProjectEuler`).
 
 ## Menu Navigation
 
@@ -78,6 +78,10 @@ To add a solution for a new Project Euler problem (e.g., Problem X):
     *   In the `tests/` directory, create a new C# file named `ProblemXXXTests.cs` (e.g., `tests/Problem051Tests.cs`).
     *   Use any existing test (e.g., `tests/Problem010Tests.cs`) as a template.
     *   Update the class name, test method name, problem instantiation (`new ProblemXXX()`), and the `expectedSolution` variable with the correct answer.
+    *   Run tests:
+        ```bash
+        dotnet test ProjectEuler.sln
+        ```
     *   Example:
         ```csharp
         // In tests/ProblemXXXTests.cs
@@ -94,10 +98,6 @@ To add a solution for a new Project Euler problem (e.g., Problem X):
                 {
                     var problem = new ProblemXXX(); // Update XXX
                     object expectedSolution = YYY; // Replace YYY with the actual answer, ensure correct type or use string
-                    // For numeric answers, you can use:
-                    // long expectedSolution = 12345L;
-                    // string expectedSolution = "verylargenumber";
-
                     var actualSolution = problem.Solve();
                     Assert.AreEqual(expectedSolution.ToString(), actualSolution.ToString(), $"The solution for Problem XXX is incorrect.");
                 }

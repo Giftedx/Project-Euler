@@ -2,34 +2,18 @@
 
 This document outlines the problems identified in the Project Euler C# solver codebase and provides better approaches for each.
 
-## 1. **Inconsistent Return Types**
+## 1. **Return Types (Updated)**
 
-### Problem
-The `Solve()` method returns `object`, which requires boxing/unboxing and makes the API less type-safe.
+### Current State
+A generic base `Problem<T>` exists alongside the legacy `Problem` base used by existing problems. The harness still expects `object` via `Problem.Solve()`.
 
-### Current Code
-```csharp
-public override object Solve() {
-    return SumMultiples(3, 5, 1000);
-}
-```
-
-### Better Approach
-Use a generic base class for better type safety and performance:
-
-```csharp
-public abstract class Problem<T> where T : struct
-{
-    public abstract T Solve();
-    public int GetProblemNumber() { /* implementation */ }
-}
-```
+### Approach
+Gradually migrate problems to `Problem<T>` while keeping the legacy base for compatibility. Provide shims or overloads where needed.
 
 **Benefits:**
-- Type safety at compile time
-- No boxing/unboxing overhead
-- Better IntelliSense support
-- Clearer API contracts
+- Preserves compatibility while enabling type safety
+- No boxing for migrated problems
+- Clear migration path
 
 ## 2. **Hardcoded Answers in SolutionVerifier**
 
@@ -67,35 +51,15 @@ private static void LoadKnownAnswers()
 - Can be shared across team members
 - Supports different answer formats
 
-## 3. **Inefficient Problem Discovery**
+## 3. **Problem Discovery (Implemented)**
 
-### Problem
-The `ProblemFactory` uses reflection to discover problems, which is slow and error-prone.
-
-### Current Code
-```csharp
-ProblemTypes = GetExecutingAssembly().GetTypes()
-    .Where(t => typeof(Problem).IsAssignableFrom(t) && !t.IsAbstract)
-    .Select(t => new { Type = t, Id = ExtractProblemId(t.Name) })
-    .ToDictionary(/* ... */);
-```
-
-### Better Approach
-Use explicit registration for better performance and type safety:
-
-```csharp
-private static void InitializeProblemRegistry()
-{
-    RegisterProblem<Problem001>();
-    RegisterProblem<Problem002>();
-    // ... explicit registration
-}
-```
+### Current State
+`ProblemFactory` uses explicit registration via `RegisterProblem<T>()` and maintains factory delegates. Reflection-based discovery has been removed.
 
 **Benefits:**
-- Faster startup time
+- Faster startup
 - Compile-time verification
-- Better error messages
+- Clearer errors
 - No reflection overhead
 
 ## 4. **Memory Inefficiency in Complex Problems**
@@ -155,7 +119,7 @@ public static class Logger
 - Configurable log levels
 - Better debugging capabilities
 
-## 6. **Inefficient Benchmarking**
+## 6. **Inefficient Benchmarking (Partially Implemented)
 
 ### Problem
 The benchmarking system runs problems multiple times without considering warm-up or statistical significance.
@@ -202,23 +166,13 @@ private const int BenchmarkRuns = 100;
 private const int MaxProblemId = 900;
 ```
 
-### Better Approach
-Implement a configuration system:
-
-```csharp
-public class Configuration
-{
-    public BenchmarkSettings Benchmark { get; set; }
-    public LoggingSettings Logging { get; set; }
-    public ProblemSettings Problems { get; set; }
-}
-```
+### Current State
+`Configuration.cs` exists and persists to `euler_config.json`. Logging is provided by `Logger.cs`.
 
 **Benefits:**
 - Centralized configuration
 - Runtime configuration changes
-- Environment-specific settings
-- JSON-based configuration files
+- JSON-based configuration file
 
 ## 8. **Thread Safety Issues**
 
