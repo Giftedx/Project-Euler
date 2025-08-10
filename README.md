@@ -5,10 +5,10 @@ This project is a C# application designed to solve problems from [Project Euler]
 ## Features
 
 *   **Problem Solving:** Implements solutions for a growing number of Project Euler problems.
-*   **Benchmarking:** Allows benchmarking of individual problems or all solved problems to measure performance.
-*   **Solution Verification:** Checks solutions against a list of known correct answers.
-*   **Reporting:** Generates detailed benchmark reports in text, JSON, and interactive HTML formats.
-*   **Dynamic Problem Discovery:** Uses reflection to automatically discover and instantiate problem classes.
+*   **Benchmarking:** Benchmark individual problems or all solved problems; advanced stats available via `BenchmarkRunner`.
+*   **Solution Verification:** Checks solutions against a list of known correct answers (from `known_answers.json` or built-in defaults).
+*   **Reporting:** Generates detailed benchmark reports in text, JSON, and interactive HTML formats (HTML is generated from `template.html`).
+*   **Explicit Problem Registration:** Problems are explicitly registered in `ProblemFactory` for reliability and performance.
 
 ## Getting Started
 
@@ -20,18 +20,18 @@ This project is a C# application designed to solve problems from [Project Euler]
 
 1.  Clone the repository.
 2.  Navigate to the root directory of the project.
-3.  Run the build command:
+3.  Build the solution:
     ```bash
-    dotnet build
+    dotnet build ProjectEuler.sln
     ```
 
 ### Running the Application
 
-1.  After building, run the application from the root directory:
+1.  After building, run the application:
     ```bash
-    dotnet run
+    dotnet run --project src/ProjectEuler/ProjectEuler.csproj
     ```
-    Alternatively, you can run the executable directly from the output directory (e.g., `bin/Debug/net8.0/Project Euler`).
+    Alternatively, you can run the executable directly from the output directory (e.g., `src/ProjectEuler/bin/Debug/net8.0/ProjectEuler`).
 
 ## Menu Navigation
 
@@ -75,16 +75,20 @@ To add a solution for a new Project Euler problem (e.g., Problem X):
         ```
 
 3.  **Add a Unit Test:**
-    *   In the `ProjectEuler.Tests` directory, create a new C# file named `ProblemXXXTests.cs` (e.g., `Problem051Tests.cs`).
-    *   Use `Problem001Tests.cs` as a template.
+    *   In the `tests/` directory, create a new C# file named `ProblemXXXTests.cs` (e.g., `tests/Problem051Tests.cs`).
+    *   Use any existing test (e.g., `tests/Problem010Tests.cs`) as a template.
     *   Update the class name, test method name, problem instantiation (`new ProblemXXX()`), and the `expectedSolution` variable with the correct answer.
+    *   Run tests:
+        ```bash
+        dotnet test ProjectEuler.sln
+        ```
     *   Example:
         ```csharp
-        // In ProjectEuler.Tests/ProblemXXXTests.cs
+        // In tests/ProblemXXXTests.cs
         using Microsoft.VisualStudio.TestTools.UnitTesting;
         using Project_Euler;
 
-        namespace ProjectEuler.Tests
+        namespace Project_Euler
         {
             [TestClass]
             public class ProblemXXXTests
@@ -94,10 +98,6 @@ To add a solution for a new Project Euler problem (e.g., Problem X):
                 {
                     var problem = new ProblemXXX(); // Update XXX
                     object expectedSolution = YYY; // Replace YYY with the actual answer, ensure correct type or use string
-                    // For numeric answers, you can use:
-                    // long expectedSolution = 12345L;
-                    // string expectedSolution = "verylargenumber";
-
                     var actualSolution = problem.Solve();
                     Assert.AreEqual(expectedSolution.ToString(), actualSolution.ToString(), $"The solution for Problem XXX is incorrect.");
                 }
