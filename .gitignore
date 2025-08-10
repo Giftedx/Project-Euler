@@ -264,3 +264,9 @@ __pycache__/
 # Project-specific files that are generated
 benchmark.json
 log.txt
+benchmark.html
+euler_solver.log
+euler_config.json
+known_answers.json
+core
+core.*
