@@ -100,12 +100,6 @@ public static class ProblemSolver {
         }
     }
 
-    public static void RunTest() {
-        var watch = Stopwatch.StartNew();
-        Test.Solve();
-        watch.Stop();
-        Console.WriteLine($"{watch.ElapsedMilliseconds} ms");
-    }
 }
 
 public class ProblemData(int index, int runs) {
