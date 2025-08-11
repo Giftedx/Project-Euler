@@ -119,7 +119,7 @@ public class SparseCollatzCache : ICollatzCache
 
     public void SetSequenceLength(ulong number, ushort length)
     {
-        if (number <= _maxValue && number % _sparsityFactor == 0)
+        if (number <= _maxValue && number % (ulong)_sparsityFactor == 0)
         {
             _cache[number] = length;
         }

@@ -80,7 +80,7 @@ public static class ProblemFactory {
     private static void RegisterProblem<T>() where T : Problem, new()
     {
         var problem = new T();
-        int problemId = ExtractProblemId(typeof(T).Name);
+        int? problemId = ExtractProblemId(typeof(T).Name);
         
         if (problemId.HasValue && problemId.Value < MaxProblemId)
         {
