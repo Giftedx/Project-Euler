@@ -21,21 +21,15 @@ public class Problem023 : Problem {
     /// `_properDivisorSum[k]` holds the sum of proper divisors of k.
     /// This is pre-computed in the constructor.
     /// </summary>
-    private readonly int[] _properDivisorSum = new int[Limit];
+    private readonly int[] _properDivisorSum;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Problem023"/> class.
     /// This constructor pre-computes the sum of proper divisors for all numbers
-    /// from 1 up to <see cref="Limit"/>-1. This is done efficiently by iterating
-    /// through potential divisors and adding them to their multiples.
+    /// from 1 up to <see cref="Limit"/>-1. This is done efficiently by using the shared Library.
     /// </summary>
     public Problem023() {
-        // _properDivisorSum[0] is unused. _properDivisorSum[1] (sum of proper divisors of 1) is 0.
-        for (int i = 1; i < Limit; i++) { // 'i' is the potential divisor
-            for (int j = 2 * i; j < Limit; j += i) { // 'j' is a multiple of 'i'
-                _properDivisorSum[j] += i; // Add 'i' to the sum of proper divisors for 'j'
-            }
-        }
+        _properDivisorSum = Library.GetProperDivisorSums(Limit);
     }
 
     /// <summary>
