@@ -5,15 +5,24 @@ using System.Numerics;
 
 namespace Project_Euler;
 
+/// <summary>
+/// A utility class containing common mathematical functions and helpers used across multiple Project Euler problems.
+/// Includes functions for number theory, combinatorics, figurate numbers, and general file I/O.
+/// </summary>
 public static class Library {
+    /// <summary>
+    /// The maximum exponent for base 10 that results in an integer which fits within a standard 32-bit signed integer (Int32).
+    /// 10^9 = 1,000,000,000 (fits in Int32). 10^10 = 10,000,000,000 (overflows Int32).
+    /// </summary>
     private const int MaxSafeIntPow10Exponent = 9;
 
     //Program-wide tasks.
     /// <summary>
     /// Prints a string to the console, character by character, with an optional delay.
+    /// Used for stylized output in the console application.
     /// </summary>
     /// <param name="s">The string to print.</param>
-    /// <param name="enableDelay">If true, a small delay is introduced after printing each character.</param>
+    /// <param name="enableDelay">If true, a small delay (10ms) is introduced after printing each character to simulate typing.</param>
     public static void FunPrint(string s, bool enableDelay = false) {
         const int wait = 10;
         foreach (char c in s) {
@@ -28,11 +37,11 @@ public static class Library {
 
     /// <summary>
     /// Reads all lines from a file, splits them by commas, trims whitespace, and removes quotation marks.
-    /// Primarily designed for Project Euler data files like names.txt or words.txt.
+    /// Primarily designed for Project Euler data files like 'names.txt' or 'words.txt' which are often comma-delimited strings.
     /// </summary>
     /// <param name="fileName">The name of the file to read. The file is expected to be in the application's base directory.</param>
     /// <returns>A list of strings extracted and processed from the file. Returns an empty list if the file is empty or lines produce no data after processing.</returns>
-    /// <exception cref="System.IO.IOException">An I/O error occurs (e.g., file not found, permission issues).</exception>
+    /// <exception cref="System.IO.IOException">Thrown when an I/O error occurs (e.g., file not found, permission issues).</exception>
     public static List<string> ReadFile(string fileName) {
         string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
         List<string> data = File.ReadLines(filePath)
@@ -45,8 +54,8 @@ public static class Library {
     //Maths tasks.
 
     /// <summary>
-    /// Calculates the sum of the digits of a BigInteger.
-    /// Optimized using DivRem for better performance on large numbers.
+    /// Calculates the sum of the decimal digits of a BigInteger.
+    /// Optimized using BigInteger.DivRem for better performance on large numbers compared to separate division and modulus operations.
     /// </summary>
     /// <param name="digits">The BigInteger whose digits are to be summed.</param>
     /// <returns>The sum of the digits as an integer.</returns>
@@ -71,7 +80,10 @@ public static class Library {
     /// </summary>
     /// <param name="a">The first integer.</param>
     /// <param name="b">The second integer.</param>
-    /// <returns>The GCD of a and b.</returns>
+    /// <returns>The GCD of a and b. The result is always non-negative.</returns>
+    /// <remarks>
+    /// If one of the inputs is Int32.MinValue, the result might be Int32.MinValue because its absolute value cannot be represented as a positive Int32.
+    /// </remarks>
     public static int Gcd(int a, int b) {
         while (b != 0) {
             int temp = b;
@@ -94,7 +106,7 @@ public static class Library {
     /// Calculates the factorial of a non-negative integer using BigInteger to handle large results.
     /// Optimized with early returns for small values and leverages IntFactorial for efficiency.
     /// </summary>
-    /// <param name="n">The non-negative integer.</param>
+    /// <param name="n">The non-negative integer for which to calculate the factorial.</param>
     /// <returns>The factorial of n as a BigInteger. Returns 1 for n=0 or n=1.</returns>
     /// <exception cref="System.ArgumentOutOfRangeException">Thrown if n is negative.</exception>
     public static BigInteger Factorial(int n) {
@@ -111,6 +123,7 @@ public static class Library {
 
     /// <summary>
     /// Pre-computed factorial values for n=0 to n=12 for optimal performance.
+    /// Used by both IntFactorial and Factorial methods.
     /// </summary>
     private static readonly int[] FactorialLookup = {
         1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800, 39916800, 479001600
@@ -118,13 +131,13 @@ public static class Library {
 
     /// <summary>
     /// Calculates the factorial of a non-negative integer. Result is an int.
-    /// This method is limited to small inputs (n <= 12) due to int overflow.
+    /// This method is limited to small inputs (n &lt;= 12) due to int overflow.
     /// For larger inputs, use Factorial(int n) which returns BigInteger.
     /// Optimized with pre-computed lookup table for maximum performance.
     /// </summary>
-    /// <param name="n">The non-negative integer. Must be <= 12.</param>
+    /// <param name="n">The non-negative integer. Must be &lt;= 12.</param>
     /// <returns>The factorial of n as an int. Returns 1 for n=0 or n=1.</returns>
-    /// <exception cref="System.ArgumentOutOfRangeException">Thrown if n is negative or > 12.</exception>
+    /// <exception cref="System.ArgumentOutOfRangeException">Thrown if n is negative or &gt; 12.</exception>
     public static int IntFactorial(int n) {
         if (n < 0) throw new ArgumentOutOfRangeException(nameof(n), "Factorial is not defined for negative numbers.");
         if (n > 12) {
@@ -142,13 +155,12 @@ public static class Library {
 
     /// <summary>
     /// Calculates 10 raised to the power of a non-negative exponent.
-    /// Optimized with pre-computed lookup table for maximum performance.
+    /// Optimized with pre-computed lookup table for exponents 0-9.
     /// </summary>
     /// <param name="exp">The non-negative exponent.</param>
     /// <returns>10 to the power of exp as an int.</returns>
-    /// <exception cref="System.ArgumentOutOfRangeException">Thrown if exp is negative (as it would result in a fraction).</exception>
-    /// <exception cref="OverflowException">Thrown if 10^<paramref name="exp" /> would overflow Int32.</exception>
-    /// <remarks>This method may overflow for large exponents (e.g., exp > 9).</remarks>
+    /// <exception cref="System.ArgumentOutOfRangeException">Thrown if exp is negative.</exception>
+    /// <exception cref="System.OverflowException">Thrown if 10^exp would overflow Int32 (i.e., exp > 9).</exception>
     public static int Pow10(int exp) {
         if (exp < 0) {
             throw new ArgumentOutOfRangeException(nameof(exp), "Exponent must be non-negative.");
@@ -265,6 +277,7 @@ public static class Library {
 
     /// <summary>
     /// Performs modular exponentiation (baseVal^exponent) % modulus.
+    /// Efficiently calculates large powers modulo a number.
     /// </summary>
     /// <param name="baseVal">The base value.</param>
     /// <param name="exponent">The non-negative exponent.</param>
@@ -296,6 +309,7 @@ public static class Library {
 
     /// <summary>
     /// Calculates the integer square root of a non-negative BigInteger (i.e., floor(sqrt(n))).
+    /// Uses Newton's method (Babylonian method) for approximation.
     /// </summary>
     /// <param name="n">The non-negative BigInteger for which to find the integer square root.</param>
     /// <returns>The integer square root of n.</returns>
@@ -310,41 +324,19 @@ public static class Library {
 
         // Improved initial guess using bit length for faster convergence.
         // (n.GetBitLength() + 1) / 2 effectively calculates ceil(bitLength / 2.0).
-        // Cast to int for the shift operator is safe for practical BigInteger sizes in Project Euler.
         int shiftAmount = (int)((n.GetBitLength() + 1) / 2);
         BigInteger x = BigInteger.One << shiftAmount;
 
-        // Newton's method iterations (ensure x is not zero if n/x is used, but x will be > 0 here)
-        // If n=1, bitLength=1, shiftAmount=1, x=2. y=(2+1/2)/2 = 1. Loop: x=1, y=(1+1/1)/2=1. Ends. Returns 1. Correct.
-        // If x happens to be 0 from initial guess (e.g. if n was 0, but that's handled), n/x would fail.
-        // But for n > 0, GetBitLength >= 1, shiftAmount >= 1, so x >= 2 or x = 1 (for n=1 after first iter).
-
-        // The original code for y and the loop is fine, but ensure x is not 0 before n/x
-        // For n>0, x will be >0 from the bitlength guess. For n=1, x becomes 2, then 1.
-        // For n=2, bl=2, sa=1, x=2. y=(2+2/2)/2=1. Loop: x=1, y=(1+2/1)/2=1. Loop ends. Returns 1.
-        // For n=3, bl=2, sa=1, x=2. y=(2+3/2)/2=1. Loop: x=1, y=(1+3/1)/2=2. Loop ends. Returns 1.
-        // For n=4, bl=3, sa=2, x=4. y=(4+4/4)/2=2. Loop: x=2, y=(2+4/2)/2=2. Loop ends. Returns 2.
-        // Initial y calculation needs to be robust if x could be < sqrt(n)
-        // The existing loop handles x correctly.
-        // Consider if x + n/x could overflow if x is small and n is large.
-        // All are BigInteger, so intermediate sum won't overflow standard types.
-
-        // Newton's method iterations:
-        // The first iteration: y = (x + n/x) / 2
-        // This is a good starting point.
-        // Ensure x is not zero for n/x, but n=0 is handled, so if here, n > 0, thus x > 0.
+        // Newton's method iterations
         BigInteger y = (x + n / x) / 2;
 
         // Loop until y >= x. This is a standard termination for integer Newton's method.
-        // When y >= x, x is either floor(sqrt(n)) or floor(sqrt(n))+1.
         while (y < x) {
             x = y;
             y = (x + n / x) / 2;
         }
 
         // After the loop, x is the smallest integer such that x >= sqrt(n).
-        // So, if x*x > n, then (x-1) is the true floor(sqrt(n)).
-        // Otherwise, x is floor(sqrt(n)).
         if (x * x > n) {
             return x - 1;
         }
@@ -361,7 +353,7 @@ public static class Library {
     /// <param name="n">The total number of items in the set. Must be non-negative.</param>
     /// <param name="k">The number of items to choose. Must be non-negative and not greater than n.</param>
     /// <returns>The number of combinations (nCk) as a BigInteger. 
-    /// Returns 0 if k < 0, k > n.
+    /// Returns 0 if k &lt; 0 or k &gt; n.
     /// Returns 1 if k == 0 or k == n.</returns>
     /// <exception cref="System.ArgumentOutOfRangeException">Thrown if n is negative.</exception>
     public static BigInteger Combinations(int n, int k) {
@@ -395,7 +387,7 @@ public static class Library {
     /// <param name="n">The total number of items in the set. Must be non-negative.</param>
     /// <param name="k">The number of items to choose and arrange. Must be non-negative and not greater than n.</param>
     /// <returns>The number of partial permutations (nPk) as a BigInteger.
-    /// Returns 0 if k < 0 or k > n.
+    /// Returns 0 if k &lt; 0 or k &gt; n.
     /// Returns 1 if k == 0.</returns>
     /// <exception cref="System.ArgumentOutOfRangeException">Thrown if n is negative.</exception>
     public static BigInteger Permutations(int n, int k) {
@@ -434,30 +426,21 @@ public static class Library {
         long root;
         // Initial guess using Math.Sqrt, then refine with Newton's method
         // This is generally good for `long` as Math.Sqrt provides a double precision float.
-        // For perfect square checks, the subsequent multiplication handles most precision issues.
-        // Newton's method step is added for robustness, especially if n is very large.
-        if (n > (1L << 50)) { // Heuristic: for very large n, Math.Sqrt might be less precise for integer root
-            root = (long)Library.IntegerSquareRoot(new BigInteger(n)); // Fallback to BigInteger version for very large longs
+        if (n > (1L << 50)) { // Heuristic: for very large n, Math.Sqrt might be less precise
+            root = (long)IntegerSquareRoot(new BigInteger(n)); // Fallback to BigInteger version
         } else {
             root = (long)Math.Sqrt(n);
         }
 
-        // One or two steps of Newton's method can refine the integer root if Math.Sqrt was slightly off for large longs.
-        // (x + n/x)/2
-        // Ensure no division by zero if root is 0 from Math.Sqrt (e.g. n=0, already handled)
-        // or if n/root truncates significantly.
-        if (root == 0 && n > 0) root = 1; // Should not happen if n > 0 for Math.Sqrt
+        // Newton's method step is added for robustness
+        if (root == 0 && n > 0) root = 1;
 
         long nextRoot = (root + n / root) / 2;
-        if (nextRoot < root) { // Check if refinement is moving towards a smaller root
+        if (nextRoot < root) {
              root = nextRoot;
-             // Optionally, a second step: root = (root + n / root) / 2;
         }
        
         // Final check: the result 'root' must satisfy root*root <= n.
-        // If (root+1)*(root+1) is also <= n, then root is too small.
-        // If root*root > n, root is too large.
-        // Iteratively adjust if needed (usually one step is enough after Math.Sqrt)
         while (root * root > n) {
             root--;
         }
@@ -486,21 +469,18 @@ public static class Library {
     /// </summary>
     /// <param name="number">The number to check.</param>
     /// <returns>True if the number is triangular, false otherwise.</returns>
-    /// <remarks>Returns false for non-positive numbers as triangular numbers are positive (except T0=0, handled if needed by context).</remarks>
+    /// <remarks>Returns false for non-positive numbers as triangular numbers are typically positive (except T0=0).</remarks>
     public static bool IsTriangular(long number) {
         if (number < 0) return false;
-        if (number == 0) return true; // T_0 = 0. Depending on context, 0 might be considered triangular.
+        if (number == 0) return true; // T_0 = 0.
         // We need to solve k(k+1)/2 = number  => k^2 + k - 2*number = 0
         // For k to be a positive integer, 1 + 8*number must be a perfect square.
-        // Let 1 + 8*number = m^2. Then k = (-1 + m) / 2.
-        // So, m must be odd and m > 1 for k to be a positive integer.
         long discriminant = 1 + 8 * number;
         if (discriminant < 0 || !IsSquare(discriminant)) {
             return false;
         }
         long m = LongIntegerSquareRoot(discriminant);
         // k = (-1 + m) / 2. For k to be an integer, (-1+m) must be even, so m must be odd.
-        // For k to be positive, m > 1.
         return (m > 1) && ((m - 1) % 2 == 0);
     }
     
@@ -516,16 +496,12 @@ public static class Library {
         if (number == 0) return true; // P_0 = 0. 
         // We need to solve k(3k-1)/2 = number => 3k^2 - k - 2*number = 0
         // For k to be a positive integer, 1 + 24*number must be a perfect square.
-        // Let 1 + 24*number = m^2. Then k = (1 + m) / 6.
-        // So, m must exist, and (1+m) must be divisible by 6.
-        // Also m = sqrt(1+24*number) must be of the form 6k-1.
         long discriminant = 1 + 24 * number;
         if (discriminant < 0 || !IsSquare(discriminant)) {
             return false;
         }
         long m = LongIntegerSquareRoot(discriminant);
         // k = (1 + m) / 6. For k to be a positive integer, (1+m) must be divisible by 6.
-        // And 1+m must be > 0. Since m >= 0, this is true.
         return (1 + m) % 6 == 0;
     }
 
@@ -541,8 +517,6 @@ public static class Library {
         if (number == 0) return true; // H_0 = 0.
         // We need to solve k(2k-1) = number => 2k^2 - k - number = 0
         // For k to be a positive integer, 1 + 8*number must be a perfect square.
-        // Let 1 + 8*number = m^2. Then k = (1 + m) / 4.
-        // So, m must exist, and (1+m) must be divisible by 4.
         long discriminant = 1 + 8 * number;
         if (discriminant < 0 || !IsSquare(discriminant)) {
             return false;
@@ -564,8 +538,6 @@ public static class Library {
         if (number == 0) return true; // P_0,7 = 0.
         // We need to solve k(5k-3)/2 = number => 5k^2 - 3k - 2*number = 0
         // For k to be a positive integer, 9 + 40*number must be a perfect square.
-        // Let 9 + 40*number = m^2. Then k = (3 + m) / 10.
-        // So, m must exist, and (3+m) must be divisible by 10.
         long discriminant = 9 + 40 * number;
         if (discriminant < 0 || !IsSquare(discriminant)) {
             return false;
@@ -587,9 +559,6 @@ public static class Library {
         if (number == 0) return true; // P_0,8 = 0.
         // We need to solve k(3k-2) = number => 3k^2 - 2k - number = 0
         // For k to be a positive integer, 4 + 12*number must be a perfect square.
-        // (This is equivalent to 1 + 3*number being a perfect square, if you divide by 4: (2+sqrt(4(1+3N)))/6 = (2+2sqrt(1+3N))/6 = (1+sqrt(1+3N))/3)
-        // Let 4 + 12*number = m^2. Then k = (2 + m) / 6.
-        // So, m must exist, and (2+m) must be divisible by 6.
         long discriminant = 4 + 12 * number;
         if (discriminant < 0 || !IsSquare(discriminant)) {
             return false;
@@ -641,6 +610,7 @@ public static class Library {
     /// <summary>
     /// Checks if an integer is a prime number.
     /// A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.
+    /// Uses 6k +/- 1 optimization for efficiency.
     /// </summary>
     /// <param name="n">The integer to check.</param>
     /// <returns>True if n is prime, false otherwise.</returns>
@@ -665,8 +635,6 @@ public static class Library {
     }
 
     /// <summary>
-    // IsPentagon was moved into the Figurate Number Checks region.
-    // Its old location is removed by this diff.
     /// Checks if a string is pandigital from 1 to 9.
     /// The string must be exactly 9 characters long and contain each digit from '1' to '9' exactly once.
     /// </summary>
@@ -725,9 +693,7 @@ public static class Library {
     /// Generates the next lexicographical permutation of the given integer array in place.
     /// Implements Narayana Pandita's algorithm.
     /// </summary>
-    /// <param name="arr">The integer array to permute. The array is modified in place. Cannot be null.
-    /// The elements are expected to be unique for typical lexicographical permutation behavior,
-    /// though the algorithm works with duplicates (but might not produce unique permutations then).</param>
+    /// <param name="arr">The integer array to permute. The array is modified in place. Cannot be null.</param>
     /// <returns>
     /// True if a next lexicographical permutation was found and applied to the array.
     /// False if the array was already the last permutation (e.g., sorted in descending order), 
@@ -761,7 +727,7 @@ public static class Library {
     /// Generates a boolean array indicating primality up to a specified limit using the Sieve of Eratosthenes.
     /// Time Complexity: O(n log log n) - optimal for prime generation up to n.
     /// Space Complexity: O(n) - uses bool array for fast access but higher memory usage.
-    /// Recommended for limits < 100,000 or when frequent random access is needed.
+    /// Recommended for limits &lt; 100,000 or when frequent random access is needed.
     /// </summary>
     /// <param name="limit">The inclusive upper bound for the sieve. Must be non-negative.</param>
     /// <returns>A boolean array `isPrime` of size `limit + 1` where `isPrime[i]` is true if `i` is prime, and false otherwise.
@@ -797,7 +763,6 @@ public static class Library {
 
         if (limit < 2) {
             // Mark all as false if limit is less than 2
-            // For limit = 0, size is 1. For limit = 1, size is 2.
             for (int k = 0; k <= limit; k++) isPrime[k] = false;
             return isPrime;
         }
@@ -820,7 +785,7 @@ public static class Library {
     /// </summary>
     /// <param name="numbers">An enumerable collection of integers to check for primality.</param>
     /// <returns>A HashSet containing all unique prime numbers from the input collection.
-    /// Numbers less than 2 are ignored. Duplicate numbers in the input are processed once.</returns>
+    /// Numbers less than 2 are ignored.</returns>
     public static HashSet<int> GetPrimesFromNumbers(IEnumerable<int> numbers) {
         var distinctNumbers = numbers.Where(n => n >= 2).Distinct().ToList();
         if (!distinctNumbers.Any()) {
@@ -828,20 +793,14 @@ public static class Library {
         }
 
         int maxNumber = 0;
-        // Find the maximum number in the list to set the sieve limit.
-        // This loop is necessary because LINQ Max() on an empty collection throws.
         foreach (int n in distinctNumbers) {
             if (n > maxNumber) maxNumber = n;
         }
-        // If maxNumber is still less than 2 (e.g., input was {2}), Sieve will handle it.
-        // However, if distinctNumbers was not empty, maxNumber must be >= 2.
 
         BitArray isPrimeSieve = SieveOfEratosthenesBitArray(maxNumber);
         
         var primeSet = new HashSet<int>();
         foreach (int num in distinctNumbers) {
-            // num is already >= 2 here.
-            // isPrimeSieve is of size maxNumber + 1. num is <= maxNumber.
             if (isPrimeSieve[num]) {
                 primeSet.Add(num);
             }
@@ -853,8 +812,7 @@ public static class Library {
     /// Generates a list of all prime numbers up to a specified limit using the Sieve of Eratosthenes.
     /// </summary>
     /// <param name="limit">The inclusive upper bound for generating primes. Must be non-negative.</param>
-    /// <returns>A list of integers containing all prime numbers from 2 up to the limit.
-    /// Returns an empty list if the limit is less than 2.</returns>
+    /// <returns>A list of integers containing all prime numbers from 2 up to the limit.</returns>
     public static List<int> SievePrimesList(int limit) {
         if (limit < 2) {
             return new List<int>();

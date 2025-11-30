@@ -29,5 +29,9 @@ public abstract class Problem<T> where T : struct
 /// </summary>
 public abstract class Problem
 {
+    /// <summary>
+    /// Solves the problem and returns the result as an object.
+    /// </summary>
+    /// <returns>The solution.</returns>
     public abstract object Solve();
 }

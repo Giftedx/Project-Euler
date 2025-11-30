@@ -1,115 +1,63 @@
 # Project Euler C# Solver
 
-This project is a C# application designed to solve problems from [Project Euler](https://projecteuler.net/). It provides a framework for adding new problem solutions, benchmarking them, verifying their correctness, and generating reports.
+This repository contains a C# solution framework for solving and benchmarking problems from [Project Euler](https://projecteuler.net/). It is designed to be efficient, extensible, and easy to navigate, with a focus on clean code and performance analysis.
 
-## Features
+## Architecture
 
-*   **Problem Solving:** Implements solutions for a growing number of Project Euler problems.
-*   **Benchmarking:** Benchmark individual problems or all solved problems; advanced stats available via `BenchmarkRunner`.
-*   **Solution Verification:** Checks solutions against a list of known correct answers (from `known_answers.json` or built-in defaults).
-*   **Reporting:** Generates detailed benchmark reports in text, JSON, and interactive HTML formats (HTML is generated from `template.html`).
-*   **Explicit Problem Registration:** Problems are explicitly registered in `ProblemFactory` for reliability and performance.
+The project is structured around a central `Problem` base class, allowing for a consistent interface to solve and benchmark any implemented problem.
+
+### Key Components
+
+*   **`Problem` / `Problem<T>`**: The abstract base classes that all problem solutions inherit from. They define the `Solve()` contract.
+*   **`ProblemFactory`**: A static factory that manages the registration and instantiation of problem classes. It uses explicit registration for type safety and performance.
+*   **`ProblemSolver`**: The core engine that runs problems. It handles individual execution and full benchmarking suites, collecting timing data.
+*   **`Library`**: A comprehensive utility class containing reusable mathematical functions (primes, GCD, permutations, combinatorics) and helper methods used across multiple problems.
+*   **`BenchmarkRunner`**: Provides advanced statistical analysis of problem performance, including mean execution time, standard deviation, and confidence intervals.
+*   **`SolutionVerifier`**: Validates the output of `Solve()` methods against a set of known correct answers (`known_answers.json`), ensuring correctness after code refactoring or optimization.
+*   **`Configuration`**: A singleton manager for application settings, including logging levels and benchmark parameters, loaded from `euler_config.json`.
+*   **`MemoryEfficientCache`**: specialized caching implementations for memory-intensive operations (e.g., bit arrays for prime sieves, sparse dictionaries for Collatz sequences).
+
+### Workflows
+
+1.  **Solving Problems**: Users interact with the console menu (`Program.cs`) to solve a specific problem or all problems.
+2.  **Benchmarking**: The `ProblemSolver` executes problems multiple times to gather stable timing metrics, which are then processed by `OutputHandler` to generate reports.
+3.  **Reporting**: Results are output to the console, a text log (`log.txt`), a raw JSON data file (`benchmark.json`), and an interactive HTML report (`benchmark.html`).
 
 ## Getting Started
 
 ### Prerequisites
 
-*   .NET SDK (Version 8.0 or higher recommended, as per the `.csproj` file).
+*   .NET SDK 8.0 or higher.
 
-### Building the Project
+### Building and Running
 
-1.  Clone the repository.
-2.  Navigate to the root directory of the project.
-3.  Build the solution:
+1.  **Build** the solution from the root directory:
     ```bash
-    dotnet build ProjectEuler.sln
+    dotnet build src/ProjectEuler/ProjectEuler.csproj
     ```
 
-### Running the Application
-
-1.  After building, run the application:
+2.  **Run** the application:
     ```bash
     dotnet run --project src/ProjectEuler/ProjectEuler.csproj
     ```
-    Alternatively, you can run the executable directly from the output directory (e.g., `src/ProjectEuler/bin/Debug/net8.0/ProjectEuler`).
 
-## Menu Navigation
+## Usage
 
-Upon running the application, you will be presented with a menu:
+Upon launching, the interactive menu offers the following options:
 
-*   **Enter 'a' to solve all problems:** This option will run the solver for all implemented problems, benchmark their performance, and generate output reports (`log.txt`, `benchmark.json`, `benchmark.html`).
-*   **Enter 't' to verify all known solutions:** This option will run the `SolutionVerifier` to check all problems that have known answers stored within the system. It will output whether each solution is correct or incorrect.
-*   **Enter Problem to solve (1 - N):** You can enter a specific problem number to solve and benchmark that single problem. The range of available problems (N) will be displayed.
+*   **Enter 'a'**: Solves all registered problems, runs the benchmark suite, and generates full reports.
+*   **Enter 't'**: Verifies all currently implemented solutions against known correct answers.
+*   **Enter Problem Number (e.g., '1', '50')**: Solves the specified problem and displays the result and execution time.
 
-After an action is completed, you'll be prompted to press any key to run again or Space to exit.
+## Adding a New Solution
 
-## Adding a New Problem
+1.  Create a new class file (e.g., `Problem051.cs`) inheriting from `Problem`.
+2.  Implement the `Solve()` method with your logic.
+3.  Register the new class in `ProblemFactory.cs` inside the `InitializeProblemRegistry` method.
+4.  (Optional) Add the known correct answer to `SolutionVerifier.cs` or `known_answers.json` for verification.
 
-To add a solution for a new Project Euler problem (e.g., Problem X):
+## Documentation
 
-1.  **Create the Problem Class:**
-    *   In the root directory, create a new C# file named `ProblemXXX.cs` (e.g., `Problem051.cs`).
-    *   The class should inherit from `Project_Euler.Problem` and implement the `Solve()` method.
-    *   Example structure:
-        ```csharp
-        namespace Project_Euler;
-
-        public class ProblemXXX : Problem
-        {
-            public override object Solve()
-            {
-                // Your solution logic here
-                // return the_solution;
-            }
-        }
-        ```
-    *   Add an XML comment to the class briefly describing the Project Euler problem.
-    *   Add an XML comment to the `Solve()` method if the solution approach is non-trivial.
-
-2.  **Add the Solution to Verifier:**
-    *   Calculate or find the correct answer to the problem.
-    *   Open `SolutionVerifier.cs`.
-    *   Add a new entry to the `KnownAnswers` dictionary:
-        ```csharp
-        { XXX, "YourAnswerAsString" },
-        ```
-
-3.  **Add a Unit Test:**
-    *   In the `tests/` directory, create a new C# file named `ProblemXXXTests.cs` (e.g., `tests/Problem051Tests.cs`).
-    *   Use any existing test (e.g., `tests/Problem010Tests.cs`) as a template.
-    *   Update the class name, test method name, problem instantiation (`new ProblemXXX()`), and the `expectedSolution` variable with the correct answer.
-    *   Run tests:
-        ```bash
-        dotnet test ProjectEuler.sln
-        ```
-    *   Example:
-        ```csharp
-        // In tests/ProblemXXXTests.cs
-        using Microsoft.VisualStudio.TestTools.UnitTesting;
-        using Project_Euler;
-
-        namespace Project_Euler
-        {
-            [TestClass]
-            public class ProblemXXXTests
-            {
-                [TestMethod]
-                public void TestProblemXXX_Solution() // Update XXX
-                {
-                    var problem = new ProblemXXX(); // Update XXX
-                    object expectedSolution = YYY; // Replace YYY with the actual answer, ensure correct type or use string
-                    var actualSolution = problem.Solve();
-                    Assert.AreEqual(expectedSolution.ToString(), actualSolution.ToString(), $"The solution for Problem XXX is incorrect.");
-                }
-            }
-        }
-        ```
-        *(Note: Using `.ToString()` for assertion provides robustness if `Solve()` returns various numeric types like int, long, BigInteger).*
-
-## Reporting
-
-The application generates the following reports in the execution directory (e.g., `bin/Debug/netX.Y/`) when the "solve all" option is used:
-
-*   `log.txt`: A text-based summary of results and timings.
-*   `benchmark.json`: A JSON file containing detailed benchmark data.
-*   `benchmark.html`: An interactive HTML report with charts and sortable tables, visualizing the benchmark data from `benchmark.json`. It uses `template.html` as its basis.
+The codebase is fully documented with XML docstrings.
+*   **Core Logic**: See `Library.cs` for math utilities.
+*   **Problem Solutions**: Each `ProblemXXX.cs` file contains logic specific to that problem.

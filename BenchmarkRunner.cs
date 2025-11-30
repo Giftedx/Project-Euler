@@ -2,6 +2,10 @@ using System.Diagnostics;
 
 namespace Project_Euler;
 
+/// <summary>
+/// Provides advanced benchmarking capabilities with statistical analysis.
+/// Calculates mean, median, standard deviation, and confidence intervals for problem execution times.
+/// </summary>
 public class BenchmarkRunner
 {
     private const int WarmupRuns = 10;
@@ -9,6 +13,9 @@ public class BenchmarkRunner
     private const int MaxBenchmarkRuns = 1000;
     private const double ConfidenceLevel = 0.95; // 95% confidence interval
 
+    /// <summary>
+    /// Represents the results of a benchmark run for a specific problem.
+    /// </summary>
     public class BenchmarkResult
     {
         public int ProblemId { get; set; }

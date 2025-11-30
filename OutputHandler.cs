@@ -3,13 +3,25 @@ using System.Text.Json;
 
 namespace Project_Euler;
 
+/// <summary>
+/// Handles the generation of reports for benchmark results.
+/// Outputs data to text log, JSON file, and an interactive HTML report.
+/// </summary>
 internal static class OutputHandler {
+    /// <summary>
+    /// The filename for the text-based log output.
+    /// </summary>
     public const string LogFile = "log.txt";
     private const string JsonFile = "benchmark.json";
     private const string HtmlFile = "benchmark.html";
     private const string HtmlTemplate = "template.html";
     private static readonly JsonSerializerOptions JsonOptions = new() { WriteIndented = true };
 
+    /// <summary>
+    /// Generates full benchmark reports (Text, JSON, HTML) based on the provided results.
+    /// </summary>
+    /// <param name="results">A list of <see cref="ProblemData"/> containing results for each problem run.</param>
+    /// <param name="testData">Global benchmark statistics including total time and slowest problem.</param>
     public static void GenerateFullReport(List<ProblemData> results, BenchmarkData testData) {
         double sumOfAverageProblemTimes = 0;
         if (results.Any()) {
