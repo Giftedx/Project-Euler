@@ -3,6 +3,9 @@ using static System.Reflection.Assembly;
 
 namespace Project_Euler;
 
+/// <summary>
+/// A factory class responsible for registering and creating instances of <see cref="Problem"/> classes.
+/// </summary>
 public static class ProblemFactory {
     /// <summary>
     /// Maximum problem ID to include. Problems with IDs >= MaxProblemId are excluded 
@@ -14,10 +17,16 @@ public static class ProblemFactory {
     private static readonly Dictionary<int, Func<Problem>> ProblemFactories = new();
     private static bool _isInitialized = false;
 
+    /// <summary>
+    /// Static constructor to initialize the problem registry.
+    /// </summary>
     static ProblemFactory() {
         InitializeProblemRegistry();
     }
 
+    /// <summary>
+    /// Initializes the problem registry by explicitly registering all known problem classes.
+    /// </summary>
     private static void InitializeProblemRegistry()
     {
         if (_isInitialized) return;
@@ -77,6 +86,10 @@ public static class ProblemFactory {
         _isInitialized = true;
     }
 
+    /// <summary>
+    /// Registers a specific problem class into the factory.
+    /// </summary>
+    /// <typeparam name="T">The type of the problem class.</typeparam>
     private static void RegisterProblem<T>() where T : Problem, new()
     {
         var problem = new T();
@@ -89,6 +102,12 @@ public static class ProblemFactory {
         }
     }
 
+    /// <summary>
+    /// Creates an instance of the problem with the specified ID.
+    /// </summary>
+    /// <param name="id">The ID of the problem to create.</param>
+    /// <returns>An instance of the requested <see cref="Problem"/>.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if the problem with the specified ID is not found.</exception>
     public static Problem CreateProblem(int id) {
         if (ProblemFactories.TryGetValue(id, out var factory)) {
             return factory();
@@ -97,10 +116,19 @@ public static class ProblemFactory {
         throw new ArgumentOutOfRangeException(nameof(id), $"Problem with ID {id} not found.");
     }
 
+    /// <summary>
+    /// Gets the count of currently registered (solved) problems.
+    /// </summary>
+    /// <returns>The number of solved problems.</returns>
     public static int SolvedProblems() {
         return ProblemTypes.Count;
     }
 
+    /// <summary>
+    /// Extracts the problem ID from the class name.
+    /// </summary>
+    /// <param name="typeName">The name of the class (e.g., "Problem001").</param>
+    /// <returns>The problem ID as an integer, or null if invalid.</returns>
     private static int? ExtractProblemId(string typeName) {
         if (typeName.StartsWith("Problem") && int.TryParse(typeName.AsSpan(7), out int id)) return id;
 

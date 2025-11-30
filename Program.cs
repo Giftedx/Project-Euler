@@ -1,5 +1,8 @@
-﻿namespace Project_Euler;
+namespace Project_Euler;
 
+/// <summary>
+/// The main entry point for the Project Euler solver application.
+/// </summary>
 internal static class Program {
     private static readonly Dictionary<string, (string Description, Action Action)> MenuActions =
         new(StringComparer.OrdinalIgnoreCase) {
@@ -7,10 +10,16 @@ internal static class Program {
             { "t", ("verify all known solutions", SolutionVerifier.VerifyAllKnownSolutions) }
         };
 
+    /// <summary>
+    /// The application entry point.
+    /// </summary>
     public static void Main() {
         RunInteractionLoop();
     }
 
+    /// <summary>
+    /// Runs the main interaction loop, displaying the menu and handling user input.
+    /// </summary>
     private static void RunInteractionLoop() {
         do {
             PrintMenu();
@@ -19,6 +28,9 @@ internal static class Program {
         } while (InputHandler.ShouldRunAgain());
     }
 
+    /// <summary>
+    /// Prints the main menu to the console.
+    /// </summary>
     private static void PrintMenu() {
         Console.Clear();
         Library.FunPrint("Project Euler Solver");
@@ -29,6 +41,10 @@ internal static class Program {
         Library.FunPrint($"Enter Problem to solve (1 - {ProblemFactory.SolvedProblems()}): ");
     }
 
+    /// <summary>
+    /// Handles the user's menu selection.
+    /// </summary>
+    /// <param name="input">The user's input string.</param>
     private static void HandleMenuSelection(string input) {
         if (MenuActions.TryGetValue(input, out var action))
             action.Action.Invoke();

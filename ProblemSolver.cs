@@ -4,9 +4,20 @@ using System.Diagnostics;
 // ReSharper disable RedundantAssignment
 namespace Project_Euler;
 
+/// <summary>
+/// Provides functionality to solve and benchmark Project Euler problems.
+/// Handles execution of individual problems or full suites, collecting timing data and results.
+/// </summary>
 public static class ProblemSolver {
+    /// <summary>
+    /// The number of times to run each problem during a full benchmark to calculate average time.
+    /// </summary>
     private const int BenchmarkRuns = 100;
 
+    /// <summary>
+    /// Solves and benchmarks a single problem specified by its ID (as a string).
+    /// </summary>
+    /// <param name="problem">The problem ID string (e.g., "1" or "001").</param>
     public static void IndividualBenchmark(string problem) {
         int n = Convert.ToInt32(problem);
         var data = Run(n, 1);
@@ -14,6 +25,10 @@ public static class ProblemSolver {
         Library.FunPrint($"Solved in {data.Times[0]:F3} ms");
     }
 
+    /// <summary>
+    /// Runs a full benchmark of all registered problems.
+    /// Executes problems in parallel, collects performance metrics, and generates a report.
+    /// </summary>
     public static void FullBenchmark() {
         int problemCount = ProblemFactory.SolvedProblems();
         var testData = new BenchmarkData();
@@ -62,6 +77,12 @@ public static class ProblemSolver {
         Library.FunPrint($"Results output to {OutputHandler.LogFile}, {watch.ElapsedMilliseconds} ms total");
     }
 
+    /// <summary>
+    /// Runs a specific problem a specified number of times and collects timing data.
+    /// </summary>
+    /// <param name="n">The ID of the problem to run.</param>
+    /// <param name="runs">The number of times to execute the problem's solution.</param>
+    /// <returns>A <see cref="ProblemData"/> object containing the result and execution times.</returns>
     private static ProblemData Run(int n, int runs) {
         var data = new ProblemData(n, runs);
         var problem = ProblemFactory.CreateProblem(n);
@@ -79,6 +100,11 @@ public static class ProblemSolver {
         return data;
     }
 
+    /// <summary>
+    /// Displays a progress bar in the console to track the completion of the benchmark.
+    /// </summary>
+    /// <param name="completedFunc">A function that returns the number of completed tasks.</param>
+    /// <param name="total">The total number of tasks to complete.</param>
     private static void DisplayProgressBar(Func<int> completedFunc, int total) {
         const int width = 50;
         const int updateInterval = 10;
@@ -102,18 +128,51 @@ public static class ProblemSolver {
 
 }
 
+/// <summary>
+/// Represents the data collected from running a problem, including its index, result, and execution times.
+/// </summary>
 public class ProblemData(int index, int runs) {
+    /// <summary>
+    /// The problem number/index.
+    /// </summary>
     public readonly int Index = index;
+    /// <summary>
+    /// A list of execution times in milliseconds for each run.
+    /// </summary>
     public readonly List<double> Times = new(runs);
+    /// <summary>
+    /// The string representation of the solution result.
+    /// </summary>
     public string Result = "";
 
+    /// <summary>
+    /// Calculated average execution time.
+    /// </summary>
     public double AverageTime => Times.Any() ? Times.Average() : 0.0;
+    /// <summary>
+    /// Minimum execution time recorded.
+    /// </summary>
     public double MinTime => Times.Any() ? Times.Min() : 0.0;
+    /// <summary>
+    /// Maximum execution time recorded.
+    /// </summary>
     public double MaxTime => Times.Any() ? Times.Max() : 0.0;
 }
 
+/// <summary>
+/// Aggregates global benchmark statistics, such as the total time and the slowest problem.
+/// </summary>
 public class BenchmarkData {
+    /// <summary>
+    /// The index of the problem that took the longest to solve (on average).
+    /// </summary>
     public int SlowestProblem;
+    /// <summary>
+    /// The average time of the slowest problem in milliseconds.
+    /// </summary>
     public double SlowestTime = double.MinValue;
+    /// <summary>
+    /// The total wall-clock time taken for the full benchmark suite.
+    /// </summary>
     public double TotalTime;
 }

@@ -6,6 +6,10 @@ using System.Text.Json;
 
 namespace Project_Euler;
 
+/// <summary>
+/// Verifies problem solutions against a set of known correct answers.
+/// Supports loading answers from a JSON file and persisting new answers.
+/// </summary>
 public static class SolutionVerifier
 {
     private static readonly Dictionary<int, string> KnownAnswers = new();
@@ -16,6 +20,10 @@ public static class SolutionVerifier
         LoadKnownAnswers();
     }
 
+    /// <summary>
+    /// Loads known answers from the 'known_answers.json' file.
+    /// If the file does not exist or fails to load, falls back to a hardcoded default set.
+    /// </summary>
     private static void LoadKnownAnswers()
     {
         try
@@ -122,6 +130,12 @@ public static class SolutionVerifier
         }
     }
 
+    /// <summary>
+    /// Verifies the solution for a specific problem ID against the known answer.
+    /// Executes the problem's Solve method and compares the output.
+    /// </summary>
+    /// <param name="problemId">The ID of the problem to verify.</param>
+    /// <returns>True if the solution matches the known answer; false otherwise.</returns>
     public static bool VerifySolution(int problemId)
     {
         if (!KnownAnswers.TryGetValue(problemId, out var expectedAnswer))
@@ -178,6 +192,10 @@ public static class SolutionVerifier
         }
     }
 
+    /// <summary>
+    /// Iterates through all problems with known answers and verifies their solutions.
+    /// Reports the total number of correct and incorrect solutions.
+    /// </summary>
     public static void VerifyAllKnownSolutions()
     {
         int verifiedCount = 0;

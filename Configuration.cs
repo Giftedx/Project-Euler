@@ -2,6 +2,10 @@ using System.Text.Json;
 
 namespace Project_Euler;
 
+/// <summary>
+/// Singleton configuration manager for the Project Euler application.
+/// Handles loading and saving settings for benchmarking, logging, and problem execution.
+/// </summary>
 public class Configuration
 {
     private static Configuration? _instance;
