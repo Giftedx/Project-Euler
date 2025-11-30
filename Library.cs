@@ -224,6 +224,26 @@ public static class Library {
     }
 
     /// <summary>
+    /// Computes the sum of proper divisors for all numbers up to the specified size using a sieve-like approach.
+    /// The index of the array corresponds to the number.
+    /// Time Complexity: O(n log n)
+    /// </summary>
+    /// <param name="size">The size of the array to return. Array indices will range from 0 to size-1.</param>
+    /// <returns>An array where the value at index 'i' is the sum of proper divisors of 'i'.</returns>
+    public static int[] GetProperDivisorSums(int size) {
+        int[] divisorSums = new int[size];
+        // divisorSums[0] is unused.
+        // divisorSums[1] is 0 (1 has no proper divisors).
+
+        for (int i = 1; i < size; i++) {
+            for (int j = 2 * i; j < size; j += i) {
+                divisorSums[j] += i;
+            }
+        }
+        return divisorSums;
+    }
+
+    /// <summary>
     /// Calculates Euler's Totient function (phi function) for a given positive integer n.
     /// φ(n) counts the number of positive integers up to n that are relatively prime to n.
     /// </summary>
