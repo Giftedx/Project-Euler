@@ -1,14 +1,13 @@
+using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Project_Euler;
 
 public class BenchmarkRunner
 {
-    private const int WarmupRuns = 10;
-    private const int MinBenchmarkRuns = 30;
-    private const int MaxBenchmarkRuns = 1000;
-    private const double ConfidenceLevel = 0.95; // 95% confidence interval
-
     public class BenchmarkResult
     {
         public int ProblemId { get; set; }
@@ -23,12 +22,14 @@ public class BenchmarkRunner
         public List<double> Times { get; set; } = new();
     }
 
+    private static BenchmarkSettings Settings => Configuration.Instance.Benchmark;
+
     public static BenchmarkResult RunBenchmark(int problemId, Problem problem)
     {
         var result = new BenchmarkResult { ProblemId = problemId };
         
         // Warm-up phase
-        for (int i = 0; i < WarmupRuns; i++)
+        for (int i = 0; i < Settings.WarmupRuns; i++)
         {
             problem.Solve();
         }
@@ -38,7 +39,7 @@ public class BenchmarkRunner
         var stopwatch = new Stopwatch();
         
         // Initial runs to get a baseline
-        for (int i = 0; i < MinBenchmarkRuns; i++)
+        for (int i = 0; i < Settings.MinBenchmarkRuns; i++)
         {
             stopwatch.Restart();
             var solution = problem.Solve();
@@ -56,8 +57,8 @@ public class BenchmarkRunner
         var stats = CalculateStatistics(times);
         
         // Determine if we need more runs for statistical significance
-        int additionalRuns = CalculateRequiredRuns(stats.StandardDeviation, stats.Mean, ConfidenceLevel);
-        additionalRuns = Math.Min(additionalRuns, MaxBenchmarkRuns - MinBenchmarkRuns);
+        int additionalRuns = CalculateRequiredRuns(stats.StandardDeviation, stats.Mean, Settings.ConfidenceLevel);
+        additionalRuns = Math.Min(additionalRuns, Settings.MaxBenchmarkRuns - Settings.MinBenchmarkRuns);
         
         // Run additional iterations if needed
         for (int i = 0; i < additionalRuns; i++)
@@ -76,7 +77,7 @@ public class BenchmarkRunner
         result.MinTime = finalStats.Min;
         result.MaxTime = finalStats.Max;
         result.TotalRuns = times.Count;
-        result.ConfidenceInterval = CalculateConfidenceInterval(finalStats.StandardDeviation, times.Count, ConfidenceLevel);
+        result.ConfidenceInterval = CalculateConfidenceInterval(finalStats.StandardDeviation, times.Count, Settings.ConfidenceLevel);
         result.Times = times;
 
         return result;
@@ -102,52 +103,89 @@ public class BenchmarkRunner
     {
         if (mean == 0) return 0;
         
-        // Using t-distribution approximation for sample size calculation
-        // For 95% confidence level, t ≈ 1.96
-        var tValue = 1.96;
+        var tValue = GetTValue(confidenceLevel);
         var coefficientOfVariation = standardDeviation / mean;
-        var marginOfError = 0.05; // 5% margin of error
+        var marginOfError = Settings.MarginOfError;
         
         var requiredRuns = (int)Math.Ceiling(Math.Pow(tValue * coefficientOfVariation / marginOfError, 2));
-        return Math.Max(0, requiredRuns - MinBenchmarkRuns);
+        return Math.Max(0, requiredRuns - Settings.MinBenchmarkRuns);
     }
 
     private static double CalculateConfidenceInterval(double standardDeviation, int sampleSize, double confidenceLevel)
     {
         if (sampleSize <= 1) return 0;
         
-        // Using t-distribution for small samples
-        var tValue = 1.96; // Approximation for large samples
+        var tValue = GetTValue(confidenceLevel);
         return tValue * standardDeviation / Math.Sqrt(sampleSize);
     }
 
-    public static List<BenchmarkResult> RunAllBenchmarks()
+    private static double GetTValue(double confidenceLevel)
     {
-        var results = new List<BenchmarkResult>();
+        // Simple lookup for common confidence levels (approximate for large samples, Z-score)
+        if (confidenceLevel >= 0.99) return 2.576;
+        if (confidenceLevel >= 0.95) return 1.96;
+        if (confidenceLevel >= 0.90) return 1.645;
+        return 1.96; // Default to 95%
+    }
+
+    public static List<BenchmarkResult> RunAllBenchmarks(Action<int, int>? progressCallback = null)
+    {
         var problemCount = ProblemFactory.SolvedProblems();
         
+        // Disable console logging to avoid interference with progress bar
+        Logger.SetConsoleLogging(false);
         Logger.Info($"Starting benchmark of {problemCount} problems");
         
-        for (int i = 1; i <= problemCount; i++)
+        var results = new ConcurrentBag<BenchmarkResult>();
+        int completedCount = 0;
+
+        try
         {
-            try
+            if (Settings.EnableParallelExecution)
             {
-                using (Logger.CreateScope($"Problem {i}"))
+                var options = new ParallelOptions { MaxDegreeOfParallelism = Settings.MaxParallelThreads };
+                Parallel.For(1, problemCount + 1, options, i =>
                 {
-                    var problem = ProblemFactory.CreateProblem(i);
-                    var result = RunBenchmark(i, problem);
-                    results.Add(result);
-                    
-                    Logger.Info($"Problem {i}: {result.MeanTime:F3}ms ± {result.ConfidenceInterval:F3}ms ({result.TotalRuns} runs)");
+                    RunSingleBenchmark(i, results);
+                    int currentCount = Interlocked.Increment(ref completedCount);
+                    progressCallback?.Invoke(currentCount, problemCount);
+                });
+            }
+            else
+            {
+                for (int i = 1; i <= problemCount; i++)
+                {
+                    RunSingleBenchmark(i, results);
+                    progressCallback?.Invoke(i, problemCount);
                 }
             }
-            catch (Exception ex)
-            {
-                Logger.Error($"Failed to benchmark problem {i}", ex);
-            }
+        }
+        finally
+        {
+            Logger.Info($"Completed benchmark of {results.Count} problems");
+            // Re-enable console logging
+            Logger.SetConsoleLogging(true);
         }
         
-        Logger.Info($"Completed benchmark of {results.Count} problems");
-        return results;
+        return results.OrderBy(r => r.ProblemId).ToList();
+    }
+
+    private static void RunSingleBenchmark(int i, ConcurrentBag<BenchmarkResult> results)
+    {
+        try
+        {
+            using (Logger.CreateScope($"Problem {i}"))
+            {
+                var problem = ProblemFactory.CreateProblem(i);
+                var result = RunBenchmark(i, problem);
+                results.Add(result);
+
+                Logger.Info($"Problem {i}: {result.MeanTime:F3}ms ± {result.ConfidenceInterval:F3}ms ({result.TotalRuns} runs)");
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.Error($"Failed to benchmark problem {i}", ex);
+        }
     }
 }

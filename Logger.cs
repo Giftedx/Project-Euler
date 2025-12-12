@@ -15,10 +15,19 @@ public static class Logger
     private static readonly object _lock = new object();
     private static readonly string LogFile = "euler_solver.log";
     private static LogLevel _minLevel = LogLevel.Info;
+    private static bool _consoleLoggingEnabled = true;
 
     public static void SetLogLevel(LogLevel level)
     {
         _minLevel = level;
+    }
+
+    public static void SetConsoleLogging(bool enabled)
+    {
+        lock (_lock)
+        {
+            _consoleLoggingEnabled = enabled;
+        }
     }
 
     public static void Debug(string message)
@@ -53,7 +62,10 @@ public static class Logger
 
         lock (_lock)
         {
-            Console.WriteLine(logEntry);
+            if (_consoleLoggingEnabled)
+            {
+                Console.WriteLine(logEntry);
+            }
             
             try
             {
@@ -61,7 +73,12 @@ public static class Logger
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"[{timestamp}] [ERROR] Failed to write to log file: {ex.Message}");
+                // If we can't write to file, try to write to console even if disabled, as a fallback?
+                // Or just suppress.
+                if (_consoleLoggingEnabled)
+                {
+                    Console.WriteLine($"[{timestamp}] [ERROR] Failed to write to log file: {ex.Message}");
+                }
             }
         }
     }

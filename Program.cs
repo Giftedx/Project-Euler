@@ -1,4 +1,4 @@
-﻿namespace Project_Euler;
+namespace Project_Euler;
 
 internal static class Program {
     private static readonly Dictionary<string, (string Description, Action Action)> MenuActions =
@@ -8,7 +8,14 @@ internal static class Program {
         };
 
     public static void Main() {
+        // Initialize Configuration and Logger
+        var config = Configuration.Instance;
+        Logger.SetLogLevel(config.Logging.MinimumLevel);
+        Logger.Info("Application started");
+
         RunInteractionLoop();
+
+        Logger.Info("Application shutting down");
     }
 
     private static void RunInteractionLoop() {

@@ -8,6 +8,7 @@ public class Configuration
     private static readonly object _lock = new object();
     private const string ConfigFile = "euler_config.json";
 
+    // Configuration properties
     public BenchmarkSettings Benchmark { get; set; } = new();
     public LoggingSettings Logging { get; set; } = new();
     public ProblemSettings Problems { get; set; } = new();
