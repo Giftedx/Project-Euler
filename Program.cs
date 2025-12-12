@@ -7,15 +7,43 @@ internal static class Program {
             { "t", ("verify all known solutions", SolutionVerifier.VerifyAllKnownSolutions) }
         };
 
-    public static void Main() {
+    public static void Main(string[] args) {
         // Initialize Configuration and Logger
         var config = Configuration.Instance;
         Logger.SetLogLevel(config.Logging.MinimumLevel);
         Logger.Info("Application started");
 
-        RunInteractionLoop();
+        if (args.Length > 0) {
+            HandleCommandLineArguments(args);
+        } else {
+            RunInteractionLoop();
+        }
 
         Logger.Info("Application shutting down");
+    }
+
+    private static void HandleCommandLineArguments(string[] args) {
+        string command = args[0].ToLowerInvariant();
+
+        switch (command) {
+            case "verify":
+                SolutionVerifier.VerifyAllKnownSolutions();
+                break;
+            case "solve-all":
+                ProblemSolver.FullBenchmark();
+                break;
+            case "solve":
+                if (args.Length > 1) {
+                    ProblemSolver.IndividualBenchmark(args[1]);
+                } else {
+                    Console.WriteLine("Error: Please provide a problem ID (e.g., 'solve 1').");
+                }
+                break;
+            default:
+                Console.WriteLine($"Unknown command: {command}");
+                Console.WriteLine("Available commands: verify, solve-all, solve <id>");
+                break;
+        }
     }
 
     private static void RunInteractionLoop() {
