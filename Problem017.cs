@@ -39,7 +39,7 @@ public class Problem017 : Problem {
         int digits = CountLetters("onetwothreefourfivesixseveneightnine"); // letters for 1,2,...,9
         int teens = CountLetters("teneleventwelvethirteenfourteenfifteen" +
                                  "sixteenseventeeneighteennineteen");    // letters for 10,11,...,19
-        int tens = CountLetters("twentythirtyfortyfiftysixtyseventyeightyninetyeighty"); // letters for "twenty", "thirty",..., "ninety", "eighty"
+        int tens = CountLetters("twentythirtyfortyfiftysixtyseventyeightyninety"); // letters for "twenty", "thirty",..., "ninety"
         int hundred = CountLetters("hundred"); // letters for "hundred"
         int and = CountLetters("and");       // letters for "and"
         int oneThousand = CountLetters("onethousand"); // letters for "one thousand"
