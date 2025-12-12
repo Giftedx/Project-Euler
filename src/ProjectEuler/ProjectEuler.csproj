@@ -25,5 +25,8 @@
     <None Include="../../words.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <EmbeddedResource Include="../../known_answers.json">
+      <LogicalName>Project_Euler.known_answers.json</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
