@@ -33,30 +33,30 @@ public class Problem018 : Problem {
     /// </summary>
     /// <returns>The maximum path sum from the top to the bottom of the triangle.</returns>
     public override object Solve() {
-        // Note: This problem is a smaller version of Problem 67.
-        // The MaxPathSum method modifies the _triangle in place.
-        // If _triangle were to be used elsewhere or needed to remain unchanged, a copy should be made first.
         return MaxPathSum();
     }
 
     /// <summary>
-    /// Calculates the maximum path sum from the top to the bottom of the triangle stored in <see cref="_triangle"/>.
+    /// Calculates the maximum path sum from the top to the bottom of the triangle.
     /// The method uses a dynamic programming approach, working upwards from the second-to-last row.
-    /// For each element at `triangle[i][j]`, it updates its value by adding the maximum of its two
-    /// "children" in the row below (i.e., `triangle[i+1][j]` and `triangle[i+1][j+1]`).
-    /// After processing all relevant rows, the element at the top of the triangle (`triangle[0][0]`)
-    /// will contain the maximum total sum from top to bottom.
+    /// It operates on a copy of the triangle to ensure thread safety and reusability.
     /// </summary>
     /// <returns>The maximum path sum.</returns>
     private int MaxPathSum() {
-        // Iterate from the second-to-last row (index _triangle.Count - 2) up to the top row (index 0).
-        for (int i = _triangle.Count - 2; i >= 0; i--) {
-            for (int j = 0; j < _triangle[i].Length; j++) {
+        // Create a deep copy of the triangle to avoid modifying the original data
+        var triangleCopy = new int[_triangle.Count][];
+        for(int k = 0; k < _triangle.Count; k++) {
+            triangleCopy[k] = (int[])_triangle[k].Clone();
+        }
+
+        // Iterate from the second-to-last row up to the top row.
+        for (int i = triangleCopy.Length - 2; i >= 0; i--) {
+            for (int j = 0; j < triangleCopy[i].Length; j++) {
                 // Update the current element with the sum of itself and the larger of its two children below it.
-                _triangle[i][j] += Math.Max(_triangle[i + 1][j], _triangle[i + 1][j + 1]);
+                triangleCopy[i][j] += Math.Max(triangleCopy[i + 1][j], triangleCopy[i + 1][j + 1]);
             }
         }
         // The top element of the triangle now holds the maximum path sum.
-        return _triangle[0][0];
+        return triangleCopy[0][0];
     }
 }
