@@ -16,4 +16,16 @@
   <ItemGroup>
     <ProjectReference Include="../src/ProjectEuler/ProjectEuler.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../known_answers.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="../names.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="../words.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
