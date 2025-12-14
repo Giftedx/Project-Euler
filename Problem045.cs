@@ -48,25 +48,24 @@ public class Problem045 : Problem {
     /// Current (with workaround): A hexagonal number after a limited number of iterations.
     /// </returns>
     private long FindNextTphNumber(int previousHexagonalIndex) {
-        long currentHexagonalIndex = (long)previousHexagonalIndex + 1; // Start checking from the next hexagonal index.
-        int iterations = 0; // Counter for the workaround loop limit.
+        long currentHexagonalIndex = (long)previousHexagonalIndex + 1;
 
         while (true) {
             // Calculate the hexagonal number H_i = i(2i-1)
             long currentHexagonalValue = currentHexagonalIndex * (2L * currentHexagonalIndex - 1);
 
-            // TODO: Restore the original Library.IsPentagon(hex) call once the environment issue is resolved.
-            // Intended logic: if (Library.IsPentagon(currentHexagonalValue)) return currentHexagonalValue;
-            // Since all hexagonal numbers are triangular, checking IsPentagon is sufficient.
-            
-            // Current workaround logic:
-            if (iterations > 10) { // Limit iterations for this test/workaround.
-                // This will return a hexagonal number, but not necessarily one that is also pentagonal.
+            if (IsPentagonal(currentHexagonalValue)) {
                 return currentHexagonalValue;
             }
             
             currentHexagonalIndex++;
-            iterations++;
         }
+    }
+
+    private bool IsPentagonal(long n) {
+        if (n <= 0) return false;
+        long val = 1 + 24 * n;
+        long sqrt = (long)Math.Sqrt(val);
+        return sqrt * sqrt == val && (sqrt + 1) % 6 == 0;
     }
 }
