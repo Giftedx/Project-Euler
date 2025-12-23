@@ -2,6 +2,16 @@
 
 This project is a C# application designed to solve problems from [Project Euler](https://projecteuler.net/). It provides a framework for adding new problem solutions, benchmarking them, verifying their correctness, and generating reports.
 
+## Project Goals
+
+*   **Primary Goal:** Provide a performant and structured C# framework for implementing, benchmarking, and verifying Project Euler solutions.
+*   **Target Users:** Developers practicing algorithms and C# enthusiasts who want to track solution performance and correctness.
+*   **Key Features:**
+    *   **Automated Benchmarking:** Statistical analysis of execution time with JSON/HTML reporting.
+    *   **Solution Verification:** Built-in validation against known correct answers.
+    *   **Interactive CLI:** Menu-driven interface for running individual or batch problems.
+*   **Non-Goals:** This is a CLI-only tool, not a GUI application or a general-purpose math library.
+
 ## Features
 
 *   **Problem Solving:** Implements solutions for a growing number of Project Euler problems.
@@ -10,28 +20,42 @@ This project is a C# application designed to solve problems from [Project Euler]
 *   **Reporting:** Generates detailed benchmark reports in text, JSON, and interactive HTML formats (HTML is generated from `template.html`).
 *   **Explicit Problem Registration:** Problems are explicitly registered in `ProblemFactory` for reliability and performance.
 
-## Getting Started
+## Installation
 
 ### Prerequisites
 
-*   .NET SDK (Version 8.0 or higher recommended, as per the `.csproj` file).
+*   **.NET SDK 8.0+**: [Download .NET 8.0](https://dotnet.microsoft.com/download/dotnet/8.0) or use the included script:
+    ```bash
+    ./dotnet-install.sh
+    ```
 
-### Building the Project
+### Setup
 
-1.  Clone the repository.
-2.  Navigate to the root directory of the project.
-3.  Build the solution:
+1.  **Clone the repository:**
+    ```bash
+    git clone <repository_url>
+    cd <repository_directory>
+    ```
+2.  **Build the solution:**
     ```bash
     dotnet build ProjectEuler.sln
     ```
 
-### Running the Application
+### Configuration
 
-1.  After building, run the application:
+*   **Logging:** Configured via `euler_config.json` (auto-generated on first run if missing).
+*   **Data Files:** `names.txt` and `words.txt` must be present in the root (automatically copied to output on build).
+
+### Verification
+
+1.  **Run Unit Tests:**
     ```bash
-    dotnet run --project src/ProjectEuler/ProjectEuler.csproj
+    dotnet test
     ```
-    Alternatively, you can run the executable directly from the output directory (e.g., `src/ProjectEuler/bin/Debug/net8.0/ProjectEuler`).
+2.  **Smoke Check (Verify Known Solutions):**
+    ```bash
+    dotnet run --project src/ProjectEuler/ProjectEuler.csproj -- verify
+    ```
 
 ## Menu Navigation
 
